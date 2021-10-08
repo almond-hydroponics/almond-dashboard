@@ -49,6 +49,7 @@
     "date-fns": "^2.25.0",
     "dayjs": "^1.10.7",
     "dequal": "^2.0.2",
+    "firebase": "^9.1.2",
     "highcharts": "^9.2.2",
     "highcharts-react-official": "^3.0.0",
     "jarallax": "^1.12.7",
