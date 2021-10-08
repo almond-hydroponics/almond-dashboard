@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabPanel component should render correctly 1`] = `
+<DocumentFragment>
+  <div
+    aria-labelledby="menu-tab-1"
+    id="menu-tabpanel-1"
+    role="tabpanel"
+  >
+    <div
+      class="MuiBox-root MuiBox-root-2 makeStyles-box-1"
+      data-testid="tab-panel"
+    >
+      <div />
+    </div>
+  </div>
+</DocumentFragment>
+`;

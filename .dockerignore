@@ -1,0 +1,16 @@
+**/node_modules/
+**/tests/
+**/.git
+**/README.md
+**/LICENSE
+**/.vscode
+**/npm-debug.log
+**/coverage
+**/.env.dev
+**/.env.production
+**/.env.example
+**/.editorconfig
+**/.aws
+**/dist
+**/coverage
+**/.circleci/

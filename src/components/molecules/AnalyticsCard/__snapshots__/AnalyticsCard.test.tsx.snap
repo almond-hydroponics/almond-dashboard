@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AnalyticsCard component should render correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiGrid-root makeStyles-mainCard-9 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6 MuiGrid-grid-lg-4"
+  >
+    <div
+      class="MuiPaper-root MuiCard-root makeStyles-root-1 makeStyles-cardPaper-5 MuiPaper-outlined MuiPaper-rounded"
+      data-testid="analytics-card"
+      style="cursor: pointer;"
+    >
+      <div
+        class="MuiCardContent-root makeStyles-content-3"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-space-between MuiGrid-grid-xs-12"
+          style="display: flex;"
+        >
+          <div
+            class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-1 MuiGrid-grid-md-2"
+          >
+            <button
+              class="MuiButtonBase-root"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+          <div
+            class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-grid-xs-10 MuiGrid-grid-sm-true"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-align-items-xs-center MuiGrid-justify-xs-space-between"
+              style="display: flex; width: 100%;"
+            >
+              <p
+                class="MuiTypography-root makeStyles-mainInfoText-7 MuiTypography-body1"
+                data-testid="main-info"
+              >
+                mainInfo
+              </p>
+              <h4
+                class="MuiTypography-root makeStyles-subInfoText-8 MuiTypography-h4"
+                data-testid="sub-info"
+              >
+                subInfo
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

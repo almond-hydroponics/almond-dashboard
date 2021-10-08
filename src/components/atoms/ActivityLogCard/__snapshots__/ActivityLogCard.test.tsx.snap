@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivityLogCard component should render correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiPaper-root MuiCard-root makeStyles-root-1 makeStyles-info-5 MuiPaper-outlined MuiPaper-rounded"
+  >
+    <div
+      class="MuiCardContent-root makeStyles-content-3"
+    >
+      <p
+        class="MuiTypography-root MuiTypography-body2"
+        data-testid="header"
+      >
+        Pump broken
+      </p>
+      <span
+        class="MuiTypography-root MuiTypography-caption"
+        data-testid="details"
+        style="font-weight: 600;"
+      >
+        11:00:42
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
