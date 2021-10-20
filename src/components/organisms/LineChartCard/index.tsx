@@ -42,7 +42,7 @@ const LineChartCard = ({
 	// }
 
 	return (
-		<>
+		<div>
 			<DashboardCard
 				heading={heading}
 				body={
@@ -69,7 +69,7 @@ const LineChartCard = ({
 				onClose={handleDateRangeModal}
 				onDismiss={handleDateRangeModal}
 			/>
-		</>
+		</div>
 	);
 };
 

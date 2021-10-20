@@ -7,6 +7,10 @@ import {
 } from 'react';
 // third-party libraries
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { DashboardContainerState } from './interfaces';
+import { useTheme } from '@mui/material/styles';
+import { UserContext } from '@context/UserContext';
+import { useHistory } from 'react-router-dom';
 // icons
 import { AllOutTwoTone, Face, Timeline } from '@mui/icons-material';
 // components;
@@ -19,7 +23,7 @@ import {
 } from '@components/atoms';
 import { IRootState } from '../../store/rootReducer';
 import { ComponentContext } from '@context/ComponentContext';
-// import { useSubscription } from '@hooks/mqtt';
+import { useSubscription } from '@hooks/mqtt';
 import {
 	Box,
 	Divider,
@@ -36,14 +40,11 @@ import Dashboard from '../../layouts/Dashboard';
 // thunk
 import { editUserRole } from '@modules/user';
 import { activateDevice } from '@modules/device';
+import { getSensorDataFromMqtt } from '@modules/sensorData';
 // utils
 import isArrayNotNull from '@utils/checkArrayEmpty';
 // interfaces
-// import { IClientSubscribeOptions } from 'mqtt';
-import { DashboardContainerState } from './interfaces';
-import { useTheme } from '@mui/material/styles';
-import { UserContext } from '@context/UserContext';
-import { useHistory } from 'react-router-dom';
+import { IClientSubscribeOptions } from 'mqtt';
 
 const DashboardContainer = (): JSX.Element => {
 	const theme = useTheme();
@@ -86,10 +87,10 @@ const DashboardContainer = (): JSX.Element => {
 		isActivityDrawerOpen,
 	} = useContext(ComponentContext);
 
-	// const options: IClientSubscribeOptions = {
-	// 	qos: 2,
-	// 	rap: true,
-	// };
+	const subscribeOptions: IClientSubscribeOptions = {
+		qos: 2,
+		rap: true,
+	};
 
 	const dispatch = useDispatch();
 
@@ -104,21 +105,23 @@ const DashboardContainer = (): JSX.Element => {
 	// }, []);
 
 	// :TODO: Reformat to get user specific device subscription
-	// const userSensorSubscription = 'almond/data';
-	// const { message } = useSubscription(userSensorSubscription, options);
-	// console.log(message);
+	const userSensorSubscription = 'almond/data';
+	const { message } = useSubscription(
+		userSensorSubscription,
+		subscribeOptions,
+	);
 
-	// useEffect(() => {
-	// 	if (message) {
-	// 		const parsedMessage = JSON.parse(message.message);
-	// 		const data = {
-	// 			temperature: parsedMessage?.temp,
-	// 			humidity: parsedMessage?.humid,
-	// 			waterLevel: parsedMessage?.water_level,
-	// 		};
-	// 		dispatch(getSensorDataFromMqtt(data));
-	// 	}
-	// }, [message]);
+	useEffect(() => {
+		if (message) {
+			const parsedMessage = JSON.parse(message?.message as string);
+			const data = {
+				temperature: parsedMessage?.temp,
+				humidity: parsedMessage?.humid,
+				waterLevel: parsedMessage?.water_level,
+			};
+			dispatch(getSensorDataFromMqtt(data));
+		}
+	}, [message]);
 
 	useEffect(() => {
 		setState((prevState) => ({

@@ -53,7 +53,7 @@ interface InstallEvent extends ExtendableEvent {
 	activeWorker: ServiceWorker;
 }
 
-interface ActivateEvent extends ExtendableEvent {}
+type ActivateEvent = ExtendableEvent;
 
 // Notification API
 

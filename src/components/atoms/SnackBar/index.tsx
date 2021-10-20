@@ -43,6 +43,7 @@ export const SnackBar = ({ snack }: SnackMessageProps): JSX.Element => {
 			open={isSnackOpen}
 			autoHideDuration={6000}
 			onClose={handleCloseSnack}
+			sx={{ bottom: { xs: isSm ? 'unset' : 90 } }}
 		>
 			<div data-testid="snack-message">
 				<Alert onClose={handleCloseSnack} severity={severity ?? 'success'}>

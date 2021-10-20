@@ -7,7 +7,7 @@ interface MenuTabProps {
 }
 
 const MenuTabs = styled(Tabs)({
-	'&.MuiTabs-indicator': {
+	'& .MuiTabs-indicator': {
 		display: 'none',
 	},
 });

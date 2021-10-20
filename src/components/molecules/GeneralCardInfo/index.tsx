@@ -1,4 +1,4 @@
-import { ButtonBase, Grid, Typography, Box } from '@mui/material';
+import { ButtonBase, Typography, Box } from '@mui/material';
 import { GeneralCardInfoProps } from './interfaces';
 import { useTheme } from '@mui/material/styles';
 
@@ -11,8 +11,7 @@ const GeneralCardInfo = ({
 	const theme = useTheme();
 
 	return (
-		<Grid
-			xs={12}
+		<Box
 			sx={{
 				height: 'fit-content',
 				border: `1px solid ${theme.palette.divider}`,
@@ -55,7 +54,7 @@ const GeneralCardInfo = ({
 				</Box>
 				<Box marginLeft={2}>{actionItem}</Box>
 			</Box>
-		</Grid>
+		</Box>
 	);
 };
 

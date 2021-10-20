@@ -1,16 +1,14 @@
-import { useContext, useEffect, useCallback, useState } from 'react';
+import { useContext, useCallback, useState } from 'react';
 import mqttPatterns from 'mqtt-pattern';
-
+import useEffectAsync from '@hooks/useEffectAsync';
 import { IClientSubscribeOptions } from 'mqtt';
-// import { matches } from 'mqtt-pattern';
-
 import MqttContext from './Context';
 import { IMqttContext as Context, IUseSubscription, IMessage } from './types';
 
-export default function useSubscription(
+const useSubscription = (
 	topic: string | string[],
 	options: IClientSubscribeOptions = {} as IClientSubscribeOptions,
-): IUseSubscription {
+): IUseSubscription => {
 	const { client, connectionStatus, parserMethod } =
 		useContext<Context>(MqttContext);
 
@@ -37,9 +35,9 @@ export default function useSubscription(
 		[parserMethod, topic],
 	);
 
-	useEffect(() => {
+	useEffectAsync(async () => {
 		if (client?.connected) {
-			subscribe();
+			await subscribe();
 
 			client.on('message', callback);
 		}
@@ -54,4 +52,6 @@ export default function useSubscription(
 		message,
 		connectionStatus,
 	};
-}
+};
+
+export default useSubscription;

@@ -10,7 +10,10 @@ const token = authService.getToken();
 
 // create axios instance
 const http = axios.create({
-	baseURL: process.env.REACT_APP_ALMOND_API,
+	// baseURL: authService.isAuthenticated
+	//   ? process.env.ALMOND_API
+	//   : process.env.ALMOND_AUTH_API,
+	baseURL: process.env.ALMOND_API,
 	headers: {
 		Authorization: `Bearer ${token}`,
 	},

@@ -130,8 +130,8 @@ const NotificationsPanel = (): JSX.Element => {
 						vertical: 'top',
 						horizontal: 'right',
 					}}
-					color="primary"
-					badgeContent={0}
+					color="secondary"
+					badgeContent={3}
 				>
 					<NotificationsNoneRounded
 						onClick={handleNotificationsDrawer(!isNotificationsDrawerOpen)}

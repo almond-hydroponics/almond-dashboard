@@ -1,11 +1,9 @@
 import { useState, createContext, SyntheticEvent, MouseEvent } from 'react';
 import { ComponentContextProps, ComponentContextState } from './interfaces';
 
-// const selectedIndex = JSON.parse(
-// 	window.localStorage.getItem('selectedIndex') as string
-// );
-
-const selectedIndex = 0;
+const selectedIndex = JSON.parse(
+	window.localStorage.getItem('selectedIndex') as string,
+);
 
 const ComponentContext = createContext({
 	isMenuOpen: false,
@@ -38,8 +36,8 @@ const ComponentProvider = ({
 	const [state, setState] = useState<ComponentContextState>({
 		isOpen: false,
 		isMenuOpen: false,
-		selectedIndex: 0,
-		// JSON.parse(window.localStorage.getItem('selectedIndex') as string) || 0,
+		selectedIndex:
+			JSON.parse(window.localStorage.getItem('selectedIndex') as string) || 0,
 		isSelectDeviceModalOpen: false,
 		isActivityDrawerOpen: false,
 		isChangeRoleDialogOpen: false,
@@ -59,10 +57,10 @@ const ComponentProvider = ({
 
 	const setSelectedIndex = (selectedIndex: number) => {
 		setState((prevState) => ({ ...prevState, selectedIndex }));
-		// window.localStorage.setItem(
-		// 	'selectedIndex',
-		// 	JSON.stringify(selectedIndex)
-		// );
+		window.localStorage.setItem(
+			'selectedIndex',
+			JSON.stringify(selectedIndex),
+		);
 	};
 
 	const setDeviceModalOpen = (isModalOpen: boolean) => {

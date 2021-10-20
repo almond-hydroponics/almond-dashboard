@@ -38,7 +38,7 @@ const RegularUserAnalytics = (): JSX.Element => {
 	const isEmpty = (arr) => !Array.isArray(arr) || arr.length === 0;
 
 	useEffectAsync(async () => {
-		await dispatch(getAllSchedules(activeDevice?._id));
+		await dispatch(getAllSchedules(activeDevice?._id ?? activeDevice));
 		if (!isEmpty(schedules)) {
 			const filteredSchedules: Schedule[] = schedules.filter(
 				(t) => Math.sign(getDiff(dayjs(), t.schedule)) > 0,

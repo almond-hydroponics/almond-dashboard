@@ -36,7 +36,7 @@ const Home = ({}: IllustrationProps): JSX.Element => {
 			></path>
 			<path
 				fill="#245B5B"
-				fill-opacity="0.9"
+				fillOpacity="0.9"
 				d="M38.046 73.97l-2.595 31.266h-3.335s.78-23.525-5.235-28.53l11.165-2.735z"
 			></path>
 			<path
@@ -123,8 +123,8 @@ const Home = ({}: IllustrationProps): JSX.Element => {
 			<path fill="#245B5B" d="M90 39.795H74v13.11h16v-13.11z"></path>
 			<path
 				stroke="#245B5B"
-				stroke-miterlimit="10"
-				stroke-width="0.5"
+				strokeMiterlimit="10"
+				strokeWidth="0.5"
 				d="M74 19.645h17l-5.293 21.59h-6.419L74 19.644z"
 			></path>
 		</svg>

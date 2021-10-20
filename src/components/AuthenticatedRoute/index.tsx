@@ -7,6 +7,16 @@ import RestrictedRoute from '@components/RestrictedRoute';
 // helper functions
 import authService from '@utils/auth';
 
+/**
+ * Renders the component if the user is authenticated
+ *
+ * @param {Component} Component
+ * @returns {JSX}
+ */
+const renderComponent = (Component) => (props) => {
+	return <Component {...props} />;
+};
+
 const AuthenticatedRoute = (props: any) => {
 	const { component: Component, ...rest } = props;
 	const location = useLocation();
@@ -20,7 +30,7 @@ const AuthenticatedRoute = (props: any) => {
 
 	return (
 		<div data-testid="authenticated-route" className="drawer-content">
-			<RestrictedRoute {...rest} render={() => <Component />} />
+			<RestrictedRoute {...rest} render={renderComponent(Component)} />
 		</div>
 	);
 };

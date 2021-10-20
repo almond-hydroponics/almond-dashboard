@@ -20,6 +20,10 @@ export const light = {
 		// light: '#62b18f',
 		// dark: '#005438',
 		// contrastText: '#fff',
+		// main: '#D9E9BA',
+		// light: '#62b18f',
+		// dark: '#005438',
+		// contrastText: '#fff',
 	},
 	secondary: {
 		light: '#ffe98d',

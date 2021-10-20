@@ -1,4 +1,4 @@
-import { Grid, Typography, Box } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { DashboardCardProps } from './interfaces';
 import { useTheme } from '@mui/material/styles';
 
@@ -6,12 +6,12 @@ const DashboardCard = ({
 	heading,
 	actionItem,
 	body,
+	sx,
+	...rest
 }: DashboardCardProps): JSX.Element => {
 	const theme = useTheme();
 	return (
-		<Grid
-			item
-			xs={12}
+		<Box
 			sx={{
 				height: 'fit-content',
 				border: `1px solid ${theme.palette.divider}`,
@@ -21,7 +21,9 @@ const DashboardCard = ({
 				[theme.breakpoints.up('sm')]: {
 					marginRight: 1,
 				},
+				...sx,
 			}}
+			{...rest}
 		>
 			{heading && (
 				<Box
@@ -38,6 +40,7 @@ const DashboardCard = ({
 								padding: '6px 20px',
 								borderRadius: 1,
 								width: 'fit-content',
+								fontSize: 12,
 								[theme.breakpoints.down('sm')]: {
 									fontSize: 11,
 									paddingLeft: 2,
@@ -64,7 +67,7 @@ const DashboardCard = ({
 			>
 				{body}
 			</Box>
-		</Grid>
+		</Box>
 	);
 };
 

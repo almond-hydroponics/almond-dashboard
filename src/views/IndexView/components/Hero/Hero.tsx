@@ -1,27 +1,74 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-
+import { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import Container from '@components/Container';
 import authService from '@utils/auth';
 import isArrayNotNull from '@utils/checkArrayEmpty';
 import { UserContext } from '@context/UserContext';
-import { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import Home from '../../../../svg/illustrations/Home';
+import { Modal } from '@components/atoms';
+import { Form } from '@views/IndexView/components';
+import {
+	AccountCircleTwoTone,
+	ArrowBack,
+	ArrowForward,
+} from '@mui/icons-material';
 
 const Hero = (): JSX.Element => {
+	const [openAuthModal, setAuthModalOpen] = useState<boolean>(false);
+	const [authByEmail, setAuthByEmail] = useState<boolean>(false);
+
 	const { devices } = useContext(UserContext);
 	const isAuthed = authService.isAuthenticated();
 	const router = useHistory();
 
+	const handleAuthModal = () => {
+		setAuthModalOpen((prevState) => !prevState);
+		authByEmail && setAuthByEmail(false);
+	};
+	const handleAuthByEmail = () => setAuthByEmail((prevState) => !prevState);
+
+	const renderModalHeader = (): JSX.Element => (
+		<Stack
+			direction="row"
+			justifyContent="flex-start"
+			alignItems="center"
+			spacing={2}
+		>
+			{authByEmail ? (
+				<ArrowBack onClick={handleAuthByEmail} />
+			) : (
+				<AccountCircleTwoTone />
+			)}
+			<Typography variant="h6">Login into your account</Typography>
+		</Stack>
+	);
+
+	const renderAuthModal = (): JSX.Element => (
+		<Modal
+			isModalOpen={openAuthModal}
+			renderHeader={renderModalHeader()}
+			renderDialogText={
+				authByEmail
+					? 'A link will be sent to your email account for verification'
+					: 'Choose your preferred method to authenticate into your account'
+			}
+			renderContent={
+				<Form
+					handleAuthModal={handleAuthModal}
+					authByEmail={authByEmail}
+					handleAuthByEmail={handleAuthByEmail}
+				/>
+			}
+			onClose={handleAuthModal}
+			onDismiss={handleAuthModal}
+		/>
+	);
+
 	const handleLogin = () =>
 		isAuthed
 			? router.push(`${isArrayNotNull(devices) ? '/dashboard' : '/my-device'}`)
-			: window.location.replace(
-					`${process.env.REACT_APP_ALMOND_API}/auth/google`,
-			  );
+			: handleAuthModal();
 
 	const LeftSide = () => (
 		<Box>
@@ -49,6 +96,7 @@ const Hero = (): JSX.Element => {
 				color="primary"
 				size="large"
 				onClick={handleLogin}
+				endIcon={<ArrowForward />}
 			>
 				{isAuthed ? 'Go to dashboard' : 'Login to account'}
 			</Button>
@@ -95,6 +143,7 @@ const Hero = (): JSX.Element => {
 						<Container>
 							<LeftSide />
 						</Container>
+						{renderAuthModal()}
 					</Box>
 					<Box
 						sx={{

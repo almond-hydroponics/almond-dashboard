@@ -13,14 +13,22 @@ if (typeof Highcharts === 'object') {
 
 interface Props {
 	data: number;
+	color?: string;
+	width?: number | string;
+	height?: number | string;
 }
 
-const DonutDisplay = ({ data }: Props): JSX.Element => {
+const DonutDisplay = ({
+	data,
+	color,
+	width = 250,
+	height = 250,
+}: Props): JSX.Element => {
 	const options = {
 		chart: {
+			width,
+			height,
 			type: 'solidgauge',
-			width: 250,
-			height: 250,
 			style: {
 				fontFamily: 'Google Sans, Roboto, Helvetica Neue, sans-serif',
 			},
@@ -36,8 +44,10 @@ const DonutDisplay = ({ data }: Props): JSX.Element => {
 				{
 					outerRadius: '100%',
 					innerRadius: '60%',
-					// @ts-expect-error
-					backgroundColor: Highcharts.color(Highcharts?.getOptions().colors[0])
+					backgroundColor: Highcharts.color(
+						// @ts-expect-error
+						color ?? Highcharts?.getOptions().colors[0],
+					)
 						.setOpacity(0.3)
 						.get(),
 					borderWidth: 0,
@@ -67,7 +77,7 @@ const DonutDisplay = ({ data }: Props): JSX.Element => {
 				data: [
 					{
 						// @ts-expect-error
-						color: Highcharts?.getOptions().colors[0],
+						color: color ?? Highcharts?.getOptions().colors[0],
 						radius: '100%',
 						innerRadius: '60%',
 						y: data,
