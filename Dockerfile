@@ -1,44 +1,36 @@
-# Install dependencies only when needed
-FROM node:alpine AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-# set labels
+## 1. BUILD STAGE
+FROM node:14.15.0 AS build
+
 LABEL maintainer="Francis Masha" MAINTAINER="Francis Masha <francismasha96@gmail.com>"
-LABEL application="almond"
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-COPY package.json yarn.lock ./
+LABEL application="almond-re"
+
+# Set non-root user and folder
+USER node
+ENV APP_HOME=/home/node/app
+RUN mkdir -p $APP_HOME && chown -R node:node $APP_HOME
+WORKDIR $APP_HOME
+# Copy source code (and all other relevant files)
+COPY --chown=node:node . ./
 RUN yarn install --frozen-lockfile
+# Build code
+RUN yarn build
 
-# Rebuild the source code only when needed
-FROM node:alpine AS builder
-WORKDIR /app
-COPY . .
-COPY --from=deps /app/node_modules ./node_modules
-RUN yarn build && yarn install --production --ignore-scripts --prefer-offline
-
-# Production image, copy all the files and run next
-FROM node:alpine AS runner
-WORKDIR /app
-
-ENV NODE_ENV production
-
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-
-# You only need to copy next.config.js if you are NOT using the default configuration
-# COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-
-USER nextjs
-
+## 2. RUNTIME STAGE
+FROM node:14.15.0-alpine
+RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.5/dumb-init_1.2.5_x86_64
+RUN chmod +x /usr/local/bin/dumb-init
+# Set non-root user and expose port 3000
+USER node
 EXPOSE 3000
-
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry.
-# ENV NEXT_TELEMETRY_DISABLED 1
-
-CMD ["yarn", "start"]
+ENV APP_HOME=/home/node/app
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
+# Copy dependency information and install production-only dependencies
+COPY --chown=node:node package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --production
+# Copy results from previous stage
+COPY --chown=node:node --from=build $APP_HOME/dist ./dist
+COPY --chown=node:node tsconfig.json tsconfig.paths.json ./
+COPY package.json  server.js app.js  ./
+# Run app when the container launches
+CMD ["dumb-init", "node", "server.js"]

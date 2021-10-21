@@ -60,30 +60,6 @@ module.exports = merge(common, {
     runtimeChunk: {
       name: 'runtime',
     },
-    splitChunks: {
-      minSize: 0
-      // chunks: 'all',
-      // maxInitialRequests: Infinity,
-      // minSize: 0,
-      // minChunks: 1,
-      // maxAsyncRequests: 6,
-      // automaticNameDelimiter: '~',
-      // cacheGroups: {
-      //   commons: {
-      //     test: /[\\/]node_modules[\\/]/,
-      //     // cacheGroupKey here is `commons` as the key of the cacheGroup
-      //     name(module, chunks, cacheGroupKey) {
-      //       const moduleFileName = module
-      //         .identifier()
-      //         .split('/')
-      //         .reduceRight((item) => item);
-      //       const allChunksNames = chunks.map((item) => item.name).join('~');
-      //       return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
-      //     },
-      //     chunks: 'all',
-      //   },
-      // },
-    },
     // splitChunks: {
     //   chunks: 'all',
     //   maxInitialRequests: Infinity,
@@ -92,32 +68,55 @@ module.exports = merge(common, {
     //   maxAsyncRequests: 6,
     //   automaticNameDelimiter: '~',
     //   cacheGroups: {
-    //     vendors: {
+    //     commons: {
     //       test: /[\\/]node_modules[\\/]/,
-    //       reuseExistingChunk: true,
+    //       // cacheGroupKey here is `commons` as the key of the cacheGroup
     //       name(module, chunks, cacheGroupKey) {
-    //         const moduleFileName = module.identifier().split('/').reduceRight(item => item).replace('@', '');
+    //         const moduleFileName = module
+    //           .identifier()
+    //           .split('/')
+    //           .reduceRight((item) => item);
     //         const allChunksNames = chunks.map((item) => item.name).join('~');
     //         return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
     //       },
-    //       name(module) {
-    //         // get the name. E.g. node_modules/packageName/not/this/part.js
-    //         // or node_modules/packageName
-    //         const packageName = module.context.match(
-    //           /[\\/]node_modules[\\/](.*?)([\\/]|$)/,
-    //         )[1]
-    //         // npm package names are URL-safe, but some servers don't like @ symbols
-    //         return `${packageName.replace('@', '')}`
-    //       },
+    //       chunks: 'all',
     //     },
-    //     // Split code common to all chunks to its own chunk
-    //     commons: {
-    //       name: 'commons', // The name of the chunk containing all common code
-    //       chunks: 'initial',
-    //       minChunks: 2, // This is the number of modules
-    //     },
-    //   },
+    //   // },
     // },
+    splitChunks: {
+      chunks: 'all',
+      maxInitialRequests: Infinity,
+      minSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 6,
+      automaticNameDelimiter: '~',
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          reuseExistingChunk: true,
+          name(module, chunks, cacheGroupKey) {
+            const moduleFileName = module.identifier().split('/').reduceRight(item => item).replace('@', '');
+            const allChunksNames = chunks.map((item) => item.name).join('~');
+            return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
+          },
+          // name(module) {
+          //   // get the name. E.g. node_modules/packageName/not/this/part.js
+          //   // or node_modules/packageName
+          //   const packageName = module.context.match(
+          //     /[\\/]node_modules[\\/](.*?)([\\/]|$)/,
+          //   )[1]
+          //   // npm package names are URL-safe, but some servers don't like @ symbols
+          //   return `${packageName.replace('@', '')}`
+          // },
+        },
+        // Split code common to all chunks to its own chunk
+        commons: {
+          name: 'commons', // The name of the chunk containing all common code
+          chunks: 'initial',
+          minChunks: 2, // This is the number of modules
+        },
+      },
+    },
     usedExports: true,
     concatenateModules: true,
   },
