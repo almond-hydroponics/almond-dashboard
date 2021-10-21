@@ -567,10 +567,10 @@ export const WaterCyclesView = (): JSX.Element => {
 	const tableStyles = {
 		border: 0,
 		WebkitFontSmoothing: 'auto',
-		'& .MuiDataGrid-iconSeparator': {
+		'& .MuiDataGridIconSeparator': {
 			display: 'none',
 		},
-		'& .MuiDataGrid-cell:focus-within': {
+		'& .MuiDataGridCell:focusWithin': {
 			// outline: 'solid #1967D2 0.8px',
 			outlineOffset: '-1px',
 			outline: 'none',
@@ -579,18 +579,18 @@ export const WaterCyclesView = (): JSX.Element => {
 		// 	paddingLeft: 2,
 		// 	paddingRight: 2,
 		// },
-		'& .MuiPaginationItem-root': {
+		'& .MuiPaginationItemRoot': {
 			borderRadius: 0,
 		},
-		'& .table-header': {
+		'& .tableHeader': {
 			color: theme.palette.primary.main,
 			// fontWeight: 500,
 		},
-		'& .table-cell': {
+		'& .tableCell': {
 			fontWeight: 500,
 			fontSize: 20,
 		},
-		'& .MuiDataGrid-cell': {
+		'& .MuiDataGridCell': {
 			[theme.breakpoints.down('sm')]: {
 				fontSize: 12,
 			},
@@ -638,38 +638,34 @@ export const WaterCyclesView = (): JSX.Element => {
 		}));
 
 		return (
-			<div style={{ width: '100%', ...tableStyles }}>
-				<div style={{ display: 'flex', height: '100%' }}>
-					<div style={{ flexGrow: 1 }}>
-						<DataGrid
-							disableColumnMenu
-							autoHeight
-							style={{ ...tableStyles }}
-							loading={isLoading}
-							rows={rows}
-							pageSize={5}
-							columns={columns.map((column) => ({
-								...column,
-								disableClickEventBubbling: true,
-							}))}
-							components={{
-								LoadingOverlay: CustomLoadingOverlay,
-							}}
-							sortModel={[
-								{
-									field: 'time',
-									sort: 'asc' as GridSortDirection,
-								},
-							]}
-						/>
-					</div>
-				</div>
+			<div style={{ width: '100%', height: 400, ...tableStyles }}>
+				<DataGrid
+					disableColumnMenu
+					style={{ ...tableStyles }}
+					loading={isLoading}
+					rows={rows}
+					autoPageSize
+					pagination
+					columns={columns.map((column) => ({
+						...column,
+						disableClickEventBubbling: true,
+					}))}
+					components={{
+						LoadingOverlay: CustomLoadingOverlay,
+					}}
+					sortModel={[
+						{
+							field: 'time',
+							sort: 'asc' as GridSortDirection,
+						},
+					]}
+				/>
 			</div>
 		);
 	};
 
 	const firstColumn = () => (
-		<Grid item xs={12} md={4} spacing={1}>
+		<Grid item xs={12} md={4}>
 			<GeneralCardInfo
 				mainHeader="Manual Override"
 				subHeader="Pump water directly into the system"
@@ -702,7 +698,7 @@ export const WaterCyclesView = (): JSX.Element => {
 	);
 
 	const secondColumn = () => (
-		<Grid item xs={12} md={5} spacing={1}>
+		<Grid item xs={12} md={5}>
 			<LineChartCard
 				heading="Water Temperature"
 				selectedValue={state.waterCardDateRange}
@@ -717,7 +713,7 @@ export const WaterCyclesView = (): JSX.Element => {
 	);
 
 	const thirdColumn = () => (
-		<Grid item xs={12} md={3} spacing={1}>
+		<Grid item xs={12} md={3}>
 			<DashboardCard
 				heading="Water Tank Level"
 				body={<DonutDisplay data={heightOfWater} />}
@@ -727,7 +723,7 @@ export const WaterCyclesView = (): JSX.Element => {
 
 	return (
 		<div data-testid="water-cycles-page">
-			<Grid container spacing={2}>
+			<Grid container spacing={1}>
 				{firstColumn()}
 				{secondColumn()}
 				{thirdColumn()}

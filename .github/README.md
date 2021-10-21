@@ -1,2 +1,0 @@
-# almond-dashboard
-Almond dashboard

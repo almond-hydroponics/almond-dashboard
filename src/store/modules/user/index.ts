@@ -232,7 +232,7 @@ export const logoutUser =
 	};
 
 export const userInitialState = {
-	userDetails: {} as any,
+	userDetails: authService.getUser().userInfo ?? ({} as any),
 	permissions: {} as any,
 	errors: null,
 	isLoading: false,

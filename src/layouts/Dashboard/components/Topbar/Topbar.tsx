@@ -7,13 +7,13 @@ import Logo from '@components/atoms/Logo';
 import {
 	ArrowDropDownTwoTone,
 	ArrowDropUpTwoTone,
+	FiberManualRecord,
 	Timeline,
 } from '@mui/icons-material';
 import { useContext } from 'react';
 import { ComponentContext } from '@context/ComponentContext';
 import {
 	Badge,
-	BadgeProps,
 	Theme,
 	Tooltip,
 	Typography,
@@ -22,9 +22,10 @@ import {
 import { shallowEqual, useSelector } from 'react-redux';
 import { IRootState } from '../../../../store/rootReducer';
 import { UserContext } from '@context/UserContext';
-import { alpha, styled, useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import { useMqttState } from '@hooks/mqtt';
 import { NotificationsPanel } from '@components/molecules';
+// import { useMqttState } from 'mqtt-react-hooks';
 
 const connectedColor = '#76ff03';
 const reconnectingColor = '#FFCE56';
@@ -68,27 +69,6 @@ const Topbar = (): JSX.Element => {
 			<ArrowDropDownTwoTone onClick={handleClick} />
 		);
 
-	const DeviceActiveBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
-		'& .MuiBadge-badge': {
-			backgroundColor: statusChange(connectionStatus as string),
-			color: statusChange(connectionStatus as string),
-			boxShadow: `0 0 0 1px ${
-				isSm ? theme.palette.background.paper : 'rgba(38,38,38,0.32)'
-			}`,
-			top: '50%',
-			left: '-2%',
-			'&::after': {
-				position: 'absolute',
-				width: '100%',
-				height: '100%',
-				borderRadius: '50%',
-				// animation: '$ripple 1.2s infinite ease-in-out',
-				border: '0.8px solid currentColor',
-				content: '""',
-			},
-		},
-	}));
-
 	const renderTimeLineIcon = (): JSX.Element => {
 		const handleClick = () => toggleActivityDrawer(true, true);
 		return (
@@ -126,40 +106,36 @@ const Topbar = (): JSX.Element => {
 		return (
 			<Button
 				variant="outlined"
-				size="large"
 				onClick={handleClick}
 				onKeyDown={handleDeviceModal}
+				startIcon={
+					<FiberManualRecord
+						fontSize="small"
+						sx={{ color: statusChange(connectionStatus as string) }}
+					/>
+				}
 				endIcon={renderMoreButton(handleClick)}
 				sx={{
 					borderColor: alpha(theme.palette.divider, 0.2),
 					backgroundColor: theme.palette.alternate.main,
 				}}
 			>
-				<DeviceActiveBadge
-					variant="dot"
-					overlap="circular"
-					anchorOrigin={{
-						vertical: 'top',
-						horizontal: 'left',
+				<Typography
+					variant="subtitle2"
+					sx={{ fontWeight: 400, fontSize: 13, marginLeft: 1 }}
+					color="textPrimary"
+				>
+					Device:
+				</Typography>
+				<Typography
+					variant="subtitle2"
+					sx={{
+						paddingLeft: 0.5,
+						fontWeight: 600,
 					}}
 				>
-					<Typography
-						variant="subtitle2"
-						sx={{ fontWeight: 400, fontSize: 13, marginLeft: 1 }}
-						color="textPrimary"
-					>
-						Device ID:
-					</Typography>
-					<Typography
-						variant="subtitle2"
-						sx={{
-							paddingLeft: 1,
-							fontWeight: 600,
-						}}
-					>
-						{activeDevice?.id}
-					</Typography>
-				</DeviceActiveBadge>
+					{activeDevice?.id}
+				</Typography>
 			</Button>
 		);
 	};
@@ -199,7 +175,10 @@ const Topbar = (): JSX.Element => {
 				<Box sx={{ display: 'flex' }} alignItems={'center'}>
 					{!isAdmin && renderDeviceDisplay()}
 				</Box>
-				<Box marginLeft={3}>
+				<Box marginLeft={1}>
+					<NotificationsPanel />
+				</Box>
+				<Box marginLeft={1}>
 					<CustomAvatar hasMultipleRoles={roles?.length > 1} />
 				</Box>
 			</Box>

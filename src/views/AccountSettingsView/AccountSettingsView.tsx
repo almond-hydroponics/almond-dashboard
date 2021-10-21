@@ -11,6 +11,7 @@ import { General, Notifications, Device } from './components';
 import Container from '@components/Container';
 import { alpha, useTheme } from '@mui/material/styles';
 import { useHistory } from 'react-router-dom';
+import { Minimal } from '../../layouts';
 
 const subPages: MenuComponentProps[] = [
 	{
@@ -40,24 +41,15 @@ const subPages: MenuComponentProps[] = [
 ];
 
 const AccountSettingsView = (): JSX.Element => {
-	const tabindex = (): number => {
-		if (typeof window !== 'undefined') {
-			return JSON.parse(
-				window.localStorage.getItem('selectedTabIndex') as string,
-			);
-		}
-		return 0;
-	};
-
-	const [selectedTabIndex, setSelectedTabIndex] = useState<number>(tabindex());
+	const [selectedTabIndex, setSelectedTabIndex] = useState<number>(
+		JSON.parse(window.localStorage.getItem('selectedTabIndex') as string) || 0,
+	);
 
 	useEffect(() => {
-		if (typeof window !== 'undefined') {
-			window.localStorage.setItem(
-				'selectedTabIndex',
-				JSON.stringify(selectedTabIndex),
-			);
-		}
+		window.localStorage.setItem(
+			'selectedTabIndex',
+			JSON.stringify(selectedTabIndex),
+		);
 	}, [selectedTabIndex]);
 
 	const history = useHistory();
@@ -82,7 +74,7 @@ const AccountSettingsView = (): JSX.Element => {
 	};
 
 	return (
-		<>
+		<Minimal>
 			<Box sx={{ overflowX: 'hidden' }}>
 				<Box bgcolor={'primary.main'} paddingY={4}>
 					<Container>
@@ -112,6 +104,7 @@ const AccountSettingsView = (): JSX.Element => {
 							>
 								<MenuTabs
 									value={selectedTabIndex}
+									// @ts-expect-error
 									onChange={handleOnChange}
 									orientation={isSm ? 'vertical' : 'horizontal'}
 									scrollButtons={false}
@@ -148,7 +141,7 @@ const AccountSettingsView = (): JSX.Element => {
 					</Grid>
 				</Container>
 			</Box>
-		</>
+		</Minimal>
 	);
 };
 

@@ -20,7 +20,7 @@ const RestrictedRoute = (props: RestrictedRouteProps): any => {
 
 RestrictedRoute.defaultProps = {
 	redirectTo: '/',
-	strict: false,
+	strict: true,
 };
 
 export default RestrictedRoute;

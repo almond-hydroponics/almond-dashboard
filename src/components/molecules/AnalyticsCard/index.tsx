@@ -53,39 +53,45 @@ const AnalyticsCard = ({
 			},
 		},
 		yellowCard: {
-			color: '#cc8000',
-			backgroundColor: '#fef7e0',
-			borderColor: 'rgba(242, 153, 0, 0.3)',
+			color: '#71340F',
+			backgroundColor: '#FEF2E8',
+			borderColor: '#71340F',
 		},
 
 		blueCard: {
 			color: '#1967d2',
 			backgroundColor: '#e8f0fe',
-			borderColor: 'rgba(25, 103, 210, 0.3)',
+			borderColor: '#1967d2',
 		},
 
 		purpleCard: {
-			color: '#512da8',
-			backgroundColor: '#f3e8fd',
-			borderColor: 'rgba(81, 45, 168, 0.3)',
+			color: '#501174',
+			backgroundColor: '#F4EEF8',
+			borderColor: '#501174',
 		},
 
 		brownCard: {
 			color: '#3e2723',
 			backgroundColor: '#efebe9',
-			borderColor: 'rgba(62, 39, 35, 0.3)',
+			borderColor: '#3e2723',
 		},
 
 		redCard: {
-			color: '#821721',
-			backgroundColor: '#e3d6d6',
-			borderColor: 'rgba(210, 43, 53, 0.3)',
+			color: '#34383B',
+			backgroundColor: '#BFD7DF',
+			borderColor: '#BFD7DF',
+			// color: '#980910',
+			// backgroundColor: '#F9E3E3',
+			// borderColor: '#980910',
 		},
 
 		greenCard: {
-			color: '#1b5e20',
-			backgroundColor: '#e8f5e9',
-			borderColor: 'rgba(27, 94, 32, 0.3)',
+			// color: '#0B6F66',
+			// backgroundColor: '#E9F5E6',
+			// borderColor: '#0B6F66',
+			color: '#3E4E56',
+			backgroundColor: '#D9E9BA',
+			borderColor: '#3E4E56',
 		},
 	};
 

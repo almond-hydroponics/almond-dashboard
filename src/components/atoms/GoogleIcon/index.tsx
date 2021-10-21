@@ -32,9 +32,9 @@ const GoogleIcon = () => {
 				<g
 					id="Landing-Page"
 					stroke="none"
-					stroke-width="1"
+					strokeWidth="1"
 					fill="none"
-					fill-rule="evenodd"
+					fillRule="evenodd"
 				>
 					<g transform="translate(-230.000000, -558.000000)" id="Sign-in">
 						<g transform="translate(203.000000, 542.000000)">

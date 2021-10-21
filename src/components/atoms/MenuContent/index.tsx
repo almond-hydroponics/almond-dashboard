@@ -29,6 +29,7 @@ const MenuContent = (): JSX.Element => {
 		<MenuTabs
 			style={{ padding: 20 }}
 			value={selectedIndex}
+			// @ts-expect-error
 			onChange={handleOnChange}
 			orientation="vertical"
 			scrollButtons={false}

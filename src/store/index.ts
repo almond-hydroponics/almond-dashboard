@@ -26,6 +26,4 @@ const middleware =
 
 const store = createStore(rootReducer, {}, middleware);
 
-export type ThunkDispatch = typeof store.dispatch;
-
 export default store;

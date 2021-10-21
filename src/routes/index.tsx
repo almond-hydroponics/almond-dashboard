@@ -22,13 +22,13 @@ const Routes = (): any => (
 			component={DashboardContainer}
 			fallbackView={<UnauthorizedUserModal isModalOpen />}
 		/>
-    <AuthenticatedRoute
-      exact
-      path="/account"
-      // authorize="analytics:view"
-      component={AccountSettingsView}
-      fallbackView={<UnauthorizedUserModal isModalOpen />}
-    />
+		<AuthenticatedRoute
+			exact
+			path="/account"
+			authorize="analytics:view"
+			component={AccountSettingsView}
+			fallbackView={<UnauthorizedUserModal isModalOpen />}
+		/>
 		<Route exact path="/404" render={() => <NotFound />} />
 		<Redirect to="/404" />
 	</Switch>

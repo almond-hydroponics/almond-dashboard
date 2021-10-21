@@ -3,10 +3,10 @@ import jwtDecode from 'jwt-decode';
 
 const authService: any = {
 	saveToken(token: string | string[]) {
-		return Cookies.set('jwt-token', token);
+		return Cookies.set('jwt_token', token);
 	},
 	getToken() {
-		return Cookies.get('jwt-token');
+		return Cookies.get('jwt_token');
 	},
 	decodeToken() {
 		return jwtDecode(<string>this.getToken());
@@ -24,7 +24,7 @@ const authService: any = {
 		return this.getToken() ? this.decodeToken() : {};
 	},
 	logoutUser() {
-		Cookies.remove('jwt-token', { path: '/' });
+		Cookies.remove('jwt_token', { path: '/' });
 	},
 	redirectUser() {
 		const referrer = window.location.pathname;

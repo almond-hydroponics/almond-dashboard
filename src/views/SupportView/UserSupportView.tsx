@@ -53,17 +53,19 @@ const UserSupportView = (): JSX.Element => {
 
 	const renderContent = () => (
 		<Container paddingY={0}>
-			<Tabs
-				value={value}
-				onChange={handleChange}
-				indicatorColor="secondary"
-				textColor="inherit"
-				variant="fullWidth"
-				aria-label="full width tabs"
-			>
-				<Tab label="Open tickets" {...a11yProps(0)} />
-				<Tab label="Closed tickets" {...a11yProps(1)} />
-			</Tabs>
+			<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+				<Tabs
+					value={value}
+					onChange={handleChange}
+					indicatorColor="primary"
+					textColor="primary"
+					// variant="fullWidth"
+					aria-label="full width tabs"
+				>
+					<Tab label="Open tickets" {...a11yProps(0)} />
+					<Tab label="Closed tickets" {...a11yProps(1)} />
+				</Tabs>
+			</Box>
 			<div>
 				<TabPanel value={value} index={0} dir={theme.direction}>
 					Open tickets
@@ -77,8 +79,9 @@ const UserSupportView = (): JSX.Element => {
 
 	return (
 		<Grid container spacing={2}>
-			<Grid item xs={12}>
+			<Grid item xs={7}>
 				<DashboardCard
+					sx={{ height: '80vh' }}
 					heading="My tickets"
 					body={renderContent()}
 					actionItem={
@@ -88,6 +91,9 @@ const UserSupportView = (): JSX.Element => {
 						</Button>
 					}
 				/>
+			</Grid>
+			<Grid item xs={5}>
+				Open tickets
 			</Grid>
 		</Grid>
 	);
