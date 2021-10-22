@@ -196,7 +196,9 @@ const DashboardContainer = (): JSX.Element => {
 		>
 			{devices?.map((device) => (
 				<MenuItem key={device.id} value={device.id}>
-					<Typography variant="body1">{device.id}</Typography>
+					<Typography fontSize={14} variant="body1">
+						{device.id}
+					</Typography>
 				</MenuItem>
 			))}
 		</TextField>
@@ -222,7 +224,9 @@ const DashboardContainer = (): JSX.Element => {
 		>
 			{roles?.map((role) => (
 				<MenuItem key={role._id} value={role.title}>
-					<Typography variant="body1">{role.title}</Typography>
+					<Typography fontSize={14} variant="body1">
+						{role.title}
+					</Typography>
 				</MenuItem>
 			))}
 		</TextField>

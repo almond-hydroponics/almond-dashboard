@@ -1,0 +1,55 @@
+.permissions {
+	width: auto;
+	padding-bottom: 25px;
+	background-color: rgba(25, 103, 210, 0.03);
+	border: 1px solid #dadce0;
+	border-radius: 8px;
+
+	&__tbl-header {
+		display: flex;
+		padding-top: 25px;
+		padding-left: 24px;
+
+		&__column {
+			padding-right: 11px;
+			font-size: 13px;
+			font-weight: 300;
+			line-height: 17px;
+			color: rgba(25, 103, 210, 0.87);
+			flex: 1;
+
+			@media (max-width: 539px) {
+				font-size: 13px;
+			}
+		}
+	}
+
+	.access-levels {
+		padding-right: 11px;
+	}
+
+	&__tbl-body {
+		padding-top: 25px;
+		padding-left: 24px;
+	}
+
+	&__tbl-row {
+		display: flex;
+		margin-bottom: 28px;
+
+		&__item {
+			font-size: 13px;
+			font-weight: 300;
+			line-height: 20px;
+			color: rgba(37, 37, 37, 0.67);
+			flex: 1;
+			@media (max-width: 539px) {
+				font-size: 13px;
+			}
+		}
+
+		.header {
+			padding-top: 11px;
+		}
+	}
+}

@@ -4642,6 +4642,7 @@ __metadata:
     react-countup: ^6.0.0
     react-dom: ^17.0.2
     react-ga: ^3.3.0
+    react-hexgrid: ^1.0.3
     react-images: ^1.1.7
     react-lazy-load-image-component: ^1.5.1
     react-redux: ^7.2.5
@@ -14623,6 +14624,18 @@ __metadata:
     prop-types: ^15.6.0
     react: ^15.6.2 || ^16.0 || ^17
   checksum: b4f5b0ed3a5d7ea781397d6a1f8dacae2284fe7f03f72dde330958dd0a64732f8766c6fa26cf0f1a8fb1303fa02aa51f23cf0b261e52981d0275262b831c7fea
+  languageName: node
+  linkType: hard
+
+"react-hexgrid@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "react-hexgrid@npm:1.0.3"
+  dependencies:
+    classnames: ^2.2.5
+  peerDependencies:
+    prop-types: ^15.0.1
+    react: ^15.0.1
+  checksum: bfc7ed5ba2e7d414ee0bdc6d976aab09f5cb77164fc8f2d0b245978b064c44b5d772f3b7cf67d9e3f115b2ed692939b67440c2460aedb4e4988bbcc30e0f43e4
   languageName: node
   linkType: hard
 

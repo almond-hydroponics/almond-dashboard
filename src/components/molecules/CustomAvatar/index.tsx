@@ -116,14 +116,18 @@ const CustomAvatar = ({
 						router.push(item.link);
 					};
 					return (
-						<MenuItem key={fancyId()} onClick={handleClick}>
+						<MenuItem
+							key={fancyId()}
+							onClick={handleClick}
+							sx={{ fontSize: 14 }}
+						>
 							<ListItemIcon>{item.icon}</ListItemIcon>
 							{item.name}
 						</MenuItem>
 					);
 				})}
 				{location.pathname === '/dashboard' && hasMultipleRoles && (
-					<MenuItem onClick={handleRoleModal}>
+					<MenuItem onClick={handleRoleModal} sx={{ fontSize: 14 }}>
 						<ListItemIcon>
 							<Mood fontSize="small" />
 						</ListItemIcon>
@@ -131,7 +135,7 @@ const CustomAvatar = ({
 					</MenuItem>
 				)}
 
-				<MenuItem onClick={logoutActiveUser}>
+				<MenuItem onClick={logoutActiveUser} sx={{ fontSize: 14 }}>
 					<ListItemIcon>
 						<Logout fontSize="small" />
 					</ListItemIcon>

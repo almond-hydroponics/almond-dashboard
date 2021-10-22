@@ -11,6 +11,7 @@ const getTheme = (mode: PaletteMode): Theme =>
 			shadows: shadows(mode),
 			typography: {
 				fontFamily: 'Google Sans, Roboto, Helvetica Neue, sans-serif',
+				fontSize: 14,
 				button: {
 					textTransform: 'none',
 					fontWeight: 'medium' as CSSProperties['fontWeight'],

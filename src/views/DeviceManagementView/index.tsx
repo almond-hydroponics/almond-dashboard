@@ -23,6 +23,8 @@ import {
 	CardContent,
 } from '@mui/material';
 import { Add, PhonelinkSetupSharp } from '@mui/icons-material';
+import * as Highcharts from 'highcharts/highcharts.js';
+import HighchartsReact from 'highcharts-react-official';
 // thunks
 import {
 	addNewDevice,
@@ -40,14 +42,15 @@ import {
 import { Modal } from '@components/atoms';
 import { Device } from '@modules/device/interfaces';
 import { DashboardCard } from '@components/molecules';
-// interfaces
-import { DeviceManagementState } from './interfaces';
 import { IRootState } from '../../store/rootReducer';
 import { FormStateProps } from '../../types/FormStateProps';
 import { red } from '@mui/material/colors';
 import { alpha, useTheme } from '@mui/material/styles';
 import fancyId from '@utils/fancyId';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { DevicesTileMap } from '@views/DeviceManagementView/components';
+// interfaces
+import { DeviceManagementState } from './interfaces';
 
 const schema = {
 	device: {
@@ -237,7 +240,8 @@ export const DeviceManagementView = (): JSX.Element => {
 				<Chip
 					sx={{
 						color: '#1967d2',
-						backgroundColor: 'rgba(66, 133, 244, 0.15)',
+						backgroundColor: '#e8f0fe',
+						fontWeight: 500,
 					}}
 					label="Not Verified"
 				/>
@@ -245,32 +249,36 @@ export const DeviceManagementView = (): JSX.Element => {
 		if (!enabled)
 			return (
 				<Chip
-					sx={{ color: '#821721', backgroundColor: 'rgba(210, 43, 53, 0.15)' }}
+					sx={{
+						color: '#980910',
+						backgroundColor: '#F9E3E3',
+						fontWeight: 500,
+					}}
 					label="Disabled"
 				/>
 			);
 		return (
 			<Chip
-				sx={{ color: '#0e5827', backgroundColor: 'rgba(14, 88, 39, 0.15)' }}
+				sx={{ backgroundColor: '#D9E9BA', color: '#3E4E56', fontWeight: 500 }}
 				label="Enabled"
 			/>
 		);
 	};
 
-	const deviceColorStatus = (device): string => {
+	const deviceColorStatus = (device): string[] => {
 		const { verified, enabled } = device;
-		if (!verified) return '#1967d2';
-		if (!enabled) return '#821721';
-		return '#0e5827';
+		if (!verified) return ['#1967d2', '#e8f0fe'];
+		if (!enabled) return ['#980910', '#F9E3E3'];
+		return ['#3E4E56', '#D9E9BA'];
 	};
 
 	const tableStyles = {
 		border: 0,
 		WebkitFontSmoothing: 'auto',
-		'& .MuiDataGrid-iconSeparator': {
+		'& .MuiDataGridIconSeparator': {
 			display: 'none',
 		},
-		'& .MuiDataGrid-cell:focus-within': {
+		'& .MuiDataGridCell:focusWithin': {
 			// outline: 'solid #1967D2 0.8px',
 			outlineOffset: '-1px',
 			outline: 'none',
@@ -279,18 +287,19 @@ export const DeviceManagementView = (): JSX.Element => {
 		// 	paddingLeft: 2,
 		// 	paddingRight: 2,
 		// },
-		'& .MuiPaginationItem-root': {
+		'& .MuiPaginationItemRoot': {
 			borderRadius: 0,
 		},
-		'& .table-header': {
+		'& .tableHeader': {
 			color: theme.palette.primary.main,
 			// fontWeight: 500,
 		},
-		'& .table-cell': {
+		'& .tableCell': {
 			fontWeight: 500,
-			fontSize: 20,
+			fontSize: 14,
 		},
-		'& .MuiDataGrid-cell': {
+		'& .MuiDataGridCell': {
+			fontSize: 12,
 			[theme.breakpoints.down('sm')]: {
 				fontSize: 12,
 			},
@@ -316,7 +325,7 @@ export const DeviceManagementView = (): JSX.Element => {
 			{
 				field: 'user',
 				headerName: 'User',
-				flex: 0.2,
+				flex: 0.15,
 				headerClassName: 'table-header',
 			},
 			{
@@ -329,7 +338,7 @@ export const DeviceManagementView = (): JSX.Element => {
 			{
 				field: 'actions',
 				headerName: 'Actions',
-				flex: 0.2,
+				flex: 0.1,
 				headerClassName: 'table-header',
 				renderCell: ({ value }: GridCellParams) =>
 					renderActionButtons(value as Device),
@@ -347,10 +356,7 @@ export const DeviceManagementView = (): JSX.Element => {
 		}));
 
 		return (
-			<div
-				// className={tableClasses.root}
-				style={{ height: 700, width: '100%' }}
-			>
+			<div style={{ height: 700, width: '100%' }}>
 				<div style={{ display: 'flex', height: '100%' }}>
 					<div style={{ flexGrow: 1 }}>
 						<DataGrid
@@ -459,21 +465,22 @@ export const DeviceManagementView = (): JSX.Element => {
 	const renderDeviceCards = (): JSX.Element => (
 		<Grid container spacing={1}>
 			{devices.map((device) => (
-				<Grid item xs={12} key={fancyId()}>
+				<Grid item xs={6} md={4} key={fancyId()}>
 					<Box
 						component={Card}
 						variant={'outlined'}
 						sx={{
 							padding: 0,
-							borderColor: alpha(deviceColorStatus(device), 0.2),
-							borderLeftColor: alpha(deviceColorStatus(device), 0.8),
-							borderLeftWidth: 4,
+							borderColor: alpha(deviceColorStatus(device)[0], 0.2),
+							color: deviceColorStatus(device)[0],
+							backgroundColor: deviceColorStatus(device)[1],
 						}}
 					>
 						<Box
 							component={CardContent}
 							display={'flex'}
 							alignItems={'center'}
+							paddingBottom="16px !important"
 						>
 							<Box
 								display={'flex'}
@@ -492,7 +499,7 @@ export const DeviceManagementView = (): JSX.Element => {
 								</Typography>
 								<Typography
 									variant={'subtitle2'}
-									color={'text.secondary'}
+									color={'text.primary'}
 									sx={{ marginBottom: { xs: 0, sm: 0 } }}
 								>
 									{device?.user
@@ -500,9 +507,9 @@ export const DeviceManagementView = (): JSX.Element => {
 										: 'NOT ASSIGNED'}
 								</Typography>
 							</Box>
-							<Box marginLeft={2} color={'primary.main'}>
-								{renderActionButtons(device)}
-							</Box>
+							{/*<Box marginLeft={2} color={'primary.main'}>*/}
+							{/*	{renderActionButtons(device)}*/}
+							{/*</Box>*/}
 						</Box>
 					</Box>
 				</Grid>
@@ -510,13 +517,133 @@ export const DeviceManagementView = (): JSX.Element => {
 		</Grid>
 	);
 
+	const renderDevicesHealth = () => {
+		const options: Highcharts.Options = {
+			chart: {
+				type: 'tilemap',
+				inverted: true,
+				height: '80%',
+			},
+
+			accessibility: {
+				description:
+					'A tile map represents the states of the USA by population in 2016. The hexagonal tiles are positioned to geographically echo the map of the USA. A color-coded legend states the population levels as below 1 million (beige), 1 to 5 million (orange), 5 to 20 million (pink) and above 20 million (hot pink). The chart is interactive, and the individual state data points are displayed upon hovering. Three states have a population of above 20 million: California (39.3 million), Texas (27.9 million) and Florida (20.6 million). The northern US region from Massachusetts in the Northwest to Illinois in the Midwest contains the highest concentration of states with a population of 5 to 20 million people. The southern US region from South Carolina in the Southeast to New Mexico in the Southwest contains the highest concentration of states with a population of 1 to 5 million people. 6 states have a population of less than 1 million people; these include Alaska, Delaware, Wyoming, North Dakota, South Dakota and Vermont. The state with the lowest population is Wyoming in the Northwest with 584,153 people.',
+				// screenReaderSection: {
+				// 	beforeChartFormat:
+				// 		'<h5>{chartTitle}</h5>' +
+				// 		'<div>{chartSubtitle}</div>' +
+				// 		'<div>{chartLongdesc}</div>' +
+				// 		'<div>{viewTableButton}</div>',
+				// },
+				point: {
+					valueDescriptionFormat: '{index}. {xDescription}, {point.value}.',
+				},
+			},
+
+			title: {
+				text: 'U.S. states by population in 2016',
+			},
+
+			xAxis: {
+				visible: false,
+			},
+
+			yAxis: {
+				visible: false,
+			},
+
+			colorAxis: {
+				dataClasses: [
+					{
+						from: 0,
+						to: 1000000,
+						color: '#F9EDB3',
+						name: '< 1M',
+					},
+					{
+						from: 1000000,
+						to: 5000000,
+						color: '#FFC428',
+						name: '1M - 5M',
+					},
+					{
+						from: 5000000,
+						to: 20000000,
+						color: '#FF7987',
+						name: '5M - 20M',
+					},
+					{
+						from: 20000000,
+						color: '#FF2371',
+						name: '> 20M',
+					},
+				],
+			},
+
+			tooltip: {
+				headerFormat: '',
+				pointFormat:
+					'The population of <b> {point.name}</b> is <b>{point.value}</b>',
+			},
+
+			plotOptions: {
+				series: {
+					dataLabels: {
+						enabled: true,
+						format: '{point.hc-a2}',
+						color: '#000000',
+						style: {
+							textOutline: undefined,
+						},
+					},
+				},
+			},
+
+			series: [
+				{
+					name: '',
+					data: [
+						{
+							//@ts-expect-error
+							'hc-a2': 'AL',
+							name: 'Alabama',
+							region: 'South',
+							x: 6,
+							y: 7,
+							value: 4849377,
+						},
+					],
+				},
+			],
+		};
+
+		return <HighchartsReact highcharts={Highcharts} options={options} />;
+	};
+
 	return (
 		<div data-testid="device-management-page">
-			<Grid container spacing={2}>
-				<Grid item xs={12}>
+			<Grid container spacing={1}>
+				<Grid item md={3} xs={12}>
+					<DashboardCard
+						heading="Devices Health"
+						body={<DevicesTileMap devices={devices.length} />}
+						actionItem={
+							<Button
+								color="primary"
+								size="small"
+								variant="outlined"
+								onClick={showDeviceModal('Add')}
+							>
+								<Add fontSize="small" />
+								Add device
+							</Button>
+						}
+					/>
+				</Grid>
+				<Grid item md={9} xs={12}>
 					<DashboardCard
 						heading="Device Management"
-						body={isSm ? renderDeviceCards() : renderTableContent()}
+						body={isSm ? renderDeviceCards() : renderDeviceCards()}
 						actionItem={
 							<Button
 								color="primary"

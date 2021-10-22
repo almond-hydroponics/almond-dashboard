@@ -42,6 +42,7 @@ const BootstrapDialogTitle = ({
 			p: 2,
 			backgroundColor: 'rgba(66, 133, 244, 0.15)',
 			color: (theme) => theme.palette.primary.main,
+			fontSize: 16,
 		}}
 		{...other}
 	>
@@ -88,8 +89,8 @@ const Modal = ({
 			<BootstrapDialogTitle id="customized-dialog-title" onClose={onClose}>
 				{renderHeader}
 			</BootstrapDialogTitle>
-			<DialogContent>
-				<DialogContentText sx={{ paddingY: 2 }} gutterBottom>
+			<DialogContent sx={{ fontSize: 14 }}>
+				<DialogContentText sx={{ paddingY: 2, fontSize: 14 }} gutterBottom>
 					{renderDialogText}
 				</DialogContentText>
 				{renderContent}

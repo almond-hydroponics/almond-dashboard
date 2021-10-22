@@ -62,25 +62,60 @@ const AreaChardDisplay = ({
 	// });
 
 	const options = {
+		colors: ['#508991', '#175456', '#09BC8A', '#78CAD2'],
 		chart: {
-			style: {
-				fontFamily: 'Google Sans, Roboto, Helvetica Neue, sans-serif',
-			},
-		},
-		title: null,
-		tooltip: {
-			enabled: false,
+			// backgroundColor: {
+			// 	linearGradient: [0, 600, 0, 0],
+			// 	stops: [
+			// 		[0, 'rgb(255, 255, 255)'],
+			// 		[1, 'rgb(161, 210, 206)'],
+			// 	],
+			// },
+			type: 'spline',
 		},
 		xAxis: {
-			categories: labels,
+			type: 'datetime',
 		},
-		series: [{ data: [1, 2, 5, 8, 3] }],
+		yAxis: {
+			title: {
+				text: 'Temperature (\u00b0C)',
+			},
+		},
+		plotOptions: {
+			series: {
+				turboThreshold: 2000,
+			},
+		},
+		series: [{ data: [19, 24, 23, 23, 24, 25, 23, 20, 21] }],
 		credits: {
 			enabled: false,
 		},
 		exporting: {
 			enabled: false,
 		},
+		title: null,
+		tooltip: {
+			enabled: false,
+		},
+		// chart: {
+		// 	style: {
+		// 		fontFamily: 'Google Sans, Roboto, Helvetica Neue, sans-serif',
+		// 	},
+		// },
+		// title: null,
+		// tooltip: {
+		// 	enabled: false,
+		// },
+		// xAxis: {
+		// 	categories: labels,
+		// },
+		// series: [{ data: [1, 2, 5, 8, 3] }],
+		// credits: {
+		// 	enabled: false,
+		// },
+		// exporting: {
+		// 	enabled: false,
+		// },
 		// plotOptions: {
 		// 	series: {
 		// 		point: {

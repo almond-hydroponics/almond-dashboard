@@ -1,3 +1,12 @@
+// views
+import AnalyticsView from '@views/AnalyticsView';
+import WaterCyclesView from '@views/WaterCyclesView';
+import EnvironmentControlView from '@views/EnvironmentControlView';
+import DeviceManagementView from '@views/DeviceManagementView';
+import SupportView from '@views/SupportView';
+import PeopleView from '@views/PeopleView';
+import UserRolesView from '@views/UserRolesView';
+// third-party-icons
 import {
 	AllOut,
 	BubbleChart,
@@ -9,7 +18,6 @@ import {
 	OpenInNew,
 	People,
 	Security,
-	Settings,
 	Spa,
 	WidgetsRounded,
 } from '@mui/icons-material';
@@ -18,11 +26,6 @@ import {
 	MenuBottomProps,
 	MenuComponentProps,
 } from '@components/molecules/MenuRoutes/interfaces';
-import AnalyticsView from '@views/AnalyticsView';
-import WaterCyclesView from '@views/WaterCyclesView';
-import EnvironmentControlView from '@views/EnvironmentControlView';
-import DeviceManagementView from '@views/DeviceManagementView';
-import SupportView from '@views/SupportView';
 
 export const UserMenus: MenuComponentProps[] = [
 	{
@@ -62,12 +65,6 @@ export const UserMenus: MenuComponentProps[] = [
 		id: 'support',
 	},
 	{
-		icon: <Settings />,
-		primaryText: 'Settings',
-		component: WaterCyclesView,
-		id: 'settings',
-	},
-	{
 		icon: <Help />,
 		primaryText: 'Help',
 		component: WaterCyclesView,
@@ -97,13 +94,13 @@ export const AdminMenus: MenuComponentProps[] = [
 	{
 		icon: <People />,
 		primaryText: 'People',
-		component: WaterCyclesView,
+		component: PeopleView,
 		id: 'people',
 	},
 	{
 		icon: <BubbleChart />,
 		primaryText: 'Roles',
-		component: WaterCyclesView,
+		component: UserRolesView,
 		id: 'roles',
 	},
 	{
@@ -111,12 +108,6 @@ export const AdminMenus: MenuComponentProps[] = [
 		primaryText: 'Support',
 		component: SupportView,
 		id: 'support',
-	},
-	{
-		icon: <Settings />,
-		primaryText: 'Settings',
-		component: WaterCyclesView,
-		id: 'settings',
 	},
 	{
 		icon: <Help />,
