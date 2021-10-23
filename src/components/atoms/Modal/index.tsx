@@ -40,9 +40,10 @@ const BootstrapDialogTitle = ({
 		sx={{
 			m: 0,
 			p: 2,
-			backgroundColor: 'rgba(66, 133, 244, 0.15)',
+			backgroundColor: '#e8f0fe',
 			color: (theme) => theme.palette.primary.main,
 			fontSize: 16,
+			zIndex: 1400,
 		}}
 		{...other}
 	>
@@ -77,6 +78,7 @@ const Modal = ({
 	renderDialogText,
 	isRequesting,
 	loadingText = 'Loading...',
+	maxWidth = 'xs',
 }: ModalProps): JSX.Element => {
 	return (
 		<BootstrapDialog
@@ -84,7 +86,7 @@ const Modal = ({
 			aria-labelledby="customized-dialog-title"
 			open={isModalOpen}
 			fullScreen={fullScreen}
-			maxWidth="xs"
+			maxWidth={maxWidth}
 		>
 			<BootstrapDialogTitle id="customized-dialog-title" onClose={onClose}>
 				{renderHeader}

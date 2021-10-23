@@ -34,7 +34,7 @@ import { PeoplePageState } from './interfaces';
 import { styled, useTheme } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
 
-export const PeopleView = (): JSX.Element => {
+const PeopleView = (): JSX.Element => {
 	const { roles } = useSelector(
 		(globalState: IRootState) => globalState.userRoles,
 		shallowEqual,
@@ -273,7 +273,7 @@ export const PeopleView = (): JSX.Element => {
 		},
 	});
 
-	const renderTableContent = () => {
+	const renderTableContent = (): JSX.Element => {
 		const columns: GridColDef[] = [
 			{
 				field: 'name',

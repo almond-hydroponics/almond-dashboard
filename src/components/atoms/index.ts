@@ -9,3 +9,4 @@ export { default as MenuContent } from './MenuContent';
 export { MenuTabs, MenuTab } from './MenuTabs';
 export { default as SelectBox } from './SelectBox';
 export { default as LinearProgressBar } from './LinearProgressBar';
+export { default as PumpSwitch } from './PumpSwitch';

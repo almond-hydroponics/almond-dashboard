@@ -33,6 +33,13 @@ const getTheme = (mode: PaletteMode): Theme =>
 						containedSecondary: mode === 'light' ? { color: 'white' } : {},
 					} as ComponentsOverrides['MuiButton'],
 				},
+				MuiDialog: {
+					styleOverrides: {
+						paperFullScreen: {
+							borderRadius: '0 !important',
+						},
+					},
+				},
 			},
 		}),
 	);

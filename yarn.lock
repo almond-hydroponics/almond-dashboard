@@ -2436,6 +2436,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hookform/resolvers@npm:^2.8.2":
+  version: 2.8.2
+  resolution: "@hookform/resolvers@npm:2.8.2"
+  peerDependencies:
+    react-hook-form: ^7.0.0
+  checksum: a58971b4b1610417fcb9674038cfbc77c39ec0c4a6473b8b2bff7d908e31531ca8df5df21dfafc351f21d32fa963c900f03893d482b2e6def2dc6916c243fa23
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.5.0":
   version: 0.5.0
   resolution: "@humanwhocodes/config-array@npm:0.5.0"
@@ -3613,10 +3622,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.11.1":
-  version: 16.11.1
-  resolution: "@types/node@npm:16.11.1"
-  checksum: 22cea470b89292810733b8b9fc1b6a1873bc3ed4d4cdf2f25e777dc607994bd7c12e64166d1a66dd5924734192b0a891b6aeb6813aa935f731345f4086234375
+"@types/node@npm:^16.11.4":
+  version: 16.11.4
+  resolution: "@types/node@npm:16.11.4"
+  checksum: 96e08c0f8bb17601c18640a8eac61e2f236fe0c8a6b01a9221c10749157358fb29fdef4b5e264f72559e72f9830e6093f3ab5fef2df90afdad562ffa45ac534c
   languageName: node
   linkType: hard
 
@@ -4552,6 +4561,7 @@ __metadata:
     "@commitlint/config-conventional": ^13.2.0
     "@emotion/react": ^11.5.0
     "@emotion/styled": ^11.3.0
+    "@hookform/resolvers": ^2.8.2
     "@mui/icons-material": ^5.0.4
     "@mui/lab": ^5.0.0-alpha.51
     "@mui/material": ^5.0.4
@@ -4564,7 +4574,7 @@ __metadata:
     "@testing-library/user-event": ^13.5.0
     "@types/aos": ^3.0.4
     "@types/chart.js": ^2.9.34
-    "@types/node": ^16.11.1
+    "@types/node": ^16.11.4
     "@types/react": ^17.0.31
     "@types/react-dom": ^17.0.10
     "@types/react-lazy-load-image-component": ^1.5.2
@@ -4604,7 +4614,7 @@ __metadata:
     dequal: ^2.0.2
     dotenv: ^10.0.0
     dotenv-webpack: ^7.0.3
-    eslint: ^8.0.1
+    eslint: ^8.1.0
     eslint-config-react-app: ^6.0.0
     eslint-plugin-flowtype: ^6.1.1
     eslint-plugin-import: ^2.25.2
@@ -4618,7 +4628,7 @@ __metadata:
     express: ^4.17.1
     firebase: ^9.1.3
     google-closure-compiler: ^20211006.0.0
-    highcharts: ^9.2.2
+    highcharts: ^9.3.0
     highcharts-react-official: ^3.1.0
     html-webpack-plugin: ^5.4.0
     husky: ^7.0.4
@@ -4627,7 +4637,7 @@ __metadata:
     js-cookie: ^3.0.1
     jwt-decode: ^3.1.2
     luxon: ^2.0.2
-    mini-css-extract-plugin: ^2.4.2
+    mini-css-extract-plugin: ^2.4.3
     mqtt: ^4.2.8
     mqtt-pattern: ^1.2.0
     mqtt-react-hooks: ^2.0.3
@@ -4643,6 +4653,7 @@ __metadata:
     react-dom: ^17.0.2
     react-ga: ^3.3.0
     react-hexgrid: ^1.0.3
+    react-hook-form: ^7.17.5
     react-images: ^1.1.7
     react-lazy-load-image-component: ^1.5.1
     react-redux: ^7.2.5
@@ -4662,7 +4673,7 @@ __metadata:
     sass-loader: ^12.2.0
     slick-carousel: ^1.8.1
     source-map-loader: ^3.0.0
-    style-loader: ^3.3.0
+    style-loader: ^3.3.1
     ts-loader: ^9.2.6
     typescript: ^4.4.4
     validate.js: ^0.13.1
@@ -8393,9 +8404,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.0.1, eslint@npm:^8.0.1":
-  version: 8.0.1
-  resolution: "eslint@npm:8.0.1"
+"eslint@npm:8.1.0, eslint@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "eslint@npm:8.1.0"
   dependencies:
     "@eslint/eslintrc": ^1.0.3
     "@humanwhocodes/config-array": ^0.6.0
@@ -8437,7 +8448,7 @@ __metadata:
     v8-compile-cache: ^2.0.3
   bin:
     eslint: bin/eslint.js
-  checksum: 072dde3e188c1274fa92eaf72d233d77b9c6e87ed859dce071b49c243546959ff7aefdb4759abf09841b650ef9d9f013abaae720b0bd64e0e07700ccefaf1208
+  checksum: e0b0c4bddd8673f376730b5bc72876fd0298e0ed9e52fa0707e48854ab0cea6a6a1945dbe2a059db1c867aafba7979b9d770060696e3f0ffc9d4b635ca4bce49
   languageName: node
   linkType: hard
 
@@ -9674,10 +9685,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"highcharts@npm:^9.2.2":
-  version: 9.2.2
-  resolution: "highcharts@npm:9.2.2"
-  checksum: e5cf10e4bfa4015cc5eb5df63f66afab8ed34093b0038d2d66da0ef11393695f5caebcbfb24a4d6fb046cdba6e813b3536052436c7f2e30b166e54b25079ea76
+"highcharts@npm:^9.3.0":
+  version: 9.3.0
+  resolution: "highcharts@npm:9.3.0"
+  checksum: 479b0a413919c9ab2d65d2408d69024b287670f31688fd0c910b13c9fa191e58f5beb580475bc3fce92f35d77cd64776bb95b321dc1e23c7983e5a04fa30afea
   languageName: node
   linkType: hard
 
@@ -12196,14 +12207,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mini-css-extract-plugin@npm:^2.4.2":
-  version: 2.4.2
-  resolution: "mini-css-extract-plugin@npm:2.4.2"
+"mini-css-extract-plugin@npm:^2.4.3":
+  version: 2.4.3
+  resolution: "mini-css-extract-plugin@npm:2.4.3"
   dependencies:
     schema-utils: ^3.1.0
   peerDependencies:
     webpack: ^5.0.0
-  checksum: c413b4fd0ba0ff398b58ddecc0e805c254c2253e6536627469408b29ea1eb9f5b38c610a3be505c6ca9096a1bb5ed4faf8c6ff8c387b2b4891c8e38fdc8f719b
+  checksum: bee9d5f5c84ebc557bb201be4453003f98b47807153762bbf566b6f5e8071e67b6147f22d36111ecad62fd6d71979e5c6f43989000731c562a409b65ef529e45
   languageName: node
   linkType: hard
 
@@ -14639,6 +14650,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-hook-form@npm:^7.17.5":
+  version: 7.17.5
+  resolution: "react-hook-form@npm:7.17.5"
+  peerDependencies:
+    react: ^16.8.0 || ^17
+  checksum: 1948be28cbcaee76899720ae8ead6f6bcc58c9678364c69590d15a0d7c50884f5f8f3b1034a5bc91495bedd05b0fb07048d88cc6c93b3fa8aacf32c50f2bfda7
+  languageName: node
+  linkType: hard
+
 "react-images@npm:^1.1.7":
   version: 1.1.7
   resolution: "react-images@npm:1.1.7"
@@ -16416,12 +16436,12 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"style-loader@npm:^3.3.0":
-  version: 3.3.0
-  resolution: "style-loader@npm:3.3.0"
+"style-loader@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "style-loader@npm:3.3.1"
   peerDependencies:
     webpack: ^5.0.0
-  checksum: edad553a1ae74af9afb4dd582774d484e8e4e5f8c9593a921b0f3f0e2cdb3a58c4b44a3afb43021956804042eaffd68d5dc4f956d4c5f633e7e67eda6a750042
+  checksum: 470feef680f59e2fce4d6601b5c55b88c01ad8d1dd693c528ffd591ff5fd7c01a4eff3bdbe62f26f847d6bd2430c9ab594be23307cfe7a3446ab236683f0d066
   languageName: node
   linkType: hard
 

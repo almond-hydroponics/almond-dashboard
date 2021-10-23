@@ -25,7 +25,7 @@ import {
 } from '@mui/x-data-grid';
 import { red } from '@mui/material/colors';
 // components
-import { Modal, LinearProgressBar } from '@components/atoms';
+import { Modal, LinearProgressBar, PumpSwitch } from '@components/atoms';
 import { GeneralCardInfo, DashboardCard } from '@components/molecules';
 import { LineChartCard, DonutDisplay } from '@components/organisms';
 // icons
@@ -176,11 +176,11 @@ export const WaterCyclesView = (): JSX.Element => {
 	// console.log('Class: , Function: WaterCyclesPage, Line 152 sensorDate():', dataSensor);
 
 	useEffect(() => {
-		dispatch(getAllSchedules(activeDevice?._id));
+		dispatch(getAllSchedules(activeDevice._id));
 	}, [activeDevice?._id]);
 
 	useEffect(() => {
-		dispatch(getPumpStatus(activeDevice?._id));
+		dispatch(getPumpStatus(activeDevice._id));
 	}, [activeDevice?._id]);
 
 	useEffect(() => {
@@ -222,7 +222,7 @@ export const WaterCyclesView = (): JSX.Element => {
 		0,
 	);
 
-	// const PumpSwitch = styled(Switch)<SwitchProps>(({ theme }) => ({
+	// const PumpSwitchs = styled(Switch)<SwitchProps>(({ theme }) => ({
 	// 	switchBase: {
 	// 		color: '#FFFFFF',
 	// 		'&$checked': {
@@ -249,7 +249,7 @@ export const WaterCyclesView = (): JSX.Element => {
 	// 	},
 	// }));
 
-	const PumpSwitch = styled(Switch)(({ theme }) => ({
+	const PumpSwitchs = styled(Switch)(({ theme }) => ({
 		padding: 8,
 		'& .MuiSwitch-track': {
 			borderRadius: 22 / 2,
@@ -292,7 +292,7 @@ export const WaterCyclesView = (): JSX.Element => {
 		await dispatch(
 			togglePump({
 				enabled: checked,
-				device: activeDevice?._id,
+				device: activeDevice._id,
 			}),
 		);
 	};

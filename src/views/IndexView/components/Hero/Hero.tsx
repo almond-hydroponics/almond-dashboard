@@ -5,7 +5,7 @@ import Container from '@components/Container';
 import authService from '@utils/auth';
 import isArrayNotNull from '@utils/checkArrayEmpty';
 import { UserContext } from '@context/UserContext';
-import Home from '../../../../svg/illustrations/Home';
+import HomeIllustration from '../../../../svg/illustrations/HomeIllustration';
 import { Modal } from '@components/atoms';
 import { Form } from '@views/IndexView/components';
 import {
@@ -47,6 +47,7 @@ const Hero = (): JSX.Element => {
 	const renderAuthModal = (): JSX.Element => (
 		<Modal
 			isModalOpen={openAuthModal}
+			maxWidth="xs"
 			renderHeader={renderModalHeader()}
 			renderDialogText={
 				authByEmail
@@ -98,7 +99,11 @@ const Hero = (): JSX.Element => {
 				onClick={handleLogin}
 				endIcon={<ArrowForward />}
 			>
-				{isAuthed ? 'Go to dashboard' : 'Login to account'}
+				{isAuthed
+					? `${
+							isArrayNotNull(devices) ? 'Go to dashboard' : 'Configure account'
+					  }`
+					: 'Login to account'}
 			</Button>
 		</Box>
 	);
@@ -113,7 +118,7 @@ const Hero = (): JSX.Element => {
 				alignItems={'center'}
 			>
 				<Box height={1} width={1} maxWidth={700}>
-					<Home />
+					<HomeIllustration />
 				</Box>
 			</Box>
 		);

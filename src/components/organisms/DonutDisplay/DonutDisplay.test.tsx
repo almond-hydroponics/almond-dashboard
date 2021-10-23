@@ -15,7 +15,7 @@ describe('DonutDisplay component', () => {
 
 	it('should render correctly', () => {
 		// @ts-ignore
-    const { asFragment } = render(<DonutDisplay {...props} />);
+		const { asFragment } = render(<DonutDisplay {...props} />);
 		expect(asFragment()).toMatchSnapshot();
 	});
 });

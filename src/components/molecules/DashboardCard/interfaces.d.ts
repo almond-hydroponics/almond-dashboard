@@ -6,5 +6,5 @@ export interface DashboardCardProps {
 	redirect?: (cardId: string) => void;
 	actionItem?: ReactNode;
 	sx?: any;
-  [x: string]: any;
+	[x: string]: any;
 }

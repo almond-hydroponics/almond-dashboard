@@ -10,3 +10,4 @@ export { default as SupportView } from './SupportView';
 export { default as AccountSettingsView } from './AccountSettingsView';
 export { default as PeopleView } from './PeopleView';
 export { default as UserRolesView } from './UserRolesView';
+export { default as ServerError } from './ServerError';

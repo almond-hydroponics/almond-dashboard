@@ -24,7 +24,8 @@ import { IRootState } from '../../../../store/rootReducer';
 import { UserContext } from '@context/UserContext';
 import { alpha, useTheme } from '@mui/material/styles';
 import { useMqttState } from '@hooks/mqtt';
-import { NotificationsPanel } from '@components/molecules';
+import { NotificationsModal } from '@components/molecules';
+import { activityLogs } from '@views/DashboardContainer/DashboardContainer';
 // import { useMqttState } from 'mqtt-react-hooks';
 
 const connectedColor = '#76ff03';
@@ -85,13 +86,14 @@ const Topbar = (): JSX.Element => {
 					}}
 				>
 					<Badge
-						overlap="circular"
+						// overlap="circular"
+						variant="dot"
 						anchorOrigin={{
-							vertical: 'bottom',
+							vertical: 'top',
 							horizontal: 'right',
 						}}
-						variant="dot"
-						// invisible={isActivityLogsEmpty !== activityLogsViewed}
+						color="secondary"
+						badgeContent={activityLogs.length}
 					>
 						<Timeline color="primary" onClick={handleClick} />
 					</Badge>
@@ -122,7 +124,12 @@ const Topbar = (): JSX.Element => {
 			>
 				<Typography
 					variant="subtitle2"
-					sx={{ fontWeight: 400, fontSize: 13, marginLeft: 1 }}
+					sx={{
+						fontWeight: 400,
+						fontSize: 13,
+						marginLeft: 1,
+						display: isSm ? 'flex' : 'none',
+					}}
 					color="textPrimary"
 				>
 					Device:
@@ -150,38 +157,42 @@ const Topbar = (): JSX.Element => {
 				<Logo displayText={isSm} />
 			</Box>
 
-			<Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
+			<Box sx={{ display: 'flex' }} alignItems={'center'}>
 				<Box sx={{ display: 'flex' }} alignItems={'center'}>
 					{!isAdmin && renderDeviceDisplay()}
 				</Box>
-				<Box marginLeft={3}>{renderTimeLineIcon()}</Box>
-				<Box marginLeft={3}>
-					<NotificationsPanel />
+				<Box marginLeft={isSm ? 3 : 1}>{renderTimeLineIcon()}</Box>
+				<Box marginLeft={isSm ? 3 : 1}>
+					<NotificationsModal />
 				</Box>
 				<Tooltip title="Toggle theme mode">
-					<Box marginLeft={3}>
+					<Box
+						sx={{ display: isSm ? 'display' : 'none' }}
+						marginLeft={isSm ? 3 : 1}
+					>
 						<DarkModeToggler
 							moonColor={theme.palette.secondary.main}
 							sunColor={theme.palette.primary.main}
 						/>
 					</Box>
 				</Tooltip>
-				<Box marginLeft={3}>
+				<Box marginLeft={isSm ? 3 : 1}>
 					<CustomAvatar hasMultipleRoles={roles?.length > 1} />
 				</Box>
 			</Box>
 
-			<Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
-				<Box sx={{ display: 'flex' }} alignItems={'center'}>
-					{!isAdmin && renderDeviceDisplay()}
-				</Box>
-				<Box marginLeft={1}>
-					<NotificationsPanel />
-				</Box>
-				<Box marginLeft={1}>
-					<CustomAvatar hasMultipleRoles={roles?.length > 1} />
-				</Box>
-			</Box>
+			{/*<Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>*/}
+			{/*	<Box sx={{ display: 'flex' }} alignItems={'center'}>*/}
+			{/*		{!isAdmin && renderDeviceDisplay()}*/}
+			{/*	</Box>*/}
+			{/*	<Box marginLeft={1}>{renderTimeLineIcon()}</Box>*/}
+			{/*	<Box marginLeft={1}>*/}
+			{/*		<NotificationsModal />*/}
+			{/*	</Box>*/}
+			{/*	<Box marginLeft={1}>*/}
+			{/*		<CustomAvatar hasMultipleRoles={roles?.length > 1} />*/}
+			{/*	</Box>*/}
+			{/*</Box>*/}
 		</Box>
 	);
 };

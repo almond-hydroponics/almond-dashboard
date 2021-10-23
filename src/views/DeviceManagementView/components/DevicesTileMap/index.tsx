@@ -10,7 +10,7 @@ interface Props {
 const DevicesTileMap = ({ devices }: Props): JSX.Element => {
 	const config = {
 		width: '100%',
-		height: '100%',
+		height: '200px',
 		layout: { width: 7, height: 7, flat: true, spacing: 1.06 },
 		origin: { x: 0, y: 0 },
 		map: 'hexagon',
@@ -36,7 +36,7 @@ const DevicesTileMap = ({ devices }: Props): JSX.Element => {
 	// );
 
 	return (
-		<Box>
+		<Box sx={{ maxHeight: 200 }}>
 			<HexGrid width={config.width} height={config.height}>
 				<Layout
 					size={size}
@@ -45,9 +45,9 @@ const DevicesTileMap = ({ devices }: Props): JSX.Element => {
 					origin={config.origin}
 				>
 					{hexagons
-						.sort(
-							(a, b) => (b.q || Number.MAX_VALUE) - (a.q || Number.MAX_VALUE),
-						)
+						// .sort(
+						// 	(a, b) => (b.q || Number.MAX_VALUE) - (a.q || Number.MAX_VALUE),
+						// )
 						.slice(0, devices)
 						.map((hex) => (
 							<Hexagon key={fancyId()} q={hex.q} r={hex.r} s={hex.s} />

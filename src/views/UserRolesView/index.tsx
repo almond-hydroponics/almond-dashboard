@@ -99,7 +99,7 @@ const schema = {
 	},
 };
 
-export const UserRolesView = (): JSX.Element => {
+const UserRolesView = (): JSX.Element => {
 	const { roles, resources, permissions, isLoading } = useSelector(
 		(globalState: IRootState) => globalState.userRoles,
 		shallowEqual,
