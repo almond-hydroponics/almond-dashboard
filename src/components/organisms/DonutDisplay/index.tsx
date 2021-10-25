@@ -24,7 +24,7 @@ const DonutDisplay = ({
 	width = 250,
 	height = 250,
 }: Props): JSX.Element => {
-	const options = {
+	const options: Highcharts.Options = {
 		chart: {
 			width,
 			height,
@@ -33,7 +33,7 @@ const DonutDisplay = ({
 				fontFamily: 'Google Sans, Roboto, Helvetica Neue, sans-serif',
 			},
 		},
-		title: null,
+		title: undefined,
 		tooltip: {
 			enabled: false,
 		},

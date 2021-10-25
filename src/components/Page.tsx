@@ -103,7 +103,7 @@ export default function Page({ children }: Props): JSX.Element {
 		username: process.env.MQTT_USER,
 		password: process.env.MQTT_PASSWORD,
 		keepalive: 0,
-		clientId: activeDevice.id,
+		clientId: activeDevice?.id ?? 'almond_undefined',
 		// protocolId: 'MQTT',
 		// protocolVersion: 4,
 		// clean: true,

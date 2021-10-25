@@ -218,7 +218,6 @@ export const getAirTemperatureTrend =
 				} = response;
 				dispatch(
 					getAirTemperatureTrendSuccess(
-						// @ts-expect-error yes
 						data?.map((element) => ({
 							x: element._time,
 							y: element._value,

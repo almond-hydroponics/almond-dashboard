@@ -31,7 +31,10 @@ const processedDotenvConfigs = parseConfigs(dotenvConfigs)
 
 module.exports = {
   // Where webpack looks to start building the bundle
-  entry: [`${paths.src}/index.tsx`],
+  entry: {
+    main: `${paths.src}/index.tsx`,
+    // fontGlobals: `${paths.src}/assets/fonts/fonts.scss`,
+  },
   // Where webpack outputs the assets and bundles
   output: {
     path: paths.build,

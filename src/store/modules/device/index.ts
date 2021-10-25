@@ -312,8 +312,8 @@ export const verifyUserDevice =
 				// window.location.replace('/dashboard');
 			})
 			.catch((error: ErrorObject) => {
+				dispatch(verifyDeviceFailure(error?.response?.data));
 				errorOnSnack(error, dispatch, 'verifying device');
-				dispatch(verifyDeviceFailure(error));
 			});
 	};
 

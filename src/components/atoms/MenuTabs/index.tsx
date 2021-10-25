@@ -20,7 +20,7 @@ const MenuTab = styled((props: MenuTabProps) => (
 	textTransform: 'none',
 	minWidth: 72,
 	fontWeight: theme.typography.fontWeightMedium,
-	fontSize: 13,
+	fontSize: 14,
 	'&:hover': {
 		color: theme.palette.primary.main,
 		backgroundColor: theme.palette.background.level1,

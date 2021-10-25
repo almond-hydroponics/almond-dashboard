@@ -78,7 +78,7 @@ const AnalyticsCard = ({
 
 		redCard: {
 			color: '#34383B',
-			backgroundColor: '#BFD7DF',
+			backgroundColor: '#D5E4EB',
 			borderColor: '#BFD7DF',
 			// color: '#980910',
 			// backgroundColor: '#F9E3E3',

@@ -8,11 +8,19 @@ import {
 // third-party libraries
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { DashboardContainerState } from './interfaces';
-import { useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import { UserContext } from '@context/UserContext';
 import { useHistory } from 'react-router-dom';
+import dayjs from 'dayjs';
 // icons
-import { AllOutTwoTone, Face, Timeline } from '@mui/icons-material';
+import {
+	AccountCircleOutlined,
+	AllOutTwoTone,
+	Close,
+	Face,
+	HelpOutline,
+	Timeline,
+} from '@mui/icons-material';
 // components;
 import { AdminMenus, UserMenus } from '@components/molecules';
 import {
@@ -26,9 +34,15 @@ import { ComponentContext } from '@context/ComponentContext';
 import { useSubscription } from '@hooks/mqtt';
 import {
 	Box,
+	Chip,
 	Divider,
+	IconButton,
 	InputAdornment,
 	LinearProgress,
+	List,
+	ListItem,
+	ListItemIcon,
+	ListItemText,
 	MenuItem,
 	Stack,
 	SwipeableDrawer,
@@ -46,12 +60,39 @@ import isArrayNotNull from '@utils/checkArrayEmpty';
 // interfaces
 import { IClientSubscribeOptions } from 'mqtt';
 
+export const activityLogs = [
+	{
+		_id: '5eecc408184ccf003a2daa29',
+		title: 'Device turned OFF successfully',
+		createdAt: '2020-06-19T13:56:24.859Z',
+		type: 'success',
+	},
+	{
+		_id: '5eecc408184ccf003a2daad9',
+		title: 'Pump crashed by a dragon',
+		createdAt: '2020-06-19T13:56:24.859Z',
+		type: 'error',
+	},
+	{
+		_id: '5eecc408f84ccf003a2daa29',
+		title: 'Sensor cannot be found',
+		createdAt: '2020-06-19T13:56:24.859Z',
+		type: 'error',
+	},
+	{
+		_id: '5eecc408184ccfa03a2daa29',
+		title: 'Next pump time is 12:00PM',
+		createdAt: '2020-06-19T13:56:24.859Z',
+		type: 'info',
+	},
+];
+
 const DashboardContainer = (): JSX.Element => {
 	const theme = useTheme();
-	const { activityLogs } = useSelector(
-		(globalState: IRootState) => globalState,
-		shallowEqual,
-	);
+	// const { activityLogs } = useSelector(
+	// 	(globalState: IRootState) => globalState,
+	// 	shallowEqual,
+	// );
 	const {
 		userDetails: { _id, currentRole, roles },
 		isLoading,
@@ -127,14 +168,14 @@ const DashboardContainer = (): JSX.Element => {
 		setState((prevState) => ({
 			...prevState,
 			activeDevice,
-			device: activeDevice?.id,
+			device: activeDevice.id,
 		}));
 	}, []);
 
 	useEffect(() => {
 		setState((prevState) => ({
 			...prevState,
-			roleSelected: currentRole?.title,
+			roleSelected: currentRole.title,
 		}));
 	}, [currentRole]);
 
@@ -196,7 +237,9 @@ const DashboardContainer = (): JSX.Element => {
 		>
 			{devices?.map((device) => (
 				<MenuItem key={device.id} value={device.id}>
-					<Typography variant="body1">{device.id}</Typography>
+					<Typography fontSize={14} variant="body1">
+						{device.id}
+					</Typography>
 				</MenuItem>
 			))}
 		</TextField>
@@ -222,7 +265,9 @@ const DashboardContainer = (): JSX.Element => {
 		>
 			{roles?.map((role) => (
 				<MenuItem key={role._id} value={role.title}>
-					<Typography variant="body1">{role.title}</Typography>
+					<Typography fontSize={14} variant="body1">
+						{role.title}
+					</Typography>
 				</MenuItem>
 			))}
 		</TextField>
@@ -270,9 +315,9 @@ const DashboardContainer = (): JSX.Element => {
 	/*
 	 * Check if it is running on web browser in iOS
 	 */
-	// const iOS =
-	// 	typeof window === 'undefined' &&
-	// 	/iPad|iPhone|iPod/.test(navigator.userAgent);
+	const iOS =
+		typeof window === 'undefined' &&
+		/iPad|iPhone|iPod/.test(navigator.userAgent);
 
 	const renderActivityDrawer = () => (
 		<SwipeableDrawer
@@ -280,70 +325,87 @@ const DashboardContainer = (): JSX.Element => {
 			open={isActivityDrawerOpen}
 			onClose={handleActivityDrawer('close')}
 			onOpen={handleActivityDrawer('open')}
-			// disableBackdropTransition={!iOS}
-			// disableDiscovery={iOS}
-			style={{
-				paddingLeft: 16,
-				paddingRight: 16,
-				marginLeft: 16,
-				marginRight: 16,
+			disableBackdropTransition={!iOS}
+			disableDiscovery={iOS}
+			sx={{
+				zIndex: 1400,
 			}}
 		>
-			<div style={{ margin: 10 }}>
+			<Box
+				sx={{ minWidth: 300, maxWidth: 400 }}
+				role="presentation"
+				onClick={handleActivityDrawer('close')}
+				onKeyDown={handleActivityDrawer('close')}
+			>
 				<Stack
 					direction="row"
-					justifyContent="center"
+					justifyContent="space-between"
 					alignItems="center"
-					spacing={1}
+					spacing={2}
+					paddingY={1}
+					paddingX={2}
 					sx={{
-						background: (theme) => theme.palette.alternate.main,
-						padding: 1,
-						marginTop: 10,
-						borderRadius: 4,
+						borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
 					}}
 				>
-					<Typography
-						variant="body1"
-						gutterBottom={false}
-						sx={{ paddingLeft: 3, paddingRight: 3, fontWeight: 500 }}
-					>
-						Recent Activities
-					</Typography>
-					<Timeline color="primary" />
-				</Stack>
-				<Divider sx={{ marginTop: 2 }} />
-			</div>
-			{isArrayNotNull(activityLogs) ? (
-				activityLogs?.map((logs) => (
-					<div key={logs._id} style={{ paddingLeft: 12, paddingRight: 12 }}>
-						<ActivityLogCard
-							log={logs.actionDesc}
-							date={logs.createdAt}
-							type="info"
-						/>
-					</div>
-				))
-			) : (
-				<Stack
-					direction="column"
-					justifyContent="center"
-					alignItems="center"
-					spacing={3}
-				>
-					<p
-						aria-hidden="true"
-						style={{
-							font: '300 36px/44px Google Sans,Helvetica Neue,sans-serif',
-							letterSpacing: 'normal',
-							marginBottom: 24,
-							color: '#646e73',
+					<Typography fontWeight={500}>Activity logs</Typography>
+					<IconButton
+						aria-label="close"
+						onClick={handleActivityDrawer('close')}
+						sx={{
+							color: (theme) => theme.palette.primary.main,
 						}}
 					>
-						¯\_(ツ)_/¯{' '}
-					</p>
-					<BlankContent message="No logs found!" />
+						<Close />
+					</IconButton>
 				</Stack>
-			)}
+				{isArrayNotNull(activityLogs) ? (
+					<List>
+						{activityLogs?.map((logs) => (
+							<ListItem key={logs._id} sx={{ paddingY: 0 }}>
+								<ListItemText
+									primary={logs.title}
+									primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
+									secondaryTypographyProps={{ fontSize: 12, fontWeight: 400 }}
+									secondary={`${dayjs(logs.createdAt).format('HH:mm:ss')}`}
+									sx={{
+										backgroundColor: (theme) =>
+											alpha(theme.palette[logs.type].main, 0.1),
+										color: (theme) => theme.palette[logs.type].dark,
+										border: `1px solid ${alpha(
+											theme.palette[logs.type].dark,
+											0.2,
+										)}`,
+										borderRadius: 1,
+										paddingY: 1,
+										paddingX: 2,
+									}}
+								/>
+							</ListItem>
+						))}
+					</List>
+				) : (
+					<Stack
+						direction="column"
+						justifyContent="center"
+						alignItems="center"
+						spacing={3}
+					>
+						<p
+							aria-hidden="true"
+							style={{
+								font: '300 36px/44px Google Sans,Helvetica Neue,sans-serif',
+								letterSpacing: 'normal',
+								marginBottom: 24,
+								color: '#646e73',
+							}}
+						>
+							¯\_(ツ)_/¯{' '}
+						</p>
+						<BlankContent message="No logs found!" />
+					</Stack>
+				)}
+			</Box>
 		</SwipeableDrawer>
 	);
 

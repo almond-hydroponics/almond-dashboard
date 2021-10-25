@@ -1,4 +1,4 @@
-const Home = ({}: IllustrationProps): JSX.Element => {
+const HomeIllustration = ({}: IllustrationProps): JSX.Element => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -131,4 +131,4 @@ const Home = ({}: IllustrationProps): JSX.Element => {
 	);
 };
 
-export default Home;
+export default HomeIllustration;

@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode, MouseEvent, cloneElement } from 'react';
-import { alpha, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {
 	Slide,
@@ -102,7 +102,7 @@ const Minimal = ({ children }: Props): JSX.Element => {
 					position={'fixed'}
 					sx={{
 						backgroundColor: theme.palette.background.paper,
-						borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+						// borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
 					}}
 					elevation={0}
 				>

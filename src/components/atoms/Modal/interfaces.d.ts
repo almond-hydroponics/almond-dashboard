@@ -14,4 +14,5 @@ export interface ModalProps {
 	onSubmit?: (e?) => void;
 	onDismiss?: (e?) => void;
 	innerRef?: any;
+  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }

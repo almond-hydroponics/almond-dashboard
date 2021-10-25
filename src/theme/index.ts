@@ -11,6 +11,7 @@ const getTheme = (mode: PaletteMode): Theme =>
 			shadows: shadows(mode),
 			typography: {
 				fontFamily: 'Google Sans, Roboto, Helvetica Neue, sans-serif',
+				fontSize: 14,
 				button: {
 					textTransform: 'none',
 					fontWeight: 'medium' as CSSProperties['fontWeight'],
@@ -31,6 +32,13 @@ const getTheme = (mode: PaletteMode): Theme =>
 						},
 						containedSecondary: mode === 'light' ? { color: 'white' } : {},
 					} as ComponentsOverrides['MuiButton'],
+				},
+				MuiDialog: {
+					styleOverrides: {
+						paperFullScreen: {
+							borderRadius: '0 !important',
+						},
+					},
 				},
 			},
 		}),

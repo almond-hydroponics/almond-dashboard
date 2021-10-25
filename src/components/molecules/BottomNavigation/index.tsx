@@ -48,6 +48,7 @@ const PageBottomNavigation = (): JSX.Element => {
 				>
 					{checkIsAdmin().map((menuNav, index) => (
 						<BottomNavigationAction
+							// sx={{ fontSize: 10 }}
 							key={menuNav.label}
 							label={menuNav.label}
 							icon={menuNav.icon}

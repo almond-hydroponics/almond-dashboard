@@ -1,11 +1,30 @@
-import { Avatar, Menu, MenuItem, ListItemIcon, Tooltip } from '@mui/material';
+import {
+	Avatar,
+	Menu,
+	MenuItem,
+	ListItemIcon,
+	Tooltip,
+	ListItemAvatar,
+	ListItemText,
+	Divider,
+	Box,
+	Button,
+} from '@mui/material';
 import fancyId from '@utils/fancyId';
 import { useState, MouseEvent, useContext } from 'react';
-import { Help, Logout, Mood, OpenInNew, Settings } from '@mui/icons-material';
+import {
+	AccountCircleOutlined,
+	Help,
+	HelpOutline,
+	Logout,
+	Mood,
+	OpenInNew,
+	Settings,
+} from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from '@modules/user';
 import { UserContext } from '@context/UserContext';
-import { useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import { ComponentContext } from '@context/ComponentContext';
 import { useHistory } from 'react-router-dom';
 
@@ -45,12 +64,17 @@ const CustomAvatar = ({
 	const open = Boolean(anchorEl);
 
 	let menuItems = [
-		{ name: 'Settings', icon: <Settings fontSize="small" />, link: 'account' },
-		{ name: 'Help', icon: <Help fontSize="small" />, link: 'help' },
 		{
-			name: 'Send Feedback',
-			icon: <OpenInNew fontSize="small" />,
-			link: 'send-feedback',
+			name: 'Profile',
+			icon: <AccountCircleOutlined />,
+			link: 'account',
+			secondaryText: 'Account settings',
+		},
+		{
+			name: 'Help',
+			icon: <HelpOutline />,
+			link: 'help',
+			secondaryText: 'Find support',
 		},
 	];
 
@@ -75,7 +99,6 @@ const CustomAvatar = ({
 				/>
 			</Tooltip>
 			<Menu
-				id="menu-popover"
 				anchorEl={anchorEl}
 				open={open}
 				onClose={handleProfileClose}
@@ -83,7 +106,7 @@ const CustomAvatar = ({
 				PaperProps={{
 					elevation: 0,
 					sx: {
-						zIndex: theme.zIndex.drawer + 1,
+						zIndex: theme.zIndex.appBar + 1,
 						overflow: 'visible',
 						filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
 						mt: 1.5,
@@ -116,26 +139,60 @@ const CustomAvatar = ({
 						router.push(item.link);
 					};
 					return (
-						<MenuItem key={fancyId()} onClick={handleClick}>
-							<ListItemIcon>{item.icon}</ListItemIcon>
-							{item.name}
+						<MenuItem
+							key={fancyId()}
+							onClick={handleClick}
+							sx={{
+								borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+							}}
+						>
+							<ListItemAvatar sx={{ minWidth: 44 }}>
+								<Avatar sx={{ backgroundColor: '#e8f0fe', color: '#1967d2' }}>
+									{item.icon}
+								</Avatar>
+							</ListItemAvatar>
+							<ListItemText
+								primary={item.name}
+								primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
+								secondaryTypographyProps={{ fontSize: 12, fontWeight: 400 }}
+								secondary={item.secondaryText}
+							/>
 						</MenuItem>
 					);
 				})}
 				{location.pathname === '/dashboard' && hasMultipleRoles && (
-					<MenuItem onClick={handleRoleModal}>
-						<ListItemIcon>
-							<Mood fontSize="small" />
-						</ListItemIcon>
-						Change role
+					<MenuItem
+						onClick={handleRoleModal}
+						sx={{
+							borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+						}}
+					>
+						<ListItemAvatar sx={{ minWidth: 44 }}>
+							<Avatar sx={{ backgroundColor: '#e8f0fe', color: '#1967d2' }}>
+								<Mood fontSize="small" />
+							</Avatar>
+						</ListItemAvatar>
+						<ListItemText
+							primary="Change role"
+							primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
+							secondaryTypographyProps={{ fontSize: 12, fontWeight: 400 }}
+							secondary="Switch between roles"
+						/>
 					</MenuItem>
 				)}
 
-				<MenuItem onClick={logoutActiveUser}>
-					<ListItemIcon>
-						<Logout fontSize="small" />
-					</ListItemIcon>
-					Logout
+				<MenuItem>
+					<Button
+						fullWidth
+						variant="contained"
+						type="submit"
+						color="primary"
+						size="small"
+						startIcon={<Logout fontSize="small" />}
+						onClick={logoutActiveUser}
+					>
+						Logout
+					</Button>
 				</MenuItem>
 			</Menu>
 		</>

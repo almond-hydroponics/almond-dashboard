@@ -25,7 +25,7 @@ import {
 } from '@mui/x-data-grid';
 import { red } from '@mui/material/colors';
 // components
-import { Modal, LinearProgressBar } from '@components/atoms';
+import { Modal, LinearProgressBar, PumpSwitch } from '@components/atoms';
 import { GeneralCardInfo, DashboardCard } from '@components/molecules';
 import { LineChartCard, DonutDisplay } from '@components/organisms';
 // icons
@@ -176,11 +176,11 @@ export const WaterCyclesView = (): JSX.Element => {
 	// console.log('Class: , Function: WaterCyclesPage, Line 152 sensorDate():', dataSensor);
 
 	useEffect(() => {
-		dispatch(getAllSchedules(activeDevice?._id));
+		dispatch(getAllSchedules(activeDevice._id));
 	}, [activeDevice?._id]);
 
 	useEffect(() => {
-		dispatch(getPumpStatus(activeDevice?._id));
+		dispatch(getPumpStatus(activeDevice._id));
 	}, [activeDevice?._id]);
 
 	useEffect(() => {
@@ -222,30 +222,63 @@ export const WaterCyclesView = (): JSX.Element => {
 		0,
 	);
 
-	const PumpSwitch = styled(Switch)<SwitchProps>(({ theme }) => ({
-		switchBase: {
-			color: '#FFFFFF',
-			'&$checked': {
-				color: theme.palette.primary.main,
+	// const PumpSwitchs = styled(Switch)<SwitchProps>(({ theme }) => ({
+	// 	switchBase: {
+	// 		color: '#FFFFFF',
+	// 		'&$checked': {
+	// 			color: theme.palette.primary.main,
+	// 		},
+	// 		'&$checked + $track': {
+	// 			backgroundColor: theme.palette.primary.main,
+	// 		},
+	// 	},
+	// 	thumb: {
+	// 		width: 20,
+	// 		height: 20,
+	// 		animation: '$blink 1s ease infinite',
+	// 	},
+	// 	checked: {},
+	// 	track: {
+	// 		borderRadius: 20,
+	// 	},
+	// 	'@keyframes blink': {
+	// 		'50%': {
+	// 			transform: 'scale (1)',
+	// 			backgroundColor: theme.palette.primary.main,
+	// 		},
+	// 	},
+	// }));
+
+	const PumpSwitchs = styled(Switch)(({ theme }) => ({
+		padding: 8,
+		'& .MuiSwitch-track': {
+			borderRadius: 22 / 2,
+			'&:before, &:after': {
+				content: '""',
+				position: 'absolute',
+				top: '50%',
+				transform: 'translateY(-50%)',
+				width: 16,
+				height: 16,
 			},
-			'&$checked + $track': {
-				backgroundColor: theme.palette.primary.main,
+			'&:before': {
+				backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
+					theme.palette.getContrastText(theme.palette.primary.main),
+				)}" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/></svg>')`,
+				left: 12,
+			},
+			'&:after': {
+				backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
+					theme.palette.getContrastText(theme.palette.primary.main),
+				)}" d="M19,13H5V11H19V13Z" /></svg>')`,
+				right: 12,
 			},
 		},
-		thumb: {
-			width: 20,
-			height: 20,
-			animation: '$blink 1s ease infinite',
-		},
-		checked: {},
-		track: {
-			borderRadius: 20,
-		},
-		'@keyframes blink': {
-			'50%': {
-				transform: 'scale (1)',
-				backgroundColor: theme.palette.primary.main,
-			},
+		'& .MuiSwitch-thumb': {
+			boxShadow: 'none',
+			width: 16,
+			height: 16,
+			margin: 2,
 		},
 	}));
 
@@ -259,7 +292,7 @@ export const WaterCyclesView = (): JSX.Element => {
 		await dispatch(
 			togglePump({
 				enabled: checked,
-				device: activeDevice?._id,
+				device: activeDevice._id,
 			}),
 		);
 	};
@@ -564,11 +597,9 @@ export const WaterCyclesView = (): JSX.Element => {
 		);
 	};
 
-	const tableStyles = {
-		border: 0,
-		WebkitFontSmoothing: 'auto',
-		'& .MuiDataGridIconSeparator': {
-			display: 'none',
+	const CustomDataGrid = styled(DataGrid)({
+		'& .MuiDataGrid-columnSeparator': {
+			display: 'none !important',
 		},
 		'& .MuiDataGridCell:focusWithin': {
 			// outline: 'solid #1967D2 0.8px',
@@ -582,7 +613,10 @@ export const WaterCyclesView = (): JSX.Element => {
 		'& .MuiPaginationItemRoot': {
 			borderRadius: 0,
 		},
-		'& .tableHeader': {
+		'& .MuiDataGrid-columnHeaderTitleContainer': {
+			padding: '0 !important',
+		},
+		'& .MuiDataGrid-columnHeaderTitle': {
 			color: theme.palette.primary.main,
 			// fontWeight: 500,
 		},
@@ -595,7 +629,7 @@ export const WaterCyclesView = (): JSX.Element => {
 				fontSize: 12,
 			},
 		},
-	};
+	});
 
 	const renderTableContent = (): JSX.Element => {
 		const columns: GridColDef[] = [
@@ -638,10 +672,10 @@ export const WaterCyclesView = (): JSX.Element => {
 		}));
 
 		return (
-			<div style={{ width: '100%', height: 400, ...tableStyles }}>
-				<DataGrid
+			<div style={{ width: '100%', height: 400 }}>
+				<CustomDataGrid
 					disableColumnMenu
-					style={{ ...tableStyles }}
+					style={{ border: 0 }}
 					loading={isLoading}
 					rows={rows}
 					autoPageSize

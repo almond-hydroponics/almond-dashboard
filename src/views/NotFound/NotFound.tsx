@@ -6,96 +6,76 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Container from '@components/Container';
-import { Minimal } from '../../layouts';
+import { ArrowBack } from '@mui/icons-material';
+import { useHistory } from 'react-router-dom';
+import NotFoundIllustration from '../../svg/illustrations/NotFoundIllustration';
 
 const NotFound = (): JSX.Element => {
 	const theme = useTheme();
 	const isMd = useMediaQuery(theme.breakpoints.up('md'), {
 		defaultMatches: true,
 	});
+	const router = useHistory();
 
 	return (
-		<Minimal>
-			<Box
-				bgcolor={theme.palette.alternate.main}
-				position={'relative'}
-				minHeight={'calc(100vh - 247px)'}
-				display={'flex'}
-				alignItems={'center'}
-				justifyContent={'center'}
-				height={1}
-			>
-				<Container>
-					<Grid container>
-						<Grid
-							item
-							container
-							alignItems={'center'}
-							justifyContent={'center'}
-							xs={12}
-							md={6}
-						>
-							<Box>
-								<Typography
-									variant="h1"
-									component={'h1'}
-									align={isMd ? 'left' : 'center'}
-									sx={{ fontWeight: 700 }}
-								>
-									404
-								</Typography>
-								<Typography
-									variant="h6"
-									component="p"
-									color="text.secondary"
-									align={isMd ? 'left' : 'center'}
-								>
-									Oops! Looks like you followed a bad link.
-									<br />
-									If you think this is a problem with us, please{' '}
-									<Link href={''} underline="none">
-										tell us
-									</Link>
-								</Typography>
-								<Box
-									marginTop={4}
-									display={'flex'}
-									justifyContent={{ xs: 'center', md: 'flex-start' }}
-								>
-									<Button
-										component={Link}
-										variant="contained"
-										color="primary"
-										size="large"
-										href={'/'}
-									>
-										Back home
-									</Button>
-								</Box>
-							</Box>
-						</Grid>
-						<Grid item container justifyContent={'center'} xs={12} md={6}>
-							<Box height={1} width={1} maxWidth={500}>
-								<Box
-									component={'img'}
-									src={
-										'https://storage.googleapis.com/static.almondhydroponics.com/static/images/illustration_404.svg'
-									}
-									width={1}
-									height={1}
-									sx={{
-										filter:
-											theme.palette.mode === 'dark'
-												? 'brightness(0.8)'
-												: 'none',
-									}}
-								/>
-							</Box>
-						</Grid>
+		<Box
+			bgcolor={theme.palette.alternate.main}
+			position={'relative'}
+			minHeight={'100vh'}
+			display={'flex'}
+			alignItems={'center'}
+			justifyContent={'center'}
+			height={1}
+		>
+			<Container>
+				<Grid container>
+					<Grid item container justifyContent={'center'} xs={12} md={6}>
+						<Box height={1} width={1} maxWidth={500}>
+							<NotFoundIllustration />
+						</Box>
 					</Grid>
-				</Container>
-			</Box>
-		</Minimal>
+					<Grid
+						item
+						container
+						alignItems={'center'}
+						justifyContent={'center'}
+						xs={12}
+						md={6}
+					>
+						<Box>
+							<Typography
+								variant="h6"
+								component="p"
+								color="text.secondary"
+								align={isMd ? 'left' : 'center'}
+							>
+								Oops! Looks like you followed a bad link.
+								<br />
+								If you think this is a problem with us, please{' '}
+								<Link href={''} underline="none">
+									tell us
+								</Link>
+							</Typography>
+							<Box
+								marginTop={4}
+								display={'flex'}
+								justifyContent={{ xs: 'center', md: 'flex-start' }}
+							>
+								<Button
+									variant="contained"
+									color="primary"
+									size="large"
+									startIcon={<ArrowBack />}
+									onClick={router.goBack}
+								>
+									Back home
+								</Button>
+							</Box>
+						</Box>
+					</Grid>
+				</Grid>
+			</Container>
+		</Box>
 	);
 };
 
