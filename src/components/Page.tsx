@@ -13,8 +13,6 @@ import { IRootState } from '../store/rootReducer';
 import SnackBar from '@components/atoms/SnackBar';
 import { UserContext } from '@context/UserContext';
 import getTheme from '../theme';
-import { ComponentProvider } from '@context/ComponentContext';
-import { initializeGA, logPageView } from '@utils/googleAnalytics';
 import { IClientOptions } from 'mqtt';
 import { Connector } from '@hooks/mqtt';
 
@@ -24,7 +22,7 @@ interface Props {
 	children: ReactNode;
 }
 
-export default function Page({ children }: Props): JSX.Element {
+const Page = ({ children }: Props): JSX.Element => {
 	const [mode, setMode] = useState<'light' | 'dark'>('light');
 	const isAuthenticated = authService.isAuthenticated();
 	const dispatch = useDispatch();
@@ -37,12 +35,6 @@ export default function Page({ children }: Props): JSX.Element {
 	const { user } = useSelector(
 		(globalState: IRootState) => globalState.authentication,
 	);
-
-	useEffect(() => {
-		initializeGA();
-		logPageView();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 
 	if (isAuthenticated) {
 		useEffectAsync(async () => {
@@ -100,8 +92,8 @@ export default function Page({ children }: Props): JSX.Element {
 	};
 
 	const options: IClientOptions = {
-		username: process.env.MQTT_USER,
-		password: process.env.MQTT_PASSWORD,
+		username: process.env.NEXT_PUBLIC_MQTT_USER,
+		password: process.env.NEXT_PUBLIC_MQTT_PASSWORD,
 		keepalive: 0,
 		clientId: activeDevice?.id ?? 'almond_undefined',
 		// protocolId: 'MQTT',
@@ -126,25 +118,40 @@ export default function Page({ children }: Props): JSX.Element {
 			<ColorModeContext.Provider value={colorMode}>
 				<ThemeProvider theme={theme}>
 					<Connector
-						brokerUrl={process.env.MQTT_BROKER_URL}
+						brokerUrl={process.env.NEXT_PUBLIC_MQTT_BROKER_URL}
 						options={options}
 						// parserMethod={(msg) => msg}
 					>
 						<UserContext.Provider value={userDetailsOnProvider}>
-							<ComponentProvider>
-								{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-								<CssBaseline />
-								{isFetchingDetails ? (
-									<LinearProgress color="primary" />
-								) : (
-									<Paper elevation={0}>{children}</Paper>
-								)}
-								<SnackBar snack={snack} />
-							</ComponentProvider>
+							<style jsx>{`
+								a {
+									margin: 0 10px 0 0;
+								}
+							`}</style>
+							{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+							<CssBaseline />
+							{isFetchingDetails ? (
+								<LinearProgress color="primary" />
+							) : (
+								<Paper elevation={0}>{children}</Paper>
+							)}
+							<SnackBar snack={snack} />
 						</UserContext.Provider>
 					</Connector>
 				</ThemeProvider>
 			</ColorModeContext.Provider>
 		</StyledEngineProvider>
 	);
-}
+};
+
+// Page.getInitialProps = async () => {
+// 	const isAuthenticated = authService.isAuthenticated();
+//   console.log('Class: , Function: getInitialProps, Line 142 isAuthenticated():', isAuthenticated);
+// 	const dispatch = useDispatch();
+//
+// 	if (isAuthenticated) {
+// 			await dispatch(getUserDetails());
+// 	}
+// };
+
+export default Page;

@@ -98,9 +98,9 @@ const Dashboard = ({ children }: Props): JSX.Element => {
 				<AppBar
 					position={'fixed'}
 					sx={{
-						backgroundColor: theme.palette.background.paper,
+						background: theme.palette.alternate.main,
 						zIndex: theme.zIndex.drawer + 1,
-						borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+						// borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
 					}}
 					elevation={0}
 				>
@@ -116,7 +116,13 @@ const Dashboard = ({ children }: Props): JSX.Element => {
 				</AppBar>
 			</ElevationScroll>
 			{hidden && (
-				<Drawer variant="permanent">
+				<Drawer
+					variant="permanent"
+					sx={{
+						background: theme.palette.alternate.main,
+						borderRight: 'none',
+					}}
+				>
 					<Toolbar />
 					<MenuContent />
 				</Drawer>

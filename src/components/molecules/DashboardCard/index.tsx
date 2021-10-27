@@ -14,7 +14,7 @@ const DashboardCard = ({
 		<Box
 			sx={{
 				height: 'fit-content',
-				border: `1px solid ${theme.palette.divider}`,
+				border: `0.8px solid ${theme.palette.divider}`,
 				borderRadius: 2,
 				backgroundColor: theme.palette.background.paper,
 				marginBottom: 1,

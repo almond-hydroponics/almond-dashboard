@@ -29,14 +29,14 @@ import {
 	KeyboardArrowLeft,
 	KeyboardArrowRight,
 } from '@mui/icons-material';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 export const EnterDeviceContext = createContext({ handleNext: () => {} });
 
 const steps = ['Add new device', 'Configure connectivity', 'Go to dashboard'];
 
-export const EnterDeviceIdView = (): JSX.Element => {
-	const router = useHistory();
+const EnterDeviceIdView = (): JSX.Element => {
+	const router = useRouter();
 	const theme = useTheme();
 	const isSm = useMediaQuery(theme.breakpoints.down('sm'), {
 		defaultMatches: true,

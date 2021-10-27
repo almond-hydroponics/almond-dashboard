@@ -7,14 +7,14 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import { ArrowBack } from '@mui/icons-material';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 const ServerError = (): JSX.Element => {
 	const theme = useTheme();
 	const isMd = useMediaQuery(theme.breakpoints.up('md'), {
 		defaultMatches: true,
 	});
-	const router = useHistory();
+	const router = useRouter();
 
 	return (
 		<Box

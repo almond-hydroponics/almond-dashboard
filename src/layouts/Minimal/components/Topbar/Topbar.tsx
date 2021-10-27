@@ -4,10 +4,10 @@ import { useTheme } from '@mui/material/styles';
 import { ArrowBackRounded } from '@mui/icons-material';
 import { IconButton, Typography } from '@mui/material';
 import CustomAvatar from '@components/molecules/CustomAvatar';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 const Topbar = (): JSX.Element => {
-	const router = useHistory();
+	const router = useRouter();
 	const theme = useTheme();
 
 	return (
@@ -20,7 +20,7 @@ const Topbar = (): JSX.Element => {
 				sx={{ display: 'flex' }}
 				alignItems={'center'}
 				onClick={() =>
-					router.push(location.pathname === '/account' ? '/dashboard' : '/')
+					router.push(router.pathname === '/account' ? '/dashboard' : '/')
 				}
 			>
 				<IconButton
@@ -35,7 +35,7 @@ const Topbar = (): JSX.Element => {
 					color="primary"
 					sx={{ cursor: 'pointer' }}
 				>
-					{location.pathname === '/account' ? 'back' : 'home'}
+					{router.pathname === '/account' ? 'back' : 'home'}
 				</Typography>
 			</Box>
 			<Box sx={{ display: { xs: 'none', md: 'flex' } }}>

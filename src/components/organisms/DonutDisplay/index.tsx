@@ -45,7 +45,6 @@ const DonutDisplay = ({
 					outerRadius: '100%',
 					innerRadius: '60%',
 					backgroundColor: Highcharts.color(
-						// @ts-expect-error
 						color ?? Highcharts?.getOptions().colors[0],
 					)
 						.setOpacity(0.3)
@@ -76,7 +75,6 @@ const DonutDisplay = ({
 				type: 'solidgauge',
 				data: [
 					{
-						// @ts-expect-error
 						color: color ?? Highcharts?.getOptions().colors[0],
 						radius: '100%',
 						innerRadius: '60%',

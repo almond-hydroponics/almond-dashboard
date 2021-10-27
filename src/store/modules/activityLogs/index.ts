@@ -15,7 +15,7 @@ export const logActivity = (activityLogs: ActivityLogs[]): LogActivity => ({
 export const activityLogsInitialState = [];
 
 export const reducer = (
-	state: never[] = activityLogsInitialState,
+	state: any[] = activityLogsInitialState,
 	action: AnyAction,
 ) => {
 	if (action.type === LOG_ACTIVITY) {

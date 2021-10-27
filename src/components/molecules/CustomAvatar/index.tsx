@@ -2,31 +2,25 @@ import {
 	Avatar,
 	Menu,
 	MenuItem,
-	ListItemIcon,
 	Tooltip,
 	ListItemAvatar,
 	ListItemText,
-	Divider,
-	Box,
 	Button,
 } from '@mui/material';
 import fancyId from '@utils/fancyId';
 import { useState, MouseEvent, useContext } from 'react';
 import {
 	AccountCircleOutlined,
-	Help,
 	HelpOutline,
 	Logout,
 	Mood,
-	OpenInNew,
-	Settings,
 } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from '@modules/user';
 import { UserContext } from '@context/UserContext';
 import { alpha, useTheme } from '@mui/material/styles';
 import { ComponentContext } from '@context/ComponentContext';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 interface Props {
 	hasMultipleRoles?: boolean;
@@ -37,7 +31,7 @@ const CustomAvatar = ({
 	hasMultipleRoles = false,
 	...rest
 }: Props): JSX.Element => {
-	const router = useHistory();
+	const router = useRouter();
 	const dispatch = useDispatch();
 	const theme = useTheme();
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -57,8 +51,8 @@ const CustomAvatar = ({
 	};
 
 	const logoutActiveUser = async (): Promise<void> => {
-		await window.location.replace('/');
 		dispatch(logoutUser());
+		await router.replace('/');
 	};
 
 	const open = Boolean(anchorEl);
@@ -78,7 +72,7 @@ const CustomAvatar = ({
 		},
 	];
 
-	if (location.pathname === '/') {
+	if (router.pathname === '/') {
 		menuItems = menuItems.filter((item) => {
 			return item.name !== 'Settings';
 		});
@@ -160,7 +154,7 @@ const CustomAvatar = ({
 						</MenuItem>
 					);
 				})}
-				{location.pathname === '/dashboard' && hasMultipleRoles && (
+				{router.pathname === '/dashboard' && hasMultipleRoles && (
 					<MenuItem
 						onClick={handleRoleModal}
 						sx={{

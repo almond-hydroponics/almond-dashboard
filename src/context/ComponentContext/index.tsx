@@ -2,12 +2,14 @@ import { useState, createContext, SyntheticEvent, MouseEvent } from 'react';
 import { ComponentContextProps, ComponentContextState } from './interfaces';
 
 const selectedIndex = JSON.parse(
-	window.localStorage.getItem('selectedIndex') as string,
+	typeof window !== 'undefined'
+		? (window.localStorage.getItem('selectedIndex') as string)
+		: '0',
 );
 
 const ComponentContext = createContext({
 	isMenuOpen: false,
-	selectedIndex: selectedIndex || 0,
+	selectedIndex: selectedIndex ?? 0,
 	isSelectDeviceModalOpen: false,
 	isActivityDrawerOpen: false,
 	isChangeRoleDialogOpen: false,
@@ -37,7 +39,11 @@ const ComponentProvider = ({
 		isOpen: false,
 		isMenuOpen: false,
 		selectedIndex:
-			JSON.parse(window.localStorage.getItem('selectedIndex') as string) || 0,
+			JSON.parse(
+				typeof window !== 'undefined'
+					? (window.localStorage.getItem('selectedIndex') as string)
+					: '0',
+			) ?? 0,
 		isSelectDeviceModalOpen: false,
 		isActivityDrawerOpen: false,
 		isChangeRoleDialogOpen: false,

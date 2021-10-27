@@ -4,13 +4,13 @@ services:
     container_name: web
     restart: unless-stopped
     build: ./
-    env_file: .env
+    env_file: .env.local
 
   nginx:
     container_name: nginx
     build: ./nginx
     restart: unless-stopped
-    env_file: .env
+    env_file: .env.local
     ports:
       - '80:80'
       - '443:443'

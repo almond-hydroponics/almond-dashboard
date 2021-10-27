@@ -1,7 +1,6 @@
 import { Controller } from 'react-hook-form';
 import { FormInputProps } from './FormInputProps';
 import { InputAdornment, TextField } from '@mui/material';
-import { PhonelinkSetupSharp } from '@mui/icons-material';
 
 interface IconProps {
 	[x: string]: any;
@@ -16,6 +15,7 @@ const FormInputText = ({
 	...rest
 }: FormInputProps) => {
 	const IconAdornment = ({ ...rest }: IconProps): JSX.Element => {
+		// @ts-ignore
 		return <Icon {...rest} />;
 	};
 

@@ -13,7 +13,7 @@ const http = axios.create({
 	// baseURL: authService.isAuthenticated
 	//   ? process.env.ALMOND_API
 	//   : process.env.ALMOND_AUTH_API,
-	baseURL: process.env.ALMOND_API,
+	baseURL: process.env.NEXT_PUBLIC_ALMOND_API,
 	headers: {
 		Authorization: `Bearer ${token}`,
 	},

@@ -180,19 +180,6 @@ const Topbar = (): JSX.Element => {
 					<CustomAvatar hasMultipleRoles={roles?.length > 1} />
 				</Box>
 			</Box>
-
-			{/*<Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>*/}
-			{/*	<Box sx={{ display: 'flex' }} alignItems={'center'}>*/}
-			{/*		{!isAdmin && renderDeviceDisplay()}*/}
-			{/*	</Box>*/}
-			{/*	<Box marginLeft={1}>{renderTimeLineIcon()}</Box>*/}
-			{/*	<Box marginLeft={1}>*/}
-			{/*		<NotificationsModal />*/}
-			{/*	</Box>*/}
-			{/*	<Box marginLeft={1}>*/}
-			{/*		<CustomAvatar hasMultipleRoles={roles?.length > 1} />*/}
-			{/*	</Box>*/}
-			{/*</Box>*/}
 		</Box>
 	);
 };

@@ -1,9 +1,9 @@
-export {
-	AdminBottomNavigationMenus,
-	AdminMenus,
-	BottomNavigationMenus,
-	UserMenus,
-} from './MenuRoutes';
+// export {
+// 	AdminBottomNavigationMenus,
+// 	AdminMenus,
+// 	BottomNavigationMenus,
+// 	UserMenus,
+// } from './MenuRoutes';
 export { default as BottomNavigation } from './BottomNavigation';
 export { default as NotificationsModal } from './NotificationsModal';
 export { default as AnalyticsCard } from './AnalyticsCard';
