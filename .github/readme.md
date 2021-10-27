@@ -11,9 +11,9 @@
 
 <div align="center">
 
-    Musings sphere to share amazing ideas and articles with the rest of the world.
+    Almond console application for the hydroponics farm
 
-[![Almond](../public/images/readme.png)](https://almond-re-staging.herokuapp.com/)
+[![Almond](../public/img/readme.png)](https://almond-re-staging.herokuapp.com/)
 
 #### Simple but complicated musings
 
@@ -65,6 +65,7 @@ Run `yarn test` to execute the unit tests. This is achieved through the use of j
 Run `yarn cypress:open` to execute the end-to-end tests via Cypress.
 
 ## Others
+
 [API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.

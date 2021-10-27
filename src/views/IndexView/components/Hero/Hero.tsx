@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import Container from '@components/Container';
 import authService from '@utils/auth';
@@ -20,7 +20,7 @@ const Hero = (): JSX.Element => {
 
 	const { devices } = useContext(UserContext);
 	const isAuthed = authService.isAuthenticated();
-	const router = useHistory();
+	const router = useRouter();
 
 	const handleAuthModal = () => {
 		setAuthModalOpen((prevState) => !prevState);
@@ -68,7 +68,9 @@ const Hero = (): JSX.Element => {
 
 	const handleLogin = () =>
 		isAuthed
-			? router.push(`${isArrayNotNull(devices) ? '/dashboard' : '/my-device'}`)
+			? router.push(
+					`${isArrayNotNull(devices) ? '/dashboard' : '/setup-device'}`,
+			  )
 			: handleAuthModal();
 
 	const LeftSide = () => (

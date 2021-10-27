@@ -51,7 +51,6 @@ const Security = (): JSX.Element => {
 		defaultMatches: true,
 	});
 
-	//@ts-expect-error
 	const { values, isValid, errors, hasError, handleFormChange, handleSubmit } =
 		useFormState({
 			onSubmit: (userDetails) => dispatch(editUserDetails(_id, userDetails)),

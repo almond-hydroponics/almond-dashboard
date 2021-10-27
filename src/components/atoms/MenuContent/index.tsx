@@ -4,10 +4,12 @@ import { AdminMenus, UserMenus } from '@components/molecules/MenuRoutes';
 import { UserContext } from '@context/UserContext';
 import { ComponentContext } from '@context/ComponentContext';
 import { MenuTab, MenuTabs } from '@components/atoms';
+import { useTheme } from '@mui/material/styles';
 
 const MenuContent = (): JSX.Element => {
 	const { selectedIndex, setSelectedIndex } = useContext(ComponentContext);
 	const { isAdmin } = useContext(UserContext);
+	const theme = useTheme();
 
 	const checkIsAdmin = () => (isAdmin ? AdminMenus : UserMenus);
 

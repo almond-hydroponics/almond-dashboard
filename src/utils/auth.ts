@@ -27,14 +27,19 @@ const authService: any = {
 		Cookies.remove('jwt_token', { path: '/' });
 	},
 	redirectUser() {
-		const referrer = window.location.pathname;
+		let referrer;
+		if (typeof window !== 'undefined') {
+			referrer = window.location.pathname;
+		}
 		this.logoutUser();
 		localStorage.setItem(
 			'sessionError',
 			'Your session has expired, please log in to continue.',
 		);
 		localStorage.setItem('locationReferrer', referrer);
-		window.location.replace('/');
+		if (typeof window !== 'undefined') {
+			window.location.replace('/');
+		}
 	},
 };
 

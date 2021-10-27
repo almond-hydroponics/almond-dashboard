@@ -1,9 +1,4 @@
 import { useContext } from 'react';
-// components
-import {
-	AdminBottomNavigationMenus,
-	BottomNavigationMenus,
-} from '@components/molecules';
 // third party
 import {
 	BottomNavigation,
@@ -16,6 +11,10 @@ import {
 import { ComponentContext } from '@context/ComponentContext';
 import { UserContext } from '@context/UserContext';
 import { alpha, useTheme } from '@mui/material/styles';
+import {
+	AdminBottomNavigationMenus,
+	BottomNavigationMenus,
+} from '@components/molecules/MenuRoutes';
 
 const PageBottomNavigation = (): JSX.Element => {
 	const { selectedIndex, setSelectedIndex } = useContext(ComponentContext);
@@ -36,7 +35,8 @@ const PageBottomNavigation = (): JSX.Element => {
 					bottom: 0,
 					left: 0,
 					right: 0,
-					borderTop: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+					background: theme.palette.alternate.main,
+					// borderTop: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
 				}}
 				elevation={0}
 				data-testid="bottom-navigation"

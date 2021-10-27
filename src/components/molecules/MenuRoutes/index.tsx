@@ -1,11 +1,11 @@
 // views
-import AnalyticsView from '@views/AnalyticsView';
-import WaterCyclesView from '@views/WaterCyclesView';
-import EnvironmentControlView from '@views/EnvironmentControlView';
-import DeviceManagementView from '@views/DeviceManagementView';
-import SupportView from '@views/SupportView';
-import PeopleView from '@views/PeopleView';
-import UserRolesView from '@views/UserRolesView';
+import AnalyticsView from 'views/AnalyticsView';
+import WaterCyclesView from 'views/WaterCyclesView';
+import EnvironmentControlView from 'views/EnvironmentControlView';
+import DeviceManagementView from 'views/DeviceManagementView';
+import SupportView from 'views/SupportView';
+import PeopleView from 'views/PeopleView';
+import UserRolesView from 'views/UserRolesView';
 // third-party-icons
 import {
 	AllOut,

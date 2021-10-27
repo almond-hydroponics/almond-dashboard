@@ -1,7 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/system';
 import Box from '@mui/material/Box';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 const darkLogo = 'https://static.almondhydroponics.com/static/logo.png';
 const logo = 'https://static.almondhydroponics.com/static/logo.png';
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Logo = ({ displayText = false }: Props): JSX.Element => {
-	const router = useHistory();
+	const router = useRouter();
 	const {
 		palette: { mode },
 	} = useTheme();

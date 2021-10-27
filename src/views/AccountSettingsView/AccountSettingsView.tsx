@@ -10,7 +10,7 @@ import { TabPanel, MenuTabs, MenuTab } from '@components/atoms';
 import { General, Notifications, Device } from './components';
 import Container from '@components/Container';
 import { alpha, useTheme } from '@mui/material/styles';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { Minimal } from '../../layouts';
 
 const subPages: MenuComponentProps[] = [
@@ -42,7 +42,11 @@ const subPages: MenuComponentProps[] = [
 
 const AccountSettingsView = (): JSX.Element => {
 	const [selectedTabIndex, setSelectedTabIndex] = useState<number>(
-		JSON.parse(window.localStorage.getItem('selectedTabIndex') as string) || 0,
+		JSON.parse(
+			typeof window !== 'undefined'
+				? (window.localStorage.getItem('selectedTabIndex') as string)
+				: '0',
+		),
 	);
 
 	useEffect(() => {
@@ -52,7 +56,7 @@ const AccountSettingsView = (): JSX.Element => {
 		);
 	}, [selectedTabIndex]);
 
-	const history = useHistory();
+	const history = useRouter();
 
 	const theme = useTheme();
 	const isSm = useMediaQuery(theme.breakpoints.up('sm'), {

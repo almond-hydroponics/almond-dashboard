@@ -112,7 +112,7 @@ const General = (): JSX.Element => {
 				},
 			);
 			return response.data as unknown as string;
-		} catch (e) {
+		} catch (e: any) {
 			return e.response ? e.response : e;
 		}
 	};

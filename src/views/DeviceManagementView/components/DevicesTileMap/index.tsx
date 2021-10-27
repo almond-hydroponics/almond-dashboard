@@ -1,6 +1,6 @@
 import { HexGrid, Layout, Hexagon, GridGenerator } from 'react-hexgrid';
 import { Box } from '@mui/material';
-import './devicesTiles.css';
+import './devicesTiles.module.css';
 import fancyId from '@utils/fancyId';
 
 interface Props {

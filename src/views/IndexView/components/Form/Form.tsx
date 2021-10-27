@@ -9,6 +9,7 @@ import validate from 'validate.js';
 import { EmailRounded, Visibility, VisibilityOff } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { IRootState } from '../../../../store/rootReducer';
+import { useRouter } from 'next/router';
 
 interface Props {
 	handleAuthModal: () => void;
@@ -40,6 +41,7 @@ const Form = ({
 	authByEmail,
 }: Props): JSX.Element => {
 	const dispatch = useDispatch();
+	const router = useRouter();
 	const auth = useSelector(
 		(globalState: IRootState) => globalState.authentication,
 	);
@@ -59,7 +61,7 @@ const Form = ({
 		});
 
 	const handleLogin = () =>
-		window.location.replace(`${process.env.ALMOND_API}/auth/google`);
+		router.replace(`${process.env.NEXT_PUBLIC_ALMOND_API}/auth/google`);
 
 	const renderContinueWithEmail = (): JSX.Element => (
 		<form name="email-login" onSubmit={handleSubmit}>

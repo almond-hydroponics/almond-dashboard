@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Container from '@components/Container';
 import { ArrowBack } from '@mui/icons-material';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import NotFoundIllustration from '../../svg/illustrations/NotFoundIllustration';
 
 const NotFound = (): JSX.Element => {
@@ -15,7 +15,7 @@ const NotFound = (): JSX.Element => {
 	const isMd = useMediaQuery(theme.breakpoints.up('md'), {
 		defaultMatches: true,
 	});
-	const router = useHistory();
+	const router = useRouter();
 
 	return (
 		<Box
@@ -66,7 +66,7 @@ const NotFound = (): JSX.Element => {
 									color="primary"
 									size="large"
 									startIcon={<ArrowBack />}
-									onClick={router.goBack}
+									onClick={router.back}
 								>
 									Back home
 								</Button>

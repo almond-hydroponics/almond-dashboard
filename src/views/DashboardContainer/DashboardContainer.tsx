@@ -6,42 +6,27 @@ import {
 	createElement,
 } from 'react';
 // third-party libraries
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { DashboardContainerState } from './interfaces';
 import { alpha, useTheme } from '@mui/material/styles';
 import { UserContext } from '@context/UserContext';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
+import { AdminMenus, UserMenus } from '@components/molecules/MenuRoutes';
 import dayjs from 'dayjs';
 // icons
-import {
-	AccountCircleOutlined,
-	AllOutTwoTone,
-	Close,
-	Face,
-	HelpOutline,
-	Timeline,
-} from '@mui/icons-material';
+import { AllOutTwoTone, Close, Face } from '@mui/icons-material';
 // components;
-import { AdminMenus, UserMenus } from '@components/molecules';
-import {
-	ActivityLogCard,
-	BlankContent,
-	Modal,
-	TabPanel,
-} from '@components/atoms';
+import { BlankContent, Modal, TabPanel } from '@components/atoms';
 import { IRootState } from '../../store/rootReducer';
 import { ComponentContext } from '@context/ComponentContext';
 import { useSubscription } from '@hooks/mqtt';
 import {
 	Box,
-	Chip,
-	Divider,
 	IconButton,
 	InputAdornment,
 	LinearProgress,
 	List,
 	ListItem,
-	ListItemIcon,
 	ListItemText,
 	MenuItem,
 	Stack,
@@ -112,7 +97,7 @@ const DashboardContainer = (): JSX.Element => {
 		roleId: '',
 	});
 
-	const history = useHistory();
+	const history = useRouter();
 
 	const { activeDevice, devices, isAdmin } = useContext(UserContext);
 
@@ -184,7 +169,9 @@ const DashboardContainer = (): JSX.Element => {
 		await dispatch(activateDevice(deviceId[0]._id));
 		// dispatch(getUserDetails());
 		handleSelectDeviceModal();
-		window.location.reload();
+		if (typeof window !== 'undefined') {
+			window.location.reload();
+		}
 	};
 
 	const handleDeviceInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -210,9 +197,7 @@ const DashboardContainer = (): JSX.Element => {
 		if (roleId) {
 			await dispatch(editUserRole(_id, { role: roleId }));
 		}
-		// window.localStorage.removeItem('selectedIndex');
 		setSelectedIndex(0);
-		// window.location.reload();
 	};
 
 	const renderSelectDeviceContent = () => (
@@ -315,9 +300,9 @@ const DashboardContainer = (): JSX.Element => {
 	/*
 	 * Check if it is running on web browser in iOS
 	 */
-	const iOS =
-		typeof window === 'undefined' &&
-		/iPad|iPhone|iPod/.test(navigator.userAgent);
+	// const iOS =
+	// 	typeof window === 'undefined' &&
+	// 	/iPad|iPhone|iPod/.test(navigator.userAgent);
 
 	const renderActivityDrawer = () => (
 		<SwipeableDrawer
@@ -325,8 +310,8 @@ const DashboardContainer = (): JSX.Element => {
 			open={isActivityDrawerOpen}
 			onClose={handleActivityDrawer('close')}
 			onOpen={handleActivityDrawer('open')}
-			disableBackdropTransition={!iOS}
-			disableDiscovery={iOS}
+			// disableBackdropTransition={!iOS}
+			// disableDiscovery={iOS}
 			sx={{
 				zIndex: 1400,
 			}}

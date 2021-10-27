@@ -139,7 +139,7 @@ export interface UserDevice {
 
 export interface Device extends UserDevice {
 	verified: boolean;
-  assigned: boolean;
+	assigned: boolean;
 	enabled: boolean;
 	user: Partial<UserDetails>;
 	updatedAt: string;

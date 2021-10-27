@@ -3,7 +3,7 @@
 \.build
 \.cache
 \.editorconfig
-\.env
+.env.local
 \.git
 \.gitignore
 \.ignore

@@ -10,7 +10,7 @@ import capitalize from '@utils/capitalize';
 // interfaces
 import { Permission, Resource } from '@modules/userRoles/interfaces';
 // styles
-import './PermissionAccess.scss';
+import './PermissionAccess.module.scss';
 import { PermissionAccessProps, PermissionAccessState } from './interfaces';
 import { styled, useTheme } from '@mui/material/styles';
 
