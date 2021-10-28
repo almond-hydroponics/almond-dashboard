@@ -66,7 +66,7 @@ const PermissionAccess = ({
 				)?._id;
 			});
 		}
-	}, []);
+	});
 
 	useEffect(() => {
 		setState((prevState) => ({

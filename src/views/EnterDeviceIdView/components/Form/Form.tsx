@@ -1,5 +1,5 @@
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { yupResolver } from '@hookform/resolvers/yup';
+// import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import validate from 'validate.js';
 import useFormState from '@hooks/useFormState';
@@ -8,40 +8,40 @@ import { verifyUserDevice } from '@modules/device';
 import { IRootState } from '../../../../store/rootReducer';
 import { Button, Grid } from '@mui/material';
 import { PhonelinkSetupSharp } from '@mui/icons-material';
-import { useContext } from 'react';
+import { useCallback, useContext } from 'react';
 import { EnterDeviceContext } from '@views/EnterDeviceIdView';
 import { FormInputText } from '@components/molecules';
 
-// const useValidationResolver = (validationSchema) =>
-// 	useCallback(
-// 		async (data) => {
-// 			try {
-// 				const values = await validationSchema.validate(data, {
-// 					abortEarly: false,
-// 				});
-//
-// 				return {
-// 					values,
-// 					errors: {},
-// 				};
-// 			} catch (errors) {
-// 				return {
-// 					values: {},
-// 					errors: errors.inner.reduce(
-// 						(allErrors, currentError) => ({
-// 							...allErrors,
-// 							[currentError.path]: {
-// 								type: currentError.type ?? 'validation',
-// 								message: currentError.message,
-// 							},
-// 						}),
-// 						{},
-// 					),
-// 				};
-// 			}
-// 		},
-// 		[validationSchema],
-// 	);
+const useValidationResolver = (validationSchema) =>
+	useCallback(
+		async (data) => {
+			try {
+				const values = await validationSchema.validate(data, {
+					abortEarly: false,
+				});
+
+				return {
+					values,
+					errors: {},
+				};
+			} catch (errors: any) {
+				return {
+					values: {},
+					errors: errors.inner.reduce(
+						(allErrors, currentError) => ({
+							...allErrors,
+							[currentError.path]: {
+								type: currentError.type ?? 'validation',
+								message: currentError.message,
+							},
+						}),
+						{},
+					),
+				};
+			}
+		},
+		[validationSchema],
+	);
 
 const schema = yup
 	.object({
@@ -84,7 +84,7 @@ const Form = (): JSX.Element => {
 
 	const { handleSubmit, control } = useForm<IFormInput>({
 		defaultValues: defaultValues,
-		resolver: yupResolver(schema),
+		resolver: useValidationResolver(schema),
 		mode: 'onChange',
 	});
 

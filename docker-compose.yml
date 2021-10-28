@@ -1,22 +1,13 @@
-version: '3.7'
+version: '3'
 services:
-  web:
-    container_name: web
-    restart: unless-stopped
+  dashboard:
+    container_name: dashboard
+    restart: always
     build: ./
     env_file: .env.local
+    networks:
+      - almond_almond-network
 
-  nginx:
-    container_name: nginx
-    build: ./nginx
-    restart: unless-stopped
-    env_file: .env.local
-    ports:
-      - '80:80'
-      - '443:443'
-    volumes:
-      - /etc/ssl:/etc/ssl
-      - /var/run/docker.sock:/tmp/docker.sock
-    depends_on:
-      - web
-    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+networks:
+  almond_almond-network:
+    external: true

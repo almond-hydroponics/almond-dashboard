@@ -24,7 +24,7 @@ const AdminAnalytics = (): JSX.Element => {
 
 	useEffect(() => {
 		dispatch(getAdminStatistics());
-	}, []);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const { setSelectedIndex } = useContext(ComponentContext);
 	const handleCardClick = (index: number) => () => setSelectedIndex(index);

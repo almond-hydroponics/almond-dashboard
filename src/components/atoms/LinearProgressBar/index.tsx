@@ -38,7 +38,7 @@ const LinearProgressBar = ({ delay = 1000 }: Props): JSX.Element | null => {
 		const timer = setTimeout(() => setVisibility(true), delay);
 		// cleanup function
 		return () => clearTimeout(timer);
-	}, []);
+	}, [delay]);
 
 	return visibility ? (
 		<ColorLinearProgress variant="determinate" value={completed} />

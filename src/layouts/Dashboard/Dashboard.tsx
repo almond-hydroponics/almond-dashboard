@@ -118,9 +118,11 @@ const Dashboard = ({ children }: Props): JSX.Element => {
 			{hidden && (
 				<Drawer
 					variant="permanent"
-					sx={{
-						background: theme.palette.alternate.main,
-						borderRight: 'none',
+					PaperProps={{
+						sx: {
+							background: theme.palette.alternate.main,
+							borderRight: 'none',
+						},
 					}}
 				>
 					<Toolbar />

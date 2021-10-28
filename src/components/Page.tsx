@@ -36,11 +36,11 @@ const Page = ({ children }: Props): JSX.Element => {
 		(globalState: IRootState) => globalState.authentication,
 	);
 
-	if (isAuthenticated) {
-		useEffectAsync(async () => {
+	useEffectAsync(async () => {
+		if (isAuthenticated) {
 			await dispatch(getUserDetails());
-		}, []);
-	}
+		}
+	}, []);
 
 	const {
 		_id,

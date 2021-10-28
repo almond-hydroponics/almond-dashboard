@@ -61,7 +61,7 @@ const PeopleView = (): JSX.Element => {
 
 	useEffectAsync(async () => {
 		await dispatch(getAllPeople());
-	}, []);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		dispatch(getUserRoles());

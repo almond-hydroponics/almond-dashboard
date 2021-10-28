@@ -9,7 +9,7 @@ const authService: any = {
 		return Cookies.get('jwt_token');
 	},
 	decodeToken() {
-		return jwtDecode(<string>this.getToken());
+		return jwtDecode(this.getToken());
 	},
 	isAuthenticated() {
 		return !!this.getToken();

@@ -193,7 +193,6 @@ export const loginAccount =
 				dispatch(displaySnackMessage(message));
 			})
 			.catch((error) => {
-				console.log('Class: , Function: , Line 196 error():', error);
 				dispatch(loginAccountFailure(error.message));
 				errorOnSnack(
 					error,

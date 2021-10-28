@@ -108,8 +108,10 @@ export const DeviceManagementView = (): JSX.Element => {
 	const handleDeviceUploadState = () => {
 		axios
 			.get('http://192.168.0.13/restart')
+			/* eslint-disable no-console */
 			.then((r) => console.log(r))
 			.catch((e) => console.error(e));
+		/* eslint-enable no-console */
 	};
 
 	const handleValueChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -174,7 +176,7 @@ export const DeviceManagementView = (): JSX.Element => {
 			dispatch(deleteDevice(state.deviceId));
 			toggleDeviceDeleteModal();
 		},
-		[state.deviceId],
+		[state.deviceId], // eslint-disable-line react-hooks/exhaustive-deps
 	);
 
 	const onAddEditDeviceSubmit = (event: FormEvent<HTMLFormElement>) => {

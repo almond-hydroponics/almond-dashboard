@@ -1,5 +1,5 @@
+import firebase from 'firebase/compat/app';
 import 'firebase/messaging';
-import firebase from 'firebase/app';
 import localforage from 'localforage';
 
 // Your web app's Firebase configuration
@@ -28,15 +28,14 @@ const firebaseCloudMessaging = {
 				return false;
 			}
 
-			// @ts-expect-error
 			const messaging = firebase.messaging();
 			await Notification.requestPermission();
 			const token = await messaging.getToken();
 
 			await localforage.setItem('fcm_token', token);
-			console.log('fcm_token', token);
+			console.log('fcm_token', token); // eslint-disable-line no-console
 		} catch (error) {
-			console.error(error);
+			console.error(error); // eslint-disable-line no-console
 		}
 	},
 };

@@ -26,6 +26,7 @@ const securityHeaders = [
 ];
 
 module.exports = withPWA({
+	swcMinify: true,
 	reactStrictMode: true,
 	pwa: {
 		dest: 'public',

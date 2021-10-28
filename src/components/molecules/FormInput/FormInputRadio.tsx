@@ -7,6 +7,7 @@ import {
 } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import { FormInputProps } from './FormInputProps';
+import fancyId from '@utils/fancyId';
 
 const options = [
 	{
@@ -23,6 +24,7 @@ const FormInputRadio = ({ name, control, label }: FormInputProps) => {
 	const generateRadioOptions = () => {
 		return options.map((singleOption) => (
 			<FormControlLabel
+				key={fancyId()}
 				value={singleOption.value}
 				label={singleOption.label}
 				control={<Radio />}

@@ -1,5 +1,5 @@
 // react libraries
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 // Third party libraries
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import {
@@ -123,7 +123,7 @@ const UserRolesView = (): JSX.Element => {
 
 	useEffect(() => {
 		dispatch(getUserRoles());
-	}, []);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		setState((prevState) => ({
@@ -132,6 +132,26 @@ const UserRolesView = (): JSX.Element => {
 			resources,
 		}));
 	}, [resources, permissions]);
+
+	const onResetAccessPermissions = () => {
+		setState((prevState) => ({
+			...prevState,
+			resources: state.resources.map((resource) =>
+				resource._id
+					? {
+							_id: resource._id,
+							name: resource.name,
+					  }
+					: {
+							...resource,
+					  },
+			),
+		}));
+	};
+
+	const onResetPermission = useCallback(() => {
+		onResetAccessPermissions();
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const { values, isValid, errors, hasError, handleFormChange, handleSubmit } =
 		useFormState({
@@ -169,7 +189,7 @@ const UserRolesView = (): JSX.Element => {
 
 	useEffect(() => {
 		onResetPermission();
-	}, [state.isAddEditModalOpen]);
+	}, [state.isAddEditModalOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// const setResourcesPermissions = () => {
 	// 	setState((prevState) => ({
@@ -290,24 +310,6 @@ const UserRolesView = (): JSX.Element => {
 		onResetPermission();
 		toggleAddRoleModal();
 	};
-
-	const onResetAccessPermissions = () => {
-		setState((prevState) => ({
-			...prevState,
-			resources: state.resources.map((resource) =>
-				resource._id
-					? {
-							_id: resource._id,
-							name: resource.name,
-					  }
-					: {
-							...resource,
-					  },
-			),
-		}));
-	};
-
-	const onResetPermission = () => onResetAccessPermissions();
 
 	const handleRoleDelete = async () => {
 		await dispatch(deleteUserRole(state.roleId));

@@ -1,5 +1,4 @@
-import { useState, useEffect, useMemo, useContext } from 'react';
-import { useSpring, animated } from 'react-spring';
+import { useState, useContext } from 'react';
 import { DarkModeTogglerProps } from './interfaces';
 import { ColorModeContext } from '../../Page';
 import { useTheme } from '@mui/system';

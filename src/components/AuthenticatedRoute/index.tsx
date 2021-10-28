@@ -13,6 +13,7 @@ import authService from '@utils/auth';
  * @param {Component} Component
  * @returns {JSX}
  */
+/* eslint-disable react/display-name */
 const renderComponent = (Component) => (props) => {
 	return <Component {...props} />;
 };

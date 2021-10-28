@@ -9,6 +9,7 @@ let wrapper: ({ children }: { children: any }) => JSX.Element;
 
 describe.skip('useSubscription', () => {
 	beforeAll(() => {
+		/* eslint-disable react/display-name */
 		wrapper = ({ children }) => (
 			<Connector brokerUrl={URL} options={options}>
 				{children}

@@ -147,7 +147,7 @@ const DashboardContainer = (): JSX.Element => {
 			};
 			dispatch(getSensorDataFromMqtt(data));
 		}
-	}, [message]);
+	}, [message]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		setState((prevState) => ({
@@ -155,7 +155,7 @@ const DashboardContainer = (): JSX.Element => {
 			activeDevice,
 			device: activeDevice.id,
 		}));
-	}, []);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		setState((prevState) => ({

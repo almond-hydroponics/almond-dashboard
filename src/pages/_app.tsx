@@ -19,6 +19,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'aos/dist/aos.css';
 import 'assets/css/index.css';
 import 'assets/css/fonts.css';
+import firebaseCloudMessaging from '@utils/firebase';
+import useEffectAsync from '@hooks/useEffectAsync';
 
 interface Props extends AppProps {
 	emotionCache?: EmotionCache;
@@ -43,8 +45,7 @@ const App = ({
 		if (!router.asPath.includes('?')) {
 			logPageView();
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	});
 
 	useEffect(() => {
 		// Listen for page changes after a navigation or when the query changes
@@ -53,6 +54,10 @@ const App = ({
 			router.events.off('routeChangeComplete', logPageView);
 		};
 	}, [router.events]);
+
+	useEffectAsync(async () => {
+		await firebaseCloudMessaging.init();
+	}, []);
 
 	return (
 		<CacheProvider value={emotionCache}>

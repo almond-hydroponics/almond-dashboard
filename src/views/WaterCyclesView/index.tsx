@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 // third-party libraries
 import {
@@ -177,11 +177,11 @@ export const WaterCyclesView = (): JSX.Element => {
 
 	useEffect(() => {
 		dispatch(getAllSchedules(activeDevice._id));
-	}, [activeDevice?._id]);
+	}, [activeDevice?._id]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		dispatch(getPumpStatus(activeDevice._id));
-	}, [activeDevice?._id]);
+	}, [activeDevice?._id]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		// const ranges = getDateRange('Today');
@@ -196,7 +196,7 @@ export const WaterCyclesView = (): JSX.Element => {
 			measurement: 'temperature',
 		};
 		dispatch(getAirTemperatureTrend(queryParams));
-	}, []);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// useEffect(() => {
 	//   props.getWaterData();

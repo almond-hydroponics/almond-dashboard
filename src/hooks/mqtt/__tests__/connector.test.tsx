@@ -7,6 +7,7 @@ let wrapper;
 
 describe.skip('Connector wrapper', () => {
 	beforeAll(() => {
+		/* eslint-disable react/display-name */
 		wrapper = ({ children }) => (
 			<Connector brokerUrl={URL} options={options}>
 				{children}

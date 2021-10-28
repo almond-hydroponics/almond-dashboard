@@ -79,7 +79,7 @@ const General = (): JSX.Element => {
 	});
 
 	const handleChange = (event) => {
-		useAllowedFields((prevState) => [...prevState, event.target.name]);
+		useAllowedFields((prevState) => [...prevState, event.target.name]); // eslint-disable-line react-hooks/rules-of-hooks
 		if (event.target.name === 'photo') {
 			setSelectedPhoto(() => event.target.files[0]);
 			setIsPhotoPicked(() => true);

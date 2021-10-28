@@ -61,7 +61,7 @@ const Form = ({
 		});
 
 	const handleLogin = () =>
-		router.replace(`${process.env.NEXT_PUBLIC_ALMOND_API}/auth/google`);
+		router.replace(`${process.env.NEXT_PUBLIC_ALMOND_AUTH_API}/auth/google`);
 
 	const renderContinueWithEmail = (): JSX.Element => (
 		<form name="email-login" onSubmit={handleSubmit}>
