@@ -9,6 +9,7 @@ describe('AnalyticsCard component', () => {
 		isModalOpen: false,
 		renderHeader: () => 'Header',
 		renderContent: () => 'Context',
+		onClose: () => {},
 	};
 
 	it('should render correctly', () => {

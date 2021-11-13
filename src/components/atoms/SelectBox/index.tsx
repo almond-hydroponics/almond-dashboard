@@ -24,7 +24,7 @@ const SelectBox = ({
 }: SelectBoxProps): JSX.Element => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [selectedIndex, setSelectedIndex] = useState({
-		group: 3,
+		group: 2,
 		item: 2,
 	});
 	const isSelectBoxOpen = Boolean(anchorEl);
@@ -62,6 +62,23 @@ const SelectBox = ({
 			>
 				<Stack direction="row" spacing={2} sx={{ marginTop: 1 }}>
 					<div>
+						{options[0].map((option, index) => (
+							<MenuItem
+								key={fancyId()}
+								value={option}
+								onClick={(event) =>
+									handleMenuItemClick(event, { group: 0, item: index })
+								}
+								selected={
+									index === selectedIndex.item && selectedIndex.group === 0
+								}
+								sx={{ fontSize: 12 }}
+							>
+								{option}
+							</MenuItem>
+						))}
+					</div>
+					<div>
 						{options[1].map((option, index) => (
 							<MenuItem
 								key={fancyId()}
@@ -78,34 +95,17 @@ const SelectBox = ({
 							</MenuItem>
 						))}
 					</div>
-					<div>
-						{options[2].map((option, index) => (
-							<MenuItem
-								key={fancyId()}
-								value={option}
-								onClick={(event) =>
-									handleMenuItemClick(event, { group: 2, item: index })
-								}
-								selected={
-									index === selectedIndex.item && selectedIndex.group === 2
-								}
-								sx={{ fontSize: 12 }}
-							>
-								{option}
-							</MenuItem>
-						))}
-					</div>
 				</Stack>
 			</Stack>
 			<Divider sx={{ my: 0.5 }} />
-			{options[3].map((option, index) => (
+			{options[2].map((option, index) => (
 				<MenuItem
 					key={fancyId()}
 					value={option}
 					onClick={(event) =>
-						handleMenuItemClick(event, { group: 3, item: index })
+						handleMenuItemClick(event, { group: 2, item: index })
 					}
-					selected={index === selectedIndex.item && selectedIndex.group === 3}
+					selected={index === selectedIndex.item && selectedIndex.group === 2}
 					sx={{ fontSize: 12, color: 'primary' }}
 				>
 					{option}

@@ -11,15 +11,15 @@ const EnvironmentControlView = (): JSX.Element => {
 	);
 
 	const firstColumn = () => (
-		<Grid item lg={3} md={6} xs={6}>
+		<Grid item xs={12} md={3}>
 			<DashboardCard
 				heading="Humidity"
 				body={
 					<DonutDisplay
 						data={humidity}
 						color={'#D9E9BA'}
-						width={150}
-						height={150}
+						// width={150}
+						// height={150}
 					/>
 				}
 			/>
@@ -29,8 +29,8 @@ const EnvironmentControlView = (): JSX.Element => {
 					<DonutDisplay
 						data={temperature}
 						color={'#BFD7DF'}
-						width={150}
-						height={150}
+						// width={150}
+						// height={150}
 					/>
 				}
 			/>

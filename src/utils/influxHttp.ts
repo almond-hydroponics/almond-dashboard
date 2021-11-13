@@ -6,7 +6,7 @@ import authService from '@utils/auth';
 const token = authService.getToken();
 
 const influxHttp = axios.create({
-	baseURL: process.env.DATA_API,
+	baseURL: process.env.NEXT_PUBLIC_DATA_API,
 	headers: {
 		Authorization: `Bearer ${token}`,
 	},

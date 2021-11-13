@@ -7,6 +7,7 @@ export const devices = {
 			_id: '5dfa0dcd53890575b993eb74',
 			id: 'TEST',
 			updatedAt: '2020-06-24T13:48:36.027Z',
+			assigned: true,
 			verified: true,
 			user: {
 				name: 'Almond Test',

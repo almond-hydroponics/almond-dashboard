@@ -46,8 +46,8 @@ if (!self.define) {
 define('./sw.js', ['./workbox-4a677df8'], function (e) {
 	'use strict';
 	importScripts(
-		'worker-3Iu3P4RYvAB-U8y4OlJUm.js',
-		'fallback-3Iu3P4RYvAB-U8y4OlJUm.js',
+		'worker-PVlMxNKu5upTU37nVGzAI.js',
+		'fallback-PVlMxNKu5upTU37nVGzAI.js',
 	),
 		self.skipWaiting(),
 		e.clientsClaim(),
@@ -55,161 +55,161 @@ define('./sw.js', ['./workbox-4a677df8'], function (e) {
 			[
 				{
 					url: '/_next/server/middleware-manifest.json',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
-					url: '/_next/static/3Iu3P4RYvAB-U8y4OlJUm/_buildManifest.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					url: '/_next/static/PVlMxNKu5upTU37nVGzAI/_buildManifest.js',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
-					url: '/_next/static/3Iu3P4RYvAB-U8y4OlJUm/_middlewareManifest.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					url: '/_next/static/PVlMxNKu5upTU37nVGzAI/_middlewareManifest.js',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
-					url: '/_next/static/3Iu3P4RYvAB-U8y4OlJUm/_ssgManifest.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					url: '/_next/static/PVlMxNKu5upTU37nVGzAI/_ssgManifest.js',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/0f1ac474-8c23a49bfe34cfc7.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/254-52b4c851062f97a2.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/29e84a2a-191ec15fae1ff987.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/36bcf0ca-b951eab3237ab9d9.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/4b358913-b7e409e688f53304.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
-					url: '/_next/static/chunks/515-2eb9ffc60835a0b3.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					url: '/_next/static/chunks/515-c263c378ffce5f9e.js',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/522-f6bdfd78d4d73780.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/616-604aac171b6c51fe.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/646-16516b0c697aca6c.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/712-f01846d15df51fc6.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/889-4e6fd57acaa49e57.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/framework-9f6bd8490fd3814a.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/main-bbc80f1a4cd9cd4a.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/pages/404-1214fa238538285a.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
-					url: '/_next/static/chunks/pages/_app-0f6c9da552cfc910.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					url: '/_next/static/chunks/pages/_app-9a36ee5d5674232a.js',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/pages/_error-574d1c4eeb14dc33.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/pages/_offline-e02603405ade5670.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/pages/account-1095e9fe4c3e741d.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/pages/dashboard-288c7691dafa4bf2.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
-					url: '/_next/static/chunks/pages/index-2b51fe69217671d3.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					url: '/_next/static/chunks/pages/index-197393ff3aee19e9.js',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/pages/setup-device-5b205d35e7f3053b.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/polyfills-a40ef1678bae11e696dba45124eadd70.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/chunks/webpack-920d248bbb187189.js',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/css/351d4020faf408f5.css',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/media/ajax-loader.0b80f665.gif',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/media/sanfranciscodisplay-bold-webfont.6c9eaeff.woff',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/media/sanfranciscodisplay-medium-webfont.c31d5d9e.woff',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/media/sanfranciscodisplay-regular-webfont.5a0b539f.woff',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/media/sanfranciscodisplay-semibold-webfont.fb92d598.woff',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/media/sanfranciscodisplay-thin-webfont.2dce2483.woff',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/media/sanfranciscodisplay-ultralight-webfont.0087e0b0.woff',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/media/slick.25572f22.eot',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/media/slick.653a4cbb.woff',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/media/slick.6aa1ee46.ttf',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
 				{
 					url: '/_next/static/media/slick.f895cfdf.svg',
-					revision: '3Iu3P4RYvAB-U8y4OlJUm',
+					revision: 'PVlMxNKu5upTU37nVGzAI',
 				},
-				{ url: '/_offline', revision: '3Iu3P4RYvAB-U8y4OlJUm' },
+				{ url: '/_offline', revision: 'PVlMxNKu5upTU37nVGzAI' },
 				{ url: '/favicon.ico', revision: '67ce0ba915fb6292b5895ed92888d7ca' },
 				{
 					url: '/img/readme.png',

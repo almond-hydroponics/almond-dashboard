@@ -12,6 +12,7 @@ import {
 	StepLabel,
 	Stepper,
 	Typography,
+	Stack,
 } from '@mui/material';
 import { ConnectionForm, Form } from './components';
 import Container from '@components/Container';
@@ -23,8 +24,9 @@ import {
 } from '../../svg/illustrations';
 import { createContext, ReactNode, useState } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import {
+	ArrowBack,
 	ArrowForward,
 	KeyboardArrowLeft,
 	KeyboardArrowRight,
@@ -41,6 +43,8 @@ const EnterDeviceIdView = (): JSX.Element => {
 	const isSm = useMediaQuery(theme.breakpoints.down('sm'), {
 		defaultMatches: true,
 	});
+
+	const [value, setValue] = useState(0);
 
 	const [activeStep, setActiveStep] = useState<number>(0);
 	const [skipped, setSkipped] = useState(new Set<number>());
@@ -95,7 +99,7 @@ const EnterDeviceIdView = (): JSX.Element => {
 						<Box paddingY={2}>
 							<Divider />
 						</Box>
-						<Box height={1} width={1} maxWidth={500}>
+						<Box height={1} width={1} maxWidth={500} paddingBottom={5}>
 							<Form />
 						</Box>
 					</>
@@ -115,7 +119,7 @@ const EnterDeviceIdView = (): JSX.Element => {
 						<Box paddingY={2}>
 							<Divider />
 						</Box>
-						<Box height={1} width={1} maxWidth={500}>
+						<Box height={1} width={1} maxWidth={500} paddingBottom={5}>
 							<ConnectionForm />
 						</Box>
 					</>
@@ -162,7 +166,13 @@ const EnterDeviceIdView = (): JSX.Element => {
 									<Grid item xs={12} paddingY={2}>
 										<Divider />
 									</Grid>
-									<Grid item container justifyContent="flex-start" xs={12}>
+									<Grid
+										item
+										container
+										justifyContent="flex-start"
+										xs={12}
+										paddingBottom={5}
+									>
 										<Button
 											fullWidth
 											variant="contained"
@@ -199,51 +209,57 @@ const EnterDeviceIdView = (): JSX.Element => {
 	};
 
 	const renderBottomNavigation = (): JSX.Element => (
-		<Box sx={{ pb: 7 }} maxWidth={'700px'}>
-			<CssBaseline />
+		<Box sx={{ pb: 7, minWidth: 500 }}>
 			<Paper
 				sx={{
-					position: 'fixed',
+					position: { xs: 'fixed', md: 'unset' },
 					bottom: 0,
 					left: 0,
 					right: 0,
+					background: theme.palette.alternate.main,
+					paddingY: 1,
+					// borderTop: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
 				}}
 				elevation={0}
 			>
-				<Box
-					height={1}
-					width={1}
-					maxWidth={'100%'}
-					sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}
+				<Stack
+					direction="row"
+					justifyContent="space-around"
+					alignItems="center"
+					spacing={2}
 				>
 					<Button
-						color="inherit"
-						disabled={activeStep === 0}
+						variant="outlined"
 						onClick={handleBack}
-						sx={{ mr: 1 }}
+						disabled={activeStep === 0}
+						startIcon={
+							theme.direction === 'rtl' ? (
+								<KeyboardArrowRight />
+							) : (
+								<KeyboardArrowLeft />
+							)
+						}
 					>
-						{theme.direction === 'rtl' ? (
-							<KeyboardArrowRight />
-						) : (
-							<KeyboardArrowLeft />
-						)}
 						Back
 					</Button>
-					<Box sx={{ flex: '1 1 auto' }} />
-					{isStepOptional(activeStep) && (
-						<Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-							Skip
-						</Button>
-					)}
-					<Button onClick={handleNext}>
-						{activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-						{theme.direction === 'rtl' ? (
-							<KeyboardArrowLeft />
-						) : (
-							<KeyboardArrowRight />
-						)}
+					<Button
+						variant="outlined"
+						onClick={handleNext}
+						endIcon={
+							theme.direction === 'rtl' ? (
+								<KeyboardArrowLeft />
+							) : (
+								<KeyboardArrowRight />
+							)
+						}
+					>
+						{activeStep === steps.length - 1
+							? 'Finish'
+							: isStepOptional(activeStep)
+							? 'Skip'
+							: 'Next'}
 					</Button>
-				</Box>
+				</Stack>
 			</Paper>
 		</Box>
 	);
@@ -320,50 +336,50 @@ const EnterDeviceIdView = (): JSX.Element => {
 							) : (
 								<>
 									{activePage(activeStep)}
-									<Box
-										height={1}
-										width={1}
-										// maxWidth={'100%'}
-										sx={{
-											display: { xs: 'none', md: 'flex' },
-											flexDirection: 'row',
-											pt: 2,
-										}}
-									>
-										<Button
-											color="inherit"
-											disabled={activeStep === 0}
-											onClick={handleBack}
-											sx={{ mr: 1 }}
-										>
-											{theme.direction === 'rtl' ? (
-												<KeyboardArrowRight />
-											) : (
-												<KeyboardArrowLeft />
-											)}
-											Back
-										</Button>
-										<Box sx={{ flex: '1 1 auto' }} />
-										{isStepOptional(activeStep) && (
-											<Button
-												color="inherit"
-												onClick={handleSkip}
-												sx={{ mr: 1 }}
-											>
-												Skip
-											</Button>
-										)}
-										<Button onClick={handleNext}>
-											{activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-											{theme.direction === 'rtl' ? (
-												<KeyboardArrowLeft />
-											) : (
-												<KeyboardArrowRight />
-											)}
-										</Button>
-									</Box>
-									{/*{renderBottomNavigation()}*/}
-									{isSm && renderBottomNavigation()}
+									{/*<Box*/}
+									{/*	height={1}*/}
+									{/*	width={1}*/}
+									{/*	// maxWidth={'100%'}*/}
+									{/*	sx={{*/}
+									{/*		display: { xs: 'none', md: 'flex' },*/}
+									{/*		flexDirection: 'row',*/}
+									{/*		pt: 2,*/}
+									{/*	}}*/}
+									{/*>*/}
+									{/*	<Button*/}
+									{/*		color="inherit"*/}
+									{/*		disabled={activeStep === 0}*/}
+									{/*		onClick={handleBack}*/}
+									{/*		sx={{ mr: 1 }}*/}
+									{/*	>*/}
+									{/*		{theme.direction === 'rtl' ? (*/}
+									{/*			<KeyboardArrowRight />*/}
+									{/*		) : (*/}
+									{/*			<KeyboardArrowLeft />*/}
+									{/*		)}*/}
+									{/*		Back*/}
+									{/*	</Button>*/}
+									{/*	<Box sx={{ flex: '1 1 auto' }} />*/}
+									{/*	{isStepOptional(activeStep) && (*/}
+									{/*		<Button*/}
+									{/*			color="inherit"*/}
+									{/*			onClick={handleSkip}*/}
+									{/*			sx={{ mr: 1 }}*/}
+									{/*		>*/}
+									{/*			Skip*/}
+									{/*		</Button>*/}
+									{/*	)}*/}
+									{/*	<Button onClick={handleNext}>*/}
+									{/*		{activeStep === steps.length - 1 ? 'Finish' : 'Next'}*/}
+									{/*		{theme.direction === 'rtl' ? (*/}
+									{/*			<KeyboardArrowLeft />*/}
+									{/*		) : (*/}
+									{/*			<KeyboardArrowRight />*/}
+									{/*		)}*/}
+									{/*	</Button>*/}
+									{/*</Box>*/}
+									{renderBottomNavigation()}
+									{/*{isSm && renderBottomNavigation()}*/}
 								</>
 							)}
 						</Grid>

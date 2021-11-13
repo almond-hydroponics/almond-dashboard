@@ -23,9 +23,9 @@ import {
 	GridOverlay,
 	GridSortDirection,
 } from '@mui/x-data-grid';
-import { red } from '@mui/material/colors';
+import { pink, red } from '@mui/material/colors';
 // components
-import { Modal, LinearProgressBar, PumpSwitch } from '@components/atoms';
+import { Modal, LinearProgressBar } from '@components/atoms';
 import { GeneralCardInfo, DashboardCard } from '@components/molecules';
 import { LineChartCard, DonutDisplay } from '@components/organisms';
 // icons
@@ -42,7 +42,10 @@ import {
 	togglePump,
 	toggleScheduleStatus,
 } from '@modules/timeSchedules';
-import { getAirTemperatureTrend } from '@modules/sensorData';
+import {
+	getAirTemperatureTrend,
+	getSensorDataFromInflux,
+} from '@modules/sensorData';
 // utils
 import {
 	validateNewOneHourTime,
@@ -59,6 +62,8 @@ import {
 } from '@components/organisms/LineChartCard/fixtures';
 import { WaterCyclesPageState } from './interfaces';
 import { IRootState } from '../../store/rootReducer';
+import { useTableStyles } from '@views/PeopleView/styles';
+import { useMqttState } from '@hooks/mqtt';
 
 export const BlankContent = ({
 	message,
@@ -113,6 +118,7 @@ const ToggleSwitch = styled(Switch)<SwitchProps>(({ theme }) => ({
 }));
 
 export const WaterCyclesView = (): JSX.Element => {
+	const classes = useTableStyles();
 	const { schedules, isLoading, enabled } = useSelector(
 		(globalState: IRootState) => globalState.timeSchedules,
 		shallowEqual,
@@ -141,6 +147,7 @@ export const WaterCyclesView = (): JSX.Element => {
 		isDateRangeHidden: false,
 		currentDateInView: '',
 		waterCardDateRange: 'Last 4 hours',
+		isRangeData: false,
 		selectedTimeSchedule: dayjs(),
 		hasError: false,
 		schedules: [
@@ -157,6 +164,8 @@ export const WaterCyclesView = (): JSX.Element => {
 
 	// const { setDeviceModalOpen } = useContext(ComponentContext);
 	const { activeDevice } = useContext(UserContext);
+
+	const { client } = useMqttState();
 
 	// const sensorData = useSelector(selectTemperatureData)
 	// const timeSchedules = useSelector(state => state)
@@ -184,19 +193,22 @@ export const WaterCyclesView = (): JSX.Element => {
 	}, [activeDevice?._id]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
-		// const ranges = getDateRange('Today');
+		if (!state.isRangeData) {
+			const rangeData = getDateRange(state.waterCardDateRange);
+			const queryParams = {
+				start: rangeData,
+				type: 'window',
+				// window: '1h',
+				measurement: 'temperature',
+			};
 
-		// http://localhost:8081/api/range-data?start=-1d&measurement=temperature&type=window&window=10h
+			const interval = setInterval(() => {
+				dispatch(getAirTemperatureTrend(queryParams));
+			}, 60_000);
 
-		const queryParams = {
-			start: '-1d',
-			type: 'window',
-			window: '10h',
-			// stop: ranges.endDate,
-			measurement: 'temperature',
-		};
-		dispatch(getAirTemperatureTrend(queryParams));
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+			return () => clearInterval(interval);
+		}
+	});
 
 	// useEffect(() => {
 	//   props.getWaterData();
@@ -222,7 +234,7 @@ export const WaterCyclesView = (): JSX.Element => {
 		0,
 	);
 
-	// const PumpSwitchs = styled(Switch)<SwitchProps>(({ theme }) => ({
+	// const PumpSwitch = styled(Switch)<SwitchProps>(({ theme }) => ({
 	// 	switchBase: {
 	// 		color: '#FFFFFF',
 	// 		'&$checked': {
@@ -247,7 +259,78 @@ export const WaterCyclesView = (): JSX.Element => {
 	// 			backgroundColor: theme.palette.primary.main,
 	// 		},
 	// 	},
+	// 	// '& .MuiSwitch-switchBase.Mui-checked': {
+	// 	// 	color: pink[600],
+	// 	// 	'&:hover': {
+	// 	// 		backgroundColor: alpha(pink[600], theme.palette.action.hoverOpacity),
+	// 	// 	},
+	// 	// },
+	// 	// '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+	// 	// 	backgroundColor: pink[600],
+	// 	// },
+	//   '& .MuiSwitch-thumb': {
+	//     backgroundColor: theme.palette.mode === 'dark' ? '#003892' : '#001e3c'
+	//   },
+	//   '& .MuiSwitch-thumb.Mui-checked': {
+	//     backgroundColor: theme.palette.primary.main
+	//   },
 	// }));
+
+	const PumpSwitch = styled((props: SwitchProps) => (
+		<Switch
+			focusVisibleClassName=".Mui-focusVisible"
+			disableRipple
+			{...props}
+		/>
+	))(({ theme }) => ({
+		width: 42,
+		height: 26,
+		padding: 0,
+		'& .MuiSwitch-switchBase': {
+			padding: 0,
+			margin: 2,
+			transitionDuration: '300ms',
+			'&.Mui-checked': {
+				transform: 'translateX(16px)',
+				color: '#fff',
+				'& + .MuiSwitch-track': {
+					backgroundColor:
+						theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
+					opacity: 1,
+					border: 0,
+				},
+				'&.Mui-disabled + .MuiSwitch-track': {
+					opacity: 0.5,
+				},
+			},
+			'&.Mui-focusVisible .MuiSwitch-thumb': {
+				color: '#33cf4d',
+				border: '6px solid #fff',
+			},
+			'&.Mui-disabled .MuiSwitch-thumb': {
+				color:
+					theme.palette.mode === 'light'
+						? theme.palette.grey[100]
+						: theme.palette.grey[600],
+			},
+			'&.Mui-disabled + .MuiSwitch-track': {
+				opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
+			},
+		},
+		'& .MuiSwitch-thumb': {
+			boxSizing: 'border-box',
+			width: 22,
+			height: 22,
+		},
+		'& .MuiSwitch-track': {
+			borderRadius: 26 / 2,
+			backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
+			opacity: 1,
+			transition: theme.transitions.create(['background-color'], {
+				duration: 500,
+			}),
+		},
+	}));
 
 	// const PumpSwitchs = styled(Switch)(({ theme }) => ({
 	// 	padding: 8,
@@ -283,12 +366,14 @@ export const WaterCyclesView = (): JSX.Element => {
 	// }));
 
 	// eslint-disable-next-line no-console
-	const handleClick = (message: string) => console.log(message);
-	// mqtt?.publish('almond/pump', message);
+	const handleClick = (message: string): void => {
+		client?.publish('0013A499/pump', message);
+	};
 
 	const handleTogglePumpOnChange = async (event) => {
 		const { checked } = event.target;
-		await handleClick(checked ? '1' : '0');
+		// client?.publish('0013A499/pump', checked ? '1' : '0');
+		// await handleClick(checked ? '1' : '0');
 		await dispatch(
 			togglePump({
 				enabled: checked,
@@ -469,13 +554,26 @@ export const WaterCyclesView = (): JSX.Element => {
 			}));
 		}
 
-		const ranges = getDateRange(value);
+		const rangeData = getDateRange(value);
 
-		const queryParams = {
-			start: ranges.startDate,
-			stop: ranges.endDate,
-			measurement: 'temperature',
-		};
+		let queryParams;
+
+		if (index.group === 0) {
+			queryParams = {
+				type: 'range',
+				start: rangeData.startDate,
+				stop: rangeData.endDate,
+				measurement: 'temperature',
+			};
+		} else {
+			queryParams = {
+				start: rangeData,
+				type: 'window',
+				// window: '1h',
+				// stop: ranges.endDate,
+				measurement: 'temperature',
+			};
+		}
 
 		dispatch(getAirTemperatureTrend(queryParams));
 	};
@@ -597,40 +695,6 @@ export const WaterCyclesView = (): JSX.Element => {
 		);
 	};
 
-	const CustomDataGrid = styled(DataGrid)({
-		'& .MuiDataGrid-columnSeparator': {
-			display: 'none !important',
-		},
-		'& .MuiDataGridCell:focusWithin': {
-			// outline: 'solid #1967D2 0.8px',
-			outlineOffset: '-1px',
-			outline: 'none',
-		},
-		// '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
-		// 	paddingLeft: 2,
-		// 	paddingRight: 2,
-		// },
-		'& .MuiPaginationItemRoot': {
-			borderRadius: 0,
-		},
-		'& .MuiDataGrid-columnHeaderTitleContainer': {
-			padding: '0 !important',
-		},
-		'& .MuiDataGrid-columnHeaderTitle': {
-			color: theme.palette.primary.main,
-			// fontWeight: 500,
-		},
-		'& .tableCell': {
-			fontWeight: 500,
-			fontSize: 20,
-		},
-		'& .MuiDataGridCell': {
-			[theme.breakpoints.down('sm')]: {
-				fontSize: 12,
-			},
-		},
-	});
-
 	const renderTableContent = (): JSX.Element => {
 		const columns: GridColDef[] = [
 			{
@@ -672,8 +736,8 @@ export const WaterCyclesView = (): JSX.Element => {
 		}));
 
 		return (
-			<div style={{ width: '100%', height: 400 }}>
-				<CustomDataGrid
+			<div style={{ width: '100%', height: 400 }} className={classes.root}>
+				<DataGrid
 					disableColumnMenu
 					style={{ border: 0 }}
 					loading={isLoading}

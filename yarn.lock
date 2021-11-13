@@ -4725,6 +4725,7 @@ __metadata:
     prettier-eslint-cli: ^5.0.1
     pretty-quick: ^3.1.1
     react: ^17.0.2
+    react-chartjs-2: ^3.3.0
     react-countup: ^6.0.0
     react-dom: ^17.0.2
     react-ga: ^3.3.0
@@ -14373,6 +14374,16 @@ __metadata:
   peerDependencies:
     webpack: ^4.3.0
   checksum: c4229f2e0aab3eec7cbbc49f71c57e6e232c4cf3c871ea0614372fc6dd5ba58138fffd258a9121a7566ef3e4e00d337d511a7962c50887228796f42815821ec9
+  languageName: node
+  linkType: hard
+
+"react-chartjs-2@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "react-chartjs-2@npm:3.3.0"
+  peerDependencies:
+    chart.js: ^3.5.0
+    react: ^16.8.0 || ^17.0.0
+  checksum: ad8b1324a89b1bf7b7bef3f5a09b2abb12d0624105c00616ef95fabe3346457e01846c92b0aa24bfc9f52c5362ae83c37cffc9ce8b2dd7113f9fd0228e248f9c
   languageName: node
   linkType: hard
 

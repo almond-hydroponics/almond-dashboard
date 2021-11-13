@@ -25,7 +25,7 @@ import { UserContext } from '@context/UserContext';
 import { alpha, useTheme } from '@mui/material/styles';
 import { useMqttState } from '@hooks/mqtt';
 import { NotificationsModal } from '@components/molecules';
-import { activityLogs } from '@views/DashboardContainer/DashboardContainer';
+// import { activityLogs } from '@views/DashboardContainer/DashboardContainer';
 // import { useMqttState } from 'mqtt-react-hooks';
 
 const connectedColor = '#76ff03';
@@ -42,6 +42,11 @@ const Topbar = (): JSX.Element => {
 
 	const { roles } = useSelector(
 		(globalState: IRootState) => globalState.user.userDetails,
+		shallowEqual,
+	);
+
+	const { activityLogs } = useSelector(
+		(globalState: IRootState) => globalState,
 		shallowEqual,
 	);
 

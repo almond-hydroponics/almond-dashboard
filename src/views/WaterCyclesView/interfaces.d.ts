@@ -17,4 +17,5 @@ export interface WaterCyclesPageState {
 	selectedTimeSchedule: any;
 	hasError: boolean;
 	schedules: Schedule[];
+	isRangeData: boolean;
 }

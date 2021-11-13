@@ -39,6 +39,7 @@ import { UserRolesPageState } from './interfaces';
 import { IRootState } from '../../store/rootReducer';
 import { styled, useTheme } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
+import { useTableStyles } from '@views/PeopleView/styles';
 
 // const useStyles = makeStyles((theme: Theme) =>
 // 	createStyles({
@@ -100,6 +101,7 @@ const schema = {
 };
 
 const UserRolesView = (): JSX.Element => {
+	const classes = useTableStyles();
 	const { roles, resources, permissions, isLoading } = useSelector(
 		(globalState: IRootState) => globalState.userRoles,
 		shallowEqual,
@@ -460,40 +462,6 @@ const UserRolesView = (): JSX.Element => {
 		);
 	};
 
-	const CustomDataGrid = styled(DataGrid)({
-		'& .MuiDataGrid-columnSeparator': {
-			display: 'none !important',
-		},
-		'& .MuiDataGridCell:focusWithin': {
-			// outline: 'solid #1967D2 0.8px',
-			outlineOffset: '-1px',
-			outline: 'none',
-		},
-		// '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
-		// 	paddingLeft: 2,
-		// 	paddingRight: 2,
-		// },
-		'& .MuiPaginationItemRoot': {
-			borderRadius: 0,
-		},
-		'& .MuiDataGrid-columnHeaderTitleContainer': {
-			padding: '0 !important',
-		},
-		'& .MuiDataGrid-columnHeaderTitle': {
-			color: theme.palette.primary.main,
-			// fontWeight: 500,
-		},
-		'& .tableCell': {
-			fontWeight: 500,
-			fontSize: 20,
-		},
-		'& .MuiDataGridCell': {
-			[theme.breakpoints.down('sm')]: {
-				fontSize: 12,
-			},
-		},
-	});
-
 	const renderTableContent = (): JSX.Element => {
 		const columns: GridColDef[] = [
 			{
@@ -550,10 +518,10 @@ const UserRolesView = (): JSX.Element => {
 		}));
 
 		return (
-			<div style={{ height: 400, width: '100%' }}>
+			<div style={{ height: 400, width: '100%' }} className={classes.root}>
 				<div style={{ display: 'flex', height: '100%' }}>
 					<div style={{ flexGrow: 1 }}>
-						<CustomDataGrid
+						<DataGrid
 							style={{ border: 0 }}
 							disableColumnMenu
 							loading={isLoading}

@@ -1,4 +1,10 @@
-import { cloneElement, ReactElement, ReactNode } from 'react';
+import {
+	cloneElement,
+	ReactElement,
+	ReactNode,
+	useState,
+	useEffect,
+} from 'react';
 import { MenuContent } from '@components/atoms';
 import { Topbar } from './components';
 import {
@@ -53,12 +59,19 @@ interface Props {
 	children: ReactNode;
 }
 
+const useMounted = () => {
+	const [mounted, setMounted] = useState(false);
+	useEffect(() => setMounted(true), []);
+	return mounted;
+};
+
 const Dashboard = ({ children }: Props): JSX.Element => {
 	const hidden = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
 	const theme = useTheme();
 	const isMd = useMediaQuery(theme.breakpoints.up('md'), {
 		defaultMatches: true,
 	});
+	const isMounted = useMounted();
 
 	// const options: IClientOptions = {
 	// 	username: process.env.NEXT_PUBLIC_MQTT_USERNAME,
@@ -98,9 +111,10 @@ const Dashboard = ({ children }: Props): JSX.Element => {
 				<AppBar
 					position={'fixed'}
 					sx={{
-						background: theme.palette.alternate.main,
+						// background: theme.palette.alternate.main,
+						background: theme.palette.background.paper,
 						zIndex: theme.zIndex.drawer + 1,
-						// borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+						borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
 					}}
 					elevation={0}
 				>
@@ -139,7 +153,7 @@ const Dashboard = ({ children }: Props): JSX.Element => {
 				>
 					<Box display="flex" flex="1 1 auto" overflow="hidden">
 						<Box flex="1 1 auto" height="100%" overflow="auto">
-							{children}
+							{isMounted ? children : 'Loading...'}
 						</Box>
 					</Box>
 				</Box>

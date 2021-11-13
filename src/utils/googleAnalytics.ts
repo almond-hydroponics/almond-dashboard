@@ -6,7 +6,7 @@ import ReactGA from 'react-ga';
  * @returns void
  */
 export const initializeGA = (): void =>
-	ReactGA.initialize(process.env.REACT_APP_GOOGLE_TRACKING_ID as string, {
+	ReactGA.initialize(process.env.NEXT_PUBLIC_GOOGLE_TRACKING_ID as string, {
 		testMode: process.env.NODE_ENV === 'test',
 	});
 

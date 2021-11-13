@@ -1,12 +1,12 @@
 export const dateSelectOptions: string[][] = [
-	[
-		'30 second window',
-		'1 minutes window',
-		'5 minute window',
-		'30 minutes window',
-		'1 hour window',
-		'All time',
-	],
+	// [
+	// 	'30 second window',
+	// 	'1 minutes window',
+	// 	'5 minute window',
+	// 	'30 minutes window',
+	// 	'1 hour window',
+	// 	'All time',
+	// ],
 	[
 		'Today',
 		'Week to date',
@@ -23,6 +23,7 @@ export const dateSelectOptions: string[][] = [
 		'Last 24 hours',
 		'Last 7 days',
 		'Last 30 days',
+		'Last 90 days',
 	],
 	['Pick a date'],
 ];

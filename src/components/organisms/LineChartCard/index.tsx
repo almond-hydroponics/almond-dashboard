@@ -17,20 +17,51 @@ const LineChartCard = ({
 	data,
 	duration,
 }: LineChartCardProps): JSX.Element => {
-	const formatTime = (time: string) => {
+	const formatTime = () => {
+		let rangeLabel: string;
+
 		switch (selectedValue) {
 			case 'Today':
-				return dayjs(time).format('H');
+				rangeLabel = 'HH';
+				break;
 			case 'This Week':
-				return dayjs(time).format('ddd');
+				rangeLabel = 'HH';
+				break;
 			case 'This Month':
-				return dayjs(time).format('D');
+				rangeLabel = 'HH';
+				break;
 			case 'This Year':
-				return dayjs(time).format('M');
+				rangeLabel = 'HH';
+				break;
+			case 'Last 15 minutes':
+				rangeLabel = 'HH.mm';
+				break;
+			case 'Last 60 minutes':
+				rangeLabel = 'HH.mm';
+				break;
+			case 'Last 4 hours':
+				rangeLabel = 'HH.mm';
+				break;
+			case 'Last 24 hours':
+				rangeLabel = 'HH.mm';
+				break;
+			case 'Last 7 days':
+				rangeLabel = 'ddd';
+				break;
+			case 'Last 30 days':
+				rangeLabel = 'HH';
+				break;
+			case 'Last 90 days':
+				rangeLabel = 'HH';
+				break;
+			default:
+				return (rangeLabel = 'HH.mm');
 		}
+		return rangeLabel;
 	};
-	const labels = data.map((element) => formatTime(element.time));
-	// const chartData = data.map((element) => Number(element.value));
+
+	const labels = data.map((element) => dayjs(element.x).format(formatTime()));
+	const chartData = data.map((element) => Number(element.y));
 
 	// const labels = () => {
 	//   switch (selectedValue) {
@@ -47,9 +78,9 @@ const LineChartCard = ({
 				heading={heading}
 				body={
 					<AreaChartDisplay
-						backgroundColor="rgba(25, 103, 210, 0.2)"
-						chartColor="#1967D2"
-						chartData={data}
+						backgroundColor="rgba(124, 181, 236, 0.3)"
+						chartColor="rgba(124, 181, 236)"
+						chartData={chartData}
 						labels={labels}
 						duration={duration}
 					/>

@@ -6,6 +6,8 @@ import {
 	ListItemAvatar,
 	ListItemText,
 	Button,
+	IconButton,
+	ListItemIcon,
 } from '@mui/material';
 import fancyId from '@utils/fancyId';
 import { useState, MouseEvent, useContext } from 'react';
@@ -81,16 +83,16 @@ const CustomAvatar = ({
 	return (
 		<>
 			<Tooltip title="Account settings">
-				<Avatar
-					alt={name}
-					src={photo}
-					onClick={handleToggleProfileMenu}
-					aria-describedby="menu-popover"
-					aria-controls="menu-popover"
-					aria-haspopup="true"
-					typeof="button"
-					{...rest}
-				/>
+				<IconButton onClick={handleToggleProfileMenu} size="small">
+					<Avatar
+						alt={name}
+						src={photo}
+						aria-describedby="menu-popover"
+						aria-controls="menu-popover"
+						aria-haspopup="true"
+						{...rest}
+					/>
+				</IconButton>
 			</Tooltip>
 			<Menu
 				anchorEl={anchorEl}
@@ -100,6 +102,8 @@ const CustomAvatar = ({
 				PaperProps={{
 					elevation: 0,
 					sx: {
+						width: 230,
+						maxWidth: '100%',
 						zIndex: theme.zIndex.appBar + 1,
 						overflow: 'visible',
 						filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
@@ -128,9 +132,9 @@ const CustomAvatar = ({
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 			>
 				{menuItems.map((item) => {
-					const handleClick = () => {
+					const handleClick = async () => {
 						handleProfileClose();
-						router.push(item.link);
+						await router.push(item.link);
 					};
 					return (
 						<MenuItem
@@ -140,11 +144,16 @@ const CustomAvatar = ({
 								borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
 							}}
 						>
-							<ListItemAvatar sx={{ minWidth: 44 }}>
-								<Avatar sx={{ backgroundColor: '#e8f0fe', color: '#1967d2' }}>
+							<ListItemIcon sx={{ minWidth: 44, marginRight: 1 }}>
+								<Avatar
+									sx={{
+										backgroundColor: '#e8f0fe',
+										color: theme.palette.primary.main,
+									}}
+								>
 									{item.icon}
 								</Avatar>
-							</ListItemAvatar>
+							</ListItemIcon>
 							<ListItemText
 								primary={item.name}
 								primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
@@ -161,11 +170,16 @@ const CustomAvatar = ({
 							borderBottom: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
 						}}
 					>
-						<ListItemAvatar sx={{ minWidth: 44 }}>
-							<Avatar sx={{ backgroundColor: '#e8f0fe', color: '#1967d2' }}>
+						<ListItemIcon sx={{ minWidth: 44, marginRight: 1 }}>
+							<Avatar
+								sx={{
+									backgroundColor: '#e8f0fe',
+									color: theme.palette.primary.main,
+								}}
+							>
 								<Mood fontSize="small" />
 							</Avatar>
-						</ListItemAvatar>
+						</ListItemIcon>
 						<ListItemText
 							primary="Change role"
 							primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}

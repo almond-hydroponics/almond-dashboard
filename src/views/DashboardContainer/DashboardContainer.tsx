@@ -6,7 +6,7 @@ import {
 	createElement,
 } from 'react';
 // third-party libraries
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { DashboardContainerState } from './interfaces';
 import { alpha, useTheme } from '@mui/material/styles';
 import { UserContext } from '@context/UserContext';
@@ -19,7 +19,7 @@ import { AllOutTwoTone, Close, Face } from '@mui/icons-material';
 import { BlankContent, Modal, TabPanel } from '@components/atoms';
 import { IRootState } from '../../store/rootReducer';
 import { ComponentContext } from '@context/ComponentContext';
-import { useSubscription } from '@hooks/mqtt';
+// import { useSubscription } from '@hooks/mqtt';
 import {
 	Box,
 	IconButton,
@@ -39,45 +39,48 @@ import Dashboard from '../../layouts/Dashboard';
 // thunk
 import { editUserRole } from '@modules/user';
 import { activateDevice } from '@modules/device';
-import { getSensorDataFromMqtt } from '@modules/sensorData';
+import {
+	getSensorDataFromInflux,
+	getSensorDataFromMqtt,
+} from '@modules/sensorData';
 // utils
 import isArrayNotNull from '@utils/checkArrayEmpty';
 // interfaces
 import { IClientSubscribeOptions } from 'mqtt';
 
-export const activityLogs = [
-	{
-		_id: '5eecc408184ccf003a2daa29',
-		title: 'Device turned OFF successfully',
-		createdAt: '2020-06-19T13:56:24.859Z',
-		type: 'success',
-	},
-	{
-		_id: '5eecc408184ccf003a2daad9',
-		title: 'Pump crashed by a dragon',
-		createdAt: '2020-06-19T13:56:24.859Z',
-		type: 'error',
-	},
-	{
-		_id: '5eecc408f84ccf003a2daa29',
-		title: 'Sensor cannot be found',
-		createdAt: '2020-06-19T13:56:24.859Z',
-		type: 'error',
-	},
-	{
-		_id: '5eecc408184ccfa03a2daa29',
-		title: 'Next pump time is 12:00PM',
-		createdAt: '2020-06-19T13:56:24.859Z',
-		type: 'info',
-	},
-];
+// export const activityLogs = [
+// 	{
+// 		_id: '5eecc408184ccf003a2daa29',
+// 		title: 'Device turned OFF successfully',
+// 		createdAt: '2020-06-19T13:56:24.859Z',
+// 		type: 'success',
+// 	},
+// 	{
+// 		_id: '5eecc408184ccf003a2daad9',
+// 		title: 'Pump crashed by a dragon',
+// 		createdAt: '2020-06-19T13:56:24.859Z',
+// 		type: 'error',
+// 	},
+// 	{
+// 		_id: '5eecc408f84ccf003a2daa29',
+// 		title: 'Sensor cannot be found',
+// 		createdAt: '2020-06-19T13:56:24.859Z',
+// 		type: 'error',
+// 	},
+// 	{
+// 		_id: '5eecc408184ccfa03a2daa29',
+// 		title: 'Next pump time is 12:00PM',
+// 		createdAt: '2020-06-19T13:56:24.859Z',
+// 		type: 'info',
+// 	},
+// ];
 
 const DashboardContainer = (): JSX.Element => {
 	const theme = useTheme();
-	// const { activityLogs } = useSelector(
-	// 	(globalState: IRootState) => globalState,
-	// 	shallowEqual,
-	// );
+	const { activityLogs } = useSelector(
+		(globalState: IRootState) => globalState,
+		shallowEqual,
+	);
 	const {
 		userDetails: { _id, currentRole, roles },
 		isLoading,
@@ -120,34 +123,34 @@ const DashboardContainer = (): JSX.Element => {
 
 	const dispatch = useDispatch();
 
-	// const TIME_MS = 10_000;
-	//
-	// useEffect(() => {
-	// 	const interval = setInterval(() => {
-	// 		dispatch(getSensorDataFromInflux());
-	// 	}, TIME_MS);
-	//
-	// 	return () => clearInterval(interval);
-	// }, []);
-
-	// :TODO: Reformat to get user specific device subscription
-	const userSensorSubscription = 'almond/data';
-	const { message } = useSubscription(
-		userSensorSubscription,
-		subscribeOptions,
-	);
+	const TIME_MS = 60_000;
 
 	useEffect(() => {
-		if (message) {
-			const parsedMessage = JSON.parse(message?.message as string);
-			const data = {
-				temperature: parsedMessage?.temp,
-				humidity: parsedMessage?.humid,
-				waterLevel: parsedMessage?.water_level,
-			};
-			dispatch(getSensorDataFromMqtt(data));
-		}
-	}, [message]); // eslint-disable-line react-hooks/exhaustive-deps
+		const interval = setInterval(() => {
+			dispatch(getSensorDataFromInflux());
+		}, TIME_MS);
+
+		return () => clearInterval(interval);
+	});
+
+	// :TODO: Reformat to get user specific device subscription
+	// const userSensorSubscription = 'almond/data';
+	// const { message } = useSubscription(
+	// 	userSensorSubscription,
+	// 	subscribeOptions,
+	// );
+
+	// useEffect(() => {
+	// 	if (message) {
+	// 		const parsedMessage = JSON.parse(message?.message as string);
+	// 		const data = {
+	// 			temperature: parsedMessage?.temp,
+	// 			humidity: parsedMessage?.humid,
+	// 			waterLevel: parsedMessage?.water_level,
+	// 		};
+	// 		dispatch(getSensorDataFromMqtt(data));
+	// 	}
+	// }, [message]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		setState((prevState) => ({
@@ -349,16 +352,16 @@ const DashboardContainer = (): JSX.Element => {
 						{activityLogs?.map((logs) => (
 							<ListItem key={logs._id} sx={{ paddingY: 0 }}>
 								<ListItemText
-									primary={logs.title}
+									primary={logs.actionDesc}
 									primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
 									secondaryTypographyProps={{ fontSize: 12, fontWeight: 400 }}
 									secondary={`${dayjs(logs.createdAt).format('HH:mm:ss')}`}
 									sx={{
 										backgroundColor: (theme) =>
-											alpha(theme.palette[logs.type].main, 0.1),
-										color: (theme) => theme.palette[logs.type].dark,
+											alpha(theme.palette[logs.type ?? 'info'].main, 0.1),
+										color: (theme) => theme.palette[logs.type ?? 'info'].dark,
 										border: `1px solid ${alpha(
-											theme.palette[logs.type].dark,
+											theme.palette[logs.type ?? 'info'].dark,
 											0.2,
 										)}`,
 										borderRadius: 1,

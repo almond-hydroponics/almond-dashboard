@@ -39,4 +39,5 @@ export type Param =
 	| 'Last 4 hours'
 	| 'Last 24 hours'
 	| 'Last 7 days'
-	| 'Last 30 days';
+	| 'Last 30 days'
+	| 'Last 90 days';

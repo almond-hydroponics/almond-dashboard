@@ -33,8 +33,10 @@ import { IRootState } from '../../store/rootReducer';
 import { PeoplePageState } from './interfaces';
 import { styled, useTheme } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
+import { useTableStyles } from '@views/PeopleView/styles';
 
 const PeopleView = (): JSX.Element => {
+	const classes = useTableStyles();
 	const { roles } = useSelector(
 		(globalState: IRootState) => globalState.userRoles,
 		shallowEqual,
@@ -239,40 +241,6 @@ const PeopleView = (): JSX.Element => {
 		);
 	};
 
-	const CustomDataGrid = styled(DataGrid)({
-		'& .MuiDataGrid-columnSeparator': {
-			display: 'none !important',
-		},
-		'& .MuiDataGridCell:focusWithin': {
-			// outline: 'solid #1967D2 0.8px',
-			outlineOffset: '-1px',
-			outline: 'none',
-		},
-		// '& .MuiDataGrid-colCell, .MuiDataGrid-cell': {
-		// 	paddingLeft: 2,
-		// 	paddingRight: 2,
-		// },
-		'& .MuiPaginationItemRoot': {
-			borderRadius: 0,
-		},
-		'& .MuiDataGrid-columnHeaderTitleContainer': {
-			padding: '0 !important',
-		},
-		'& .MuiDataGrid-columnHeaderTitle': {
-			color: theme.palette.primary.main,
-			// fontWeight: 500,
-		},
-		'& .tableCell': {
-			fontWeight: 500,
-			fontSize: 20,
-		},
-		'& .MuiDataGridCell': {
-			[theme.breakpoints.down('sm')]: {
-				fontSize: 12,
-			},
-		},
-	});
-
 	const renderTableContent = (): JSX.Element => {
 		const columns: GridColDef[] = [
 			{
@@ -338,8 +306,8 @@ const PeopleView = (): JSX.Element => {
 		}));
 
 		return (
-			<div style={{ height: '70vh', width: '100%' }}>
-				<CustomDataGrid
+			<div style={{ height: '70vh', width: '100%' }} className={classes.root}>
+				<DataGrid
 					// autoHeight
 					// autoPageSize
 					style={{ border: 0 }}
@@ -348,6 +316,7 @@ const PeopleView = (): JSX.Element => {
 					loading={isLoading}
 					rows={rows}
 					pageSize={10}
+					rowsPerPageOptions={[5, 10, 20]}
 					columns={columns.map((column) => ({
 						...column,
 						disableClickEventBubbling: true,
