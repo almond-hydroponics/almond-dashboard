@@ -10,6 +10,7 @@ import {
 	EDIT_USER_ROLE_FAILURE,
 	EDIT_USER_ROLE_REQUEST,
 	EDIT_USER_ROLE_SUCCESS,
+	MARK_NOTIFICATIONS_READ,
 } from './types';
 import { ErrorObject } from '../../../types/shared.interfaces';
 
@@ -62,6 +63,10 @@ export interface EditUserRoleActionFailure {
 	errors: ErrorObject | null;
 	type: EDIT_USER_ROLE_FAILURE;
 	isLoading: boolean;
+}
+
+export interface MarkNotificationsRead {
+	type: MARK_NOTIFICATIONS_READ;
 }
 
 export interface UserDetails {

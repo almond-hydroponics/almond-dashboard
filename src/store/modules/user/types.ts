@@ -7,6 +7,7 @@ export type State = {
 	errors: null;
 	isLoading: boolean;
 	isFetchingDetails: boolean;
+	notifications: any[];
 };
 
 export const GET_USER_DETAILS_REQUEST = 'almond/GET_USER_DETAILS_REQUEST';
@@ -38,3 +39,6 @@ export type EDIT_USER_ROLE_SUCCESS = typeof EDIT_USER_ROLE_SUCCESS;
 
 export const EDIT_USER_ROLE_FAILURE = 'almond/EDIT_USER_ROLE_FAILURE';
 export type EDIT_USER_ROLE_FAILURE = typeof EDIT_USER_ROLE_FAILURE;
+
+export const MARK_NOTIFICATIONS_READ = 'almond/MARK_NOTIFICATIONS_READ';
+export type MARK_NOTIFICATIONS_READ = typeof MARK_NOTIFICATIONS_READ;

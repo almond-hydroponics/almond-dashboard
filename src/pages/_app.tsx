@@ -12,6 +12,9 @@ import Page from '../components/Page';
 import createEmotionCache from '../createEmotionCache';
 import { initializeGA, logPageView } from '@utils/googleAnalytics';
 import { ComponentProvider } from '@context/ComponentContext';
+// utils
+import { enableFirebaseMessaging } from '@utils/Firebase/enableMessaging';
+import useEffectAsync from '@hooks/useEffectAsync';
 // styles
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import 'slick-carousel/slick/slick.css';
@@ -19,8 +22,12 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'aos/dist/aos.css';
 import 'assets/css/index.css';
 import 'assets/css/fonts.css';
-import firebaseCloudMessaging from '@utils/firebase';
-import useEffectAsync from '@hooks/useEffectAsync';
+import firebase from 'firebase/compat/app';
+import { getMessaging, getToken, onMessage } from 'firebase/messaging';
+import { receiveMessage } from '@utils/Firebase/firebaseMessaging';
+import http from '@utils/http';
+import { AxiosRequestConfig } from 'axios';
+import authService from '@utils/auth';
 
 interface Props extends AppProps {
 	emotionCache?: EmotionCache;
@@ -54,10 +61,6 @@ const App = ({
 			router.events.off('routeChangeComplete', logPageView);
 		};
 	}, [router.events]);
-
-	useEffectAsync(async () => {
-		await firebaseCloudMessaging.init();
-	}, []);
 
 	return (
 		<CacheProvider value={emotionCache}>

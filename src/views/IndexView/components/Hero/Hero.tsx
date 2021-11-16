@@ -1,10 +1,8 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import Container from '@components/Container';
 import authService from '@utils/auth';
-import isArrayNotNull from '@utils/checkArrayEmpty';
-import { UserContext } from '@context/UserContext';
 import HomeIllustration from '../../../../svg/illustrations/HomeIllustration';
 import { Modal } from '@components/atoms';
 import { Form } from '@views/IndexView/components';
@@ -13,12 +11,17 @@ import {
 	ArrowBack,
 	ArrowForward,
 } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
+import { IRootState } from '../../../../store/rootReducer';
 
 const Hero = (): JSX.Element => {
 	const [openAuthModal, setAuthModalOpen] = useState<boolean>(false);
 	const [authByEmail, setAuthByEmail] = useState<boolean>(false);
 
-	const { devices } = useContext(UserContext);
+	const {
+		userDetails: { activeDevice },
+	} = useSelector((globalState: IRootState) => globalState.user);
+
 	const isAuthed = authService.isAuthenticated();
 	const router = useRouter();
 
@@ -68,9 +71,7 @@ const Hero = (): JSX.Element => {
 
 	const handleLogin = () =>
 		isAuthed
-			? router.push(
-					`${isArrayNotNull(devices) ? '/dashboard' : '/setup-device'}`,
-			  )
+			? router.push(`${activeDevice ? '/dashboard' : '/setup-device'}`)
 			: handleAuthModal();
 
 	const LeftSide = () => (
@@ -102,9 +103,7 @@ const Hero = (): JSX.Element => {
 				endIcon={<ArrowForward />}
 			>
 				{isAuthed
-					? `${
-							isArrayNotNull(devices) ? 'Go to dashboard' : 'Configure account'
-					  }`
+					? `${activeDevice ? 'Go to dashboard' : 'Configure account'}`
 					: 'Login to account'}
 			</Button>
 		</Box>

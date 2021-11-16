@@ -53,7 +53,7 @@ const CustomAvatar = ({
 	};
 
 	const logoutActiveUser = async (): Promise<void> => {
-		dispatch(logoutUser());
+		await dispatch(logoutUser());
 		await router.replace('/');
 	};
 

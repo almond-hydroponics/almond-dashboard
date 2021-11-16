@@ -1,12 +1,10 @@
 // third party libraries
 import { Action, AnyAction, Dispatch } from 'redux';
-
 // thunk action creators
 import authService from '@utils/auth';
 import formatPermissions from '@utils/FormatPermissions';
 import errorOnSnack from '@utils/errorOnSnack';
 import { displaySnackMessage } from '../snack';
-
 // interfaces
 import {
 	EditUserRoleActionFailure,
@@ -20,8 +18,6 @@ import {
 	GetUserDetailsActionSuccess,
 	UserDetails,
 } from './interfaces';
-
-// helper functions
 // types
 import {
 	EDIT_USER_ROLE_FAILURE,
@@ -35,8 +31,8 @@ import {
 	GET_USER_DETAILS_SUCCESS,
 	LOG_OUT_USER,
 	State,
+	MARK_NOTIFICATIONS_READ,
 } from './types';
-
 import { ErrorObject } from '../../../types/shared.interfaces';
 
 export const getUserDetailsRequest = (): GetUserDetailsActionRequest => ({
@@ -124,6 +120,10 @@ export const editUserRoleFailure = (
 	errors,
 	isLoading: false,
 	type: EDIT_USER_ROLE_FAILURE,
+});
+
+export const markNotificationsReadAction = () => ({
+	type: MARK_NOTIFICATIONS_READ,
 });
 
 /**
@@ -220,15 +220,47 @@ export const editUserRole =
 			});
 	};
 
+export const markNotificationsRead =
+	(notificationsIds: string[]) =>
+	(
+		dispatch: Dispatch,
+		getState: any,
+		http: {
+			post: (arg0: string, arg1: string[]) => Promise<{ data: any }>;
+		},
+	) => {
+		return http
+			.post('notifications', notificationsIds)
+			.then(() => {
+				markNotificationsReadAction();
+			})
+			.catch((error: ErrorObject) => {
+				errorOnSnack(error, dispatch, 'marking notifications read');
+			});
+	};
+
 /**
  * Log-out user action creator
  * @returns {Function}
  */
 export const logoutUser =
 	() =>
-	(dispatch: Dispatch): void => {
-		dispatch(logoutUserAction());
-		authService.logoutUser();
+	(
+		dispatch: Dispatch,
+		getState: any,
+		http: { get: (arg0: string) => Promise<{ data: { message: any } }> },
+	) => {
+		return http
+			.get('logout')
+			.then((response: { data: { message: any } }) => {
+				const { message } = response.data;
+				dispatch(logoutUserAction());
+				authService.logoutUser();
+				dispatch(displaySnackMessage(message));
+			})
+			.catch((error: ErrorObject) => {
+				errorOnSnack(error, dispatch, 'logging out of account');
+			});
 	};
 
 export const userInitialState = {
@@ -237,6 +269,7 @@ export const userInitialState = {
 	errors: null,
 	isLoading: false,
 	isFetchingDetails: false,
+	notifications: [],
 };
 
 /**
@@ -301,6 +334,13 @@ export const reducer = (
 				...state,
 				isLoading: action.isLoading,
 				errors: action.errors,
+			};
+		case MARK_NOTIFICATIONS_READ:
+			state.notifications.forEach(
+				(notification) => (notification.read = true),
+			);
+			return {
+				...state,
 			};
 		default:
 			return state;

@@ -121,7 +121,7 @@ const Dashboard = ({ children }: Props): JSX.Element => {
 					<Toolbar>
 						<Container
 							maxWidth={1}
-							paddingY={{ xs: 1, sm: 1.5 }}
+							paddingY={{ xs: 0, sm: 1 }}
 							paddingX={{ xs: 0 }}
 						>
 							<Topbar />

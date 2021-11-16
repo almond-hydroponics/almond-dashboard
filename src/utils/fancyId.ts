@@ -3,6 +3,10 @@
  * instead of using index
  * @returns string
  */
-const fancyId = (): string => `_${Math.random().toString(36).substr(2, 9)}`;
+const fancyId = (): string => {
+	const head = Date.now().toString(36);
+	const tail = Math.random().toString(36).substr(2, 9);
+	return `_${head}${tail}`;
+};
 
 export default fancyId;

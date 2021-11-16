@@ -12,7 +12,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import { UserContext } from '@context/UserContext';
 import { useRouter } from 'next/router';
 import { AdminMenus, UserMenus } from '@components/molecules/MenuRoutes';
-import dayjs from 'dayjs';
+import dayjs from '@utils/dayjsTime';
 // icons
 import { AllOutTwoTone, Close, Face } from '@mui/icons-material';
 // components;
@@ -355,7 +355,7 @@ const DashboardContainer = (): JSX.Element => {
 									primary={logs.actionDesc}
 									primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
 									secondaryTypographyProps={{ fontSize: 12, fontWeight: 400 }}
-									secondary={`${dayjs(logs.createdAt).format('HH:mm:ss')}`}
+									secondary={`${dayjs(logs.createdAt).fromNow()}`}
 									sx={{
 										backgroundColor: (theme) =>
 											alpha(theme.palette[logs.type ?? 'info'].main, 0.1),

@@ -15,6 +15,10 @@ import { UserContext } from '@context/UserContext';
 import getTheme from '../theme';
 import { IClientOptions } from 'mqtt';
 import { Connector } from '@hooks/mqtt';
+import { enableFirebaseMessaging } from '@utils/Firebase/enableMessaging';
+import { AxiosRequestConfig } from 'axios';
+import http from '@utils/http';
+import { receiveMessage } from '@utils/Firebase/firebaseMessaging';
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
@@ -39,6 +43,37 @@ const Page = ({ children }: Props): JSX.Element => {
 	useEffectAsync(async () => {
 		if (isAuthenticated) {
 			await dispatch(getUserDetails());
+		}
+	}, []);
+
+	useEffectAsync(async () => {
+		if (isAuthenticated) {
+			const setToken = async () => {
+				try {
+					const fcmToken = await enableFirebaseMessaging.init();
+					if (fcmToken) {
+						const options: AxiosRequestConfig = {
+							url: '/notifier/add-token',
+							method: 'post',
+							data: { fcmToken },
+						};
+
+						await http.request(options);
+						receiveMessage();
+					}
+				} catch (err) {
+					console.error(err); // eslint-disable-line no-console
+				}
+			};
+
+			await setToken();
+
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker.addEventListener(
+					'message',
+					(event) => console.log('event for the service worker', event), // eslint-disable-line no-console
+				);
+			}
 		}
 	}, []);
 

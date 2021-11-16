@@ -42,7 +42,7 @@ const subPages: MenuComponentProps[] = [
 
 const AccountSettingsView = (): JSX.Element => {
 	const [selectedTabIndex, setSelectedTabIndex] = useState<number>(
-		JSON.parse(
+		+JSON.parse(
 			typeof window !== 'undefined'
 				? (window.localStorage.getItem('selectedTabIndex') as string)
 				: '0',

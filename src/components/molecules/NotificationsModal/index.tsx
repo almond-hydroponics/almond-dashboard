@@ -22,9 +22,10 @@ import {
 	Logout,
 	NotificationsNoneRounded,
 } from '@mui/icons-material';
-import { notificationsUnread } from '../../../layouts/Dashboard/components/Topbar/fixtures';
 import { alpha, useTheme } from '@mui/material/styles';
 import fancyId from '@utils/fancyId';
+import { useSelector } from 'react-redux';
+import { IRootState } from '../../../store/rootReducer';
 
 const NotificationsModal = (): JSX.Element => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -32,6 +33,10 @@ const NotificationsModal = (): JSX.Element => {
 
 	const theme = useTheme();
 	const { mode } = theme.palette;
+
+	const { notifications } = useSelector(
+		(globalState: IRootState) => globalState.user,
+	);
 
 	const notificationItems = [
 		{
@@ -100,11 +105,11 @@ const NotificationsModal = (): JSX.Element => {
 						fontWeight: 500,
 						fontSize: 12,
 					}}
-					label={`${notificationItems.length} new`}
+					label={`${notifications.length} new`}
 				/>
 			</MenuItem>
 
-			{notificationItems.map((item) => {
+			{notifications.map((item) => {
 				const handleClick = () => {
 					handleNotificationsClose();
 				};
@@ -167,7 +172,7 @@ const NotificationsModal = (): JSX.Element => {
 						horizontal: 'right',
 					}}
 					color="secondary"
-					badgeContent={notificationItems.length}
+					badgeContent={notifications.length}
 				>
 					<NotificationsNoneRounded color="primary" />
 				</Badge>

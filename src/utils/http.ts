@@ -17,7 +17,7 @@ const http = axios.create({
 	headers: {
 		Authorization: `Bearer ${token}`,
 	},
-	// withCredentials: true,
+	withCredentials: true,
 });
 
 http.interceptors.request.use((config) => {
@@ -47,7 +47,7 @@ http.interceptors.response.use(
 	(error: AxiosError<any>) => {
 		if (
 			error.response?.status === 500 &&
-			error.response?.data?.message.includes('token')
+			error.response?.data?.message.includes('jwt_token')
 		) {
 			authService.redirectUser();
 		} else if (error.response?.status === 500) {
