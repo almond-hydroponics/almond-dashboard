@@ -26,9 +26,12 @@ export const light = {
 		// contrastText: '#fff',
 	},
 	secondary: {
-		light: '#ffe98d',
-		main: '#F9B75D',
-		dark: '#c3872e',
+		light: '#cbffff',
+		main: '#97d2ff',
+		dark: '#64a1cc',
+		// light: '#ffe98d',
+		// main: '#F9B75D',
+		// dark: '#c3872e',
 		contrastText: 'rgba(0, 0, 0, 0.87)',
 	},
 	text: {

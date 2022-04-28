@@ -4,7 +4,7 @@ module.exports = {
 			browsers: 'last 2 versions',
 			stage: 2,
 			features: {
-				'postcss-custom-properties': { preserve: false },
+				'custom-properties': { preserve: false },
 				'nesting-rules': true, // Enable nesting
 			},
 			autoprefixer: {

@@ -11,3 +11,8 @@ export { default as AccountSettingsView } from './AccountSettingsView';
 export { default as PeopleView } from './PeopleView';
 export { default as UserRolesView } from './UserRolesView';
 export { default as ServerError } from './ServerError';
+export { default as StoreView } from './StoreView';
+export { default as CompanyTerms } from './CompanyTerms';
+export { default as BlogSearch } from './BlogSearch';
+export { default as BlogNewsroom } from './BlogNewsroom';
+export { default as BlogArticle } from './BlogArticle';

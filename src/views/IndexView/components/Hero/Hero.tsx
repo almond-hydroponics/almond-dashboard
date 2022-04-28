@@ -1,81 +1,22 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { Box, Button, Divider, Stack, Typography } from '@mui/material';
-import Container from '@components/Container';
-import authService from '@utils/auth';
-import HomeIllustration from '../../../../svg/illustrations/HomeIllustration';
-import { Modal } from '@components/atoms';
-import { Form } from '@views/IndexView/components';
-import {
-	AccountCircleTwoTone,
-	ArrowBack,
-	ArrowForward,
-} from '@mui/icons-material';
-import { useSelector } from 'react-redux';
-import { IRootState } from '../../../../store/rootReducer';
+import Link from 'next/link';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+
+import Container from 'components/Container';
 
 const Hero = (): JSX.Element => {
-	const [openAuthModal, setAuthModalOpen] = useState<boolean>(false);
-	const [authByEmail, setAuthByEmail] = useState<boolean>(false);
-
-	const {
-		userDetails: { activeDevice },
-	} = useSelector((globalState: IRootState) => globalState.user);
-
-	const isAuthed = authService.isAuthenticated();
-	const router = useRouter();
-
-	const handleAuthModal = () => {
-		setAuthModalOpen((prevState) => !prevState);
-		authByEmail && setAuthByEmail(false);
-	};
-	const handleAuthByEmail = () => setAuthByEmail((prevState) => !prevState);
-
-	const renderModalHeader = (): JSX.Element => (
-		<Stack
-			direction="row"
-			justifyContent="flex-start"
-			alignItems="center"
-			spacing={2}
-		>
-			{authByEmail ? (
-				<ArrowBack onClick={handleAuthByEmail} />
-			) : (
-				<AccountCircleTwoTone />
-			)}
-			<Typography variant="h6">Login into your account</Typography>
-		</Stack>
-	);
-
-	const renderAuthModal = (): JSX.Element => (
-		<Modal
-			isModalOpen={openAuthModal}
-			maxWidth="xs"
-			renderHeader={renderModalHeader()}
-			renderDialogText={
-				authByEmail
-					? 'A link will be sent to your email account for verification'
-					: 'Choose your preferred method to authenticate into your account'
-			}
-			renderContent={
-				<Form
-					handleAuthModal={handleAuthModal}
-					authByEmail={authByEmail}
-					handleAuthByEmail={handleAuthByEmail}
-				/>
-			}
-			onClose={handleAuthModal}
-			onDismiss={handleAuthModal}
-		/>
-	);
-
-	const handleLogin = () =>
-		isAuthed
-			? router.push(`${activeDevice ? '/dashboard' : '/setup-device'}`)
-			: handleAuthModal();
+	const theme = useTheme();
+	const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+		defaultMatches: true,
+	});
 
 	const LeftSide = () => (
-		<Box>
+		<Box data-aos={isMd ? 'fade-right' : 'fade-up'}>
 			<Box marginBottom={2}>
 				<Typography variant="h3" color="text.primary" sx={{ fontWeight: 700 }}>
 					Grow your food{' '}
@@ -95,32 +36,39 @@ const Hero = (): JSX.Element => {
 					year round.
 				</Typography>
 			</Box>
-			<Button
-				variant="contained"
-				color="primary"
-				size="large"
-				onClick={handleLogin}
-				endIcon={<ArrowForward />}
-			>
-				{isAuthed
-					? `${activeDevice ? 'Go to dashboard' : 'Configure account'}`
-					: 'Login to account'}
-			</Button>
+			<Link passHref href={'/store'}>
+				<Button variant="contained" color="primary" size="large">
+					{'Visit our store'}
+				</Button>
+			</Link>
 		</Box>
 	);
 
 	const RightSide = (): JSX.Element => {
 		return (
 			<Box
-				height={1}
-				width={1}
-				display={'flex'}
-				justifyContent={'center'}
-				alignItems={'center'}
+				sx={{
+					height: { xs: 'auto', md: 1 },
+					'& img': {
+						objectFit: 'cover',
+					},
+					'& .lazy-load-image-loaded': {
+						height: 1,
+						width: 1,
+					},
+				}}
 			>
-				<Box height={1} width={1} maxWidth={700}>
-					<HomeIllustration />
-				</Box>
+				<Box
+					component={LazyLoadImage}
+					effect="blur"
+					src="/img/hydroponics.webp"
+					srcSet="/img/hydroponics.webp 2x"
+					alt="home-image"
+					height={{ xs: 'auto', md: 1 }}
+					maxHeight={{ xs: 300, md: 1 }}
+					width={1}
+					maxWidth={1}
+				/>
 			</Box>
 		);
 	};
@@ -138,7 +86,7 @@ const Hero = (): JSX.Element => {
 					display={'flex'}
 					flexDirection={{ xs: 'column', md: 'row' }}
 					position={'relative'}
-					minHeight={'100vh'}
+					minHeight={{ md: 600 }}
 				>
 					<Box
 						width={1}
@@ -149,7 +97,6 @@ const Hero = (): JSX.Element => {
 						<Container>
 							<LeftSide />
 						</Container>
-						{renderAuthModal()}
 					</Box>
 					<Box
 						sx={{

@@ -36,6 +36,9 @@ module.exports = withPWA({
 		//   image: '/static/images/fallback.png',
 		// }
 	},
+	devIndicators: {
+		autoPrerender: false,
+	},
 	images: {
 		// disableStaticImages: true,
 		domains: ['static.almondhydroponics.com', 'assets.maccarianagency.com'],
@@ -46,9 +49,10 @@ module.exports = withPWA({
 	eslint: {
 		// Warning: If set to true, this allows production builds to successfully complete even if
 		// your project has ESLint errors.
-		ignoreDuringBuilds: false,
+		ignoreDuringBuilds: true,
 	},
 	poweredByHeader: false,
+	staticPageGenerationTimeout: 900,
 	async headers() {
 		return [
 			{
@@ -57,4 +61,15 @@ module.exports = withPWA({
 			},
 		];
 	},
+	experimental: {
+		outputStandalone: true,
+	},
+	// async rewrites() {
+	//   return [
+	//     {
+	//       source: '/api/:path*',
+	//       destination: 'http://127.0.0.1:8060/api/:path*', // The :path parameter isn't used here so will be automatically passed in the query
+	//     },
+	//   ]
+	// },
 });

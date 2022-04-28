@@ -3,8 +3,8 @@ import { useTheme } from '@mui/system';
 import Box from '@mui/material/Box';
 import { useRouter } from 'next/router';
 
-const darkLogo = 'https://static.almondhydroponics.com/static/logo.png';
-const logo = 'https://static.almondhydroponics.com/static/logo.png';
+const darkLogo = '/logo.png';
+const logo = '/logo.png';
 
 interface Props {
 	displayText?: boolean;
